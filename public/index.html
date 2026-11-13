@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zora REST API — High Performance Media &amp; Bot Tools</title>
+  <title>Zora REST API — High Speed Media Scraper &amp; Bot Tools</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -17,6 +17,7 @@
       --text-muted: #a1a1aa;
       --accent: #3b82f6;
       --green: #10b981;
+      --purple: #a855f7;
       --font: 'Plus Jakarta Sans', sans-serif;
       --mono: 'JetBrains Mono', monospace;
     }
@@ -28,11 +29,11 @@
       line-height: 1.5;
       padding: 30px 20px;
     }
-    .container { max-width: 960px; margin: 0 auto; }
+    .container { max-width: 980px; margin: 0 auto; }
     header {
       border-bottom: 1px solid var(--border);
       padding-bottom: 24px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -59,7 +60,7 @@
       border: 1px solid var(--border);
       border-radius: 10px;
       padding: 16px 20px;
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       display: flex;
       justify-content: space-between;
       align-items: center;
@@ -67,6 +68,41 @@
       gap: 12px;
     }
     .info-box code { font-family: var(--mono); color: #60a5fa; font-size: 0.9rem; }
+    
+    .nav-filters {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .filter-btn {
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      font-family: var(--font);
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .filter-btn:hover { color: var(--text); border-color: #3f3f46; }
+    .filter-btn.active { background: #27272a; color: #fff; border-color: #52525b; }
+    
+    .search-box {
+      width: 100%;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-family: var(--font);
+      font-size: 0.88rem;
+      padding: 10px 16px;
+      border-radius: 8px;
+      margin-bottom: 24px;
+    }
+    .search-box:focus { outline: none; border-color: var(--accent); }
+
     .category-title {
       font-size: 1.1rem;
       font-weight: 600;
@@ -110,6 +146,15 @@
       font-size: 0.75rem;
       font-weight: 700;
     }
+    .badge-engine {
+      background: rgba(168, 85, 247, 0.12);
+      color: #c084fc;
+      border: 1px solid rgba(168, 85, 247, 0.25);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      font-weight: 600;
+    }
     .ep-desc { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 14px; }
     .test-box {
       display: flex;
@@ -119,7 +164,7 @@
     }
     .test-input {
       flex: 1;
-      min-width: 240px;
+      min-width: 200px;
       background: #09090b;
       border: 1px solid var(--border);
       color: var(--text);
@@ -165,7 +210,7 @@
     <header>
       <div class="brand">
         <h1>Zora REST API</h1>
-        <p>Endpoint Scraper &amp; Bot Tools — High Speed &amp; Zero Dependency</p>
+        <p>Endpoint Scraper &amp; Bot Tools — Dual-Engine Auto Failover</p>
       </div>
       <div class="status-badge">
         <span class="dot"></span>
@@ -184,156 +229,284 @@
       </div>
     </div>
 
-    <!-- KATEGORI: DOWNLOADER -->
-    <div class="category-title">Media Downloader</div>
+    <!-- PENCARIAN -->
+    <input type="text" class="search-box" id="searchFilter" placeholder="Ketik untuk mencari endpoint (contoh: tiktok, gempa, youtube, spotify)..." oninput="filterEndpoints()">
 
-    <!-- TIKTOK -->
-    <div class="ep-card">
-      <div class="ep-header">
-        <div class="ep-route">
-          <span class="method-get">GET</span>
-          <span>/api/downloader/tiktok</span>
-        </div>
-      </div>
-      <p class="ep-desc">Download video TikTok tanpa watermark, audio MP3, atau foto slide.</p>
-      <div class="test-box">
-        <input type="text" class="test-input" id="input-tiktok" placeholder="https://www.tiktok.com/@.../video/..." value="https://vt.tiktok.com/">
-        <button class="btn btn-primary" onclick="testApi('/api/downloader/tiktok?url=', 'input-tiktok', 'res-tiktok')">Coba Request</button>
-      </div>
-      <pre class="res-box" id="res-tiktok"></pre>
+    <!-- FILTER KATEGORI -->
+    <div class="nav-filters">
+      <button class="filter-btn active" onclick="setCategory('all', this)">Semua (14)</button>
+      <button class="filter-btn" onclick="setCategory('downloader', this)">Downloader (7)</button>
+      <button class="filter-btn" onclick="setCategory('ai', this)">Artificial Intelligence (1)</button>
+      <button class="filter-btn" onclick="setCategory('tools', this)">Tools &amp; Scrapers (6)</button>
     </div>
 
-    <!-- MEDIAFIRE -->
-    <div class="ep-card">
-      <div class="ep-header">
-        <div class="ep-route">
-          <span class="method-get">GET</span>
-          <span>/api/downloader/mediafire</span>
+    <!-- ==================== DOWNLOADER ==================== -->
+    <div class="section-group" data-group="downloader">
+      <div class="category-title">Media Downloader</div>
+
+      <!-- TIKTOK -->
+      <div class="ep-card" data-name="tiktok">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">ALL</span>
+            <span>/api/downloader/tiktok</span>
+            <span class="badge-engine">TikWM + yt-dlp</span>
+          </div>
         </div>
+        <p class="ep-desc">Download video TikTok tanpa watermark, audio MP3, avatar author, dan foto slide.</p>
+        <div class="test-box">
+          <input type="text" class="test-input" id="in-tiktok" placeholder="https://www.tiktok.com/@.../video/..." value="https://vt.tiktok.com/">
+          <button class="btn btn-primary" onclick="testApi('/api/downloader/tiktok?url=', 'in-tiktok', 'res-tiktok')">Coba Request</button>
+        </div>
+        <pre class="res-box" id="res-tiktok"></pre>
       </div>
-      <p class="ep-desc">Ekstraksi link direct download file MediaFire beserta nama dan ukuran file.</p>
-      <div class="test-box">
-        <input type="text" class="test-input" id="input-mediafire" placeholder="https://www.mediafire.com/file/..." value="https://www.mediafire.com/file/...">
-        <button class="btn btn-primary" onclick="testApi('/api/downloader/mediafire?url=', 'input-mediafire', 'res-mediafire')">Coba Request</button>
+
+      <!-- YOUTUBE -->
+      <div class="ep-card" data-name="youtube">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">ALL</span>
+            <span>/api/downloader/youtube</span>
+            <span class="badge-engine">yt-dlp Core</span>
+          </div>
+        </div>
+        <p class="ep-desc">Ambil metadata video, direct link MP4 1080p/720p, dan audio MP3 YouTube.</p>
+        <div class="test-box">
+          <input type="text" class="test-input" id="in-yt" placeholder="https://www.youtube.com/watch?v=..." value="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+          <button class="btn btn-primary" onclick="testApi('/api/downloader/youtube?url=', 'in-yt', 'res-yt')">Coba Request</button>
+        </div>
+        <pre class="res-box" id="res-yt"></pre>
       </div>
-      <pre class="res-box" id="res-mediafire"></pre>
+
+      <!-- FACEBOOK -->
+      <div class="ep-card" data-name="facebook">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">ALL</span>
+            <span>/api/downloader/facebook</span>
+            <span class="badge-engine">FDown + yt-dlp</span>
+          </div>
+        </div>
+        <p class="ep-desc">Ambil link video Facebook kualitas HD dan SD.</p>
+        <div class="test-box">
+          <input type="text" class="test-input" id="in-fb" placeholder="https://www.facebook.com/watch/?v=...">
+          <button class="btn btn-primary" onclick="testApi('/api/downloader/facebook?url=', 'in-fb', 'res-fb')">Coba Request</button>
+        </div>
+        <pre class="res-box" id="res-fb"></pre>
+      </div>
+
+      <!-- TWITTER / X -->
+      <div class="ep-card" data-name="twitter x">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">ALL</span>
+            <span>/api/downloader/twitter</span>
+            <span class="badge-engine">X2Twitter + yt-dlp</span>
+          </div>
+        </div>
+        <p class="ep-desc">Download video Twitter/X berbagai resolusi MP4.</p>
+        <div class="test-box">
+          <input type="text" class="test-input" id="in-tw" placeholder="https://x.com/.../status/...">
+          <button class="btn btn-primary" onclick="testApi('/api/downloader/twitter?url=', 'in-tw', 'res-tw')">Coba Request</button>
+        </div>
+        <pre class="res-box" id="res-tw"></pre>
+      </div>
+
+      <!-- SPOTIFY -->
+      <div class="ep-card" data-name="spotify music">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">ALL</span>
+            <span>/api/downloader/spotify</span>
+            <span class="badge-engine">Spotify + iTunes + yt-dlp</span>
+          </div>
+        </div>
+        <p class="ep-desc">Cari dan download lagu Spotify / Musik via URL track atau judul lagu.</p>
+        <div class="test-box">
+          <input type="text" class="test-input" id="in-spotify" placeholder="Judul lagu atau URL track Spotify..." value="Tulus Hati-Hati di Jalan">
+          <button class="btn btn-primary" onclick="testApi('/api/downloader/spotify?q=', 'in-spotify', 'res-spotify')">Coba Request</button>
+        </div>
+        <pre class="res-box" id="res-spotify"></pre>
+      </div>
+
+      <!-- PINTEREST -->
+      <div class="ep-card" data-name="pinterest">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">ALL</span>
+            <span>/api/downloader/pinterest</span>
+            <span class="badge-engine">yt-dlp Core</span>
+          </div>
+        </div>
+        <p class="ep-desc">Ekstraksi link video dan gambar resolusi asli dari Pinterest pin.</p>
+        <div class="test-box">
+          <input type="text" class="test-input" id="in-pin" placeholder="https://pin.it/... atau https://pinterest.com/pin/...">
+          <button class="btn btn-primary" onclick="testApi('/api/downloader/pinterest?url=', 'in-pin', 'res-pin')">Coba Request</button>
+        </div>
+        <pre class="res-box" id="res-pin"></pre>
+      </div>
+
+      <!-- MEDIAFIRE -->
+      <div class="ep-card" data-name="mediafire">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">ALL</span>
+            <span>/api/downloader/mediafire</span>
+            <span class="badge-engine">Cheerio Direct</span>
+          </div>
+        </div>
+        <p class="ep-desc">Ekstraksi link direct download file MediaFire beserta nama dan ukuran file.</p>
+        <div class="test-box">
+          <input type="text" class="test-input" id="in-mf" placeholder="https://www.mediafire.com/file/...">
+          <button class="btn btn-primary" onclick="testApi('/api/downloader/mediafire?url=', 'in-mf', 'res-mf')">Coba Request</button>
+        </div>
+        <pre class="res-box" id="res-mf"></pre>
+      </div>
     </div>
 
-    <!-- FACEBOOK -->
-    <div class="ep-card">
-      <div class="ep-header">
-        <div class="ep-route">
-          <span class="method-get">GET</span>
-          <span>/api/downloader/facebook</span>
+    <!-- ==================== ARTIFICIAL INTELLIGENCE ==================== -->
+    <div class="section-group" data-group="ai">
+      <div class="category-title">Artificial Intelligence (AI)</div>
+
+      <!-- AI CHAT -->
+      <div class="ep-card" data-name="ai chat openai gpt">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">ALL</span>
+            <span>/api/ai/chat</span>
+            <span class="badge-engine">OpenAI + Mistral + Qwen</span>
+          </div>
         </div>
+        <p class="ep-desc">AI Chat response pintar dan ramah berbahasa Indonesia dengan auto-fallback multi-model.</p>
+        <div class="test-box">
+          <input type="text" class="test-input" id="in-ai" placeholder="Ketik pertanyaanmu..." value="Halo, siapa namamu dan apa kemampuanmu?">
+          <button class="btn btn-primary" onclick="testApi('/api/ai/chat?prompt=', 'in-ai', 'res-ai')">Coba Request</button>
+        </div>
+        <pre class="res-box" id="res-ai"></pre>
       </div>
-      <p class="ep-desc">Ambil link video Facebook kualitas HD dan SD.</p>
-      <div class="test-box">
-        <input type="text" class="test-input" id="input-fb" placeholder="https://www.facebook.com/watch/?v=...">
-        <button class="btn btn-primary" onclick="testApi('/api/downloader/facebook?url=', 'input-fb', 'res-fb')">Coba Request</button>
-      </div>
-      <pre class="res-box" id="res-fb"></pre>
     </div>
 
-    <!-- YOUTUBE -->
-    <div class="ep-card">
-      <div class="ep-header">
-        <div class="ep-route">
-          <span class="method-get">GET</span>
-          <span>/api/downloader/youtube</span>
+    <!-- ==================== TOOLS & SCRAPERS ==================== -->
+    <div class="section-group" data-group="tools">
+      <div class="category-title">Tools &amp; Scrapers</div>
+
+      <!-- BMKG GEMPA -->
+      <div class="ep-card" data-name="gempa bmkg">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">GET</span>
+            <span>/api/tools/gempa</span>
+            <span class="badge-engine">BMKG Realtime</span>
+          </div>
         </div>
-      </div>
-      <p class="ep-desc">Ambil metadata video, link MP4 langsung, dan audio MP3 YouTube via yt-dlp.</p>
-      <div class="test-box">
-        <input type="text" class="test-input" id="input-yt" placeholder="https://www.youtube.com/watch?v=..." value="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-        <button class="btn btn-primary" onclick="testApi('/api/downloader/youtube?url=', 'input-yt', 'res-yt')">Coba Request</button>
-      </div>
-      <pre class="res-box" id="res-yt"></pre>
-    </div>
-
-    <!-- KATEGORI: AI -->
-    <div class="category-title">Artificial Intelligence (AI)</div>
-
-    <!-- AI CHAT -->
-    <div class="ep-card">
-      <div class="ep-header">
-        <div class="ep-route">
-          <span class="method-get">GET</span>
-          <span>/api/ai/chat</span>
+        <p class="ep-desc">Data gempa bumi terbaru realtime beserta peta guncangan langsung dari BMKG.</p>
+        <div class="test-box">
+          <button class="btn btn-primary" onclick="testDirect('/api/tools/gempa', 'res-gempa')">Coba Request</button>
         </div>
+        <pre class="res-box" id="res-gempa"></pre>
       </div>
-      <p class="ep-desc">AI Chat response pintar dan ramah berbahasa Indonesia tanpa limit API key berbayar.</p>
-      <div class="test-box">
-        <input type="text" class="test-input" id="input-ai" placeholder="Ketik pertanyaanmu..." value="Halo, siapa namamu dan apa keahlianmu?">
-        <button class="btn btn-primary" onclick="testApi('/api/ai/chat?prompt=', 'input-ai', 'res-ai')">Coba Request</button>
-      </div>
-      <pre class="res-box" id="res-ai"></pre>
-    </div>
 
-    <!-- KATEGORI: TOOLS -->
-    <div class="category-title">Tools &amp; Scrapers</div>
-
-    <!-- BMKG GEMPA -->
-    <div class="ep-card">
-      <div class="ep-header">
-        <div class="ep-route">
-          <span class="method-get">GET</span>
-          <span>/api/tools/gempa</span>
+      <!-- BMKG 15 GEMPA -->
+      <div class="ep-card" data-name="gempa terkini bmkg">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">GET</span>
+            <span>/api/tools/gempa/terkini</span>
+            <span class="badge-engine">BMKG Realtime</span>
+          </div>
         </div>
-      </div>
-      <p class="ep-desc">Data gempa bumi terbaru realtime langsung dari portal data resmi BMKG.</p>
-      <div class="test-box">
-        <button class="btn btn-primary" onclick="testDirect('/api/tools/gempa', 'res-gempa')">Coba Request</button>
-      </div>
-      <pre class="res-box" id="res-gempa"></pre>
-    </div>
-
-    <!-- JADWAL SHOLAT -->
-    <div class="ep-card">
-      <div class="ep-header">
-        <div class="ep-route">
-          <span class="method-get">GET</span>
-          <span>/api/tools/jadwalsholat</span>
+        <p class="ep-desc">Daftar 15 gempa bumi terkini di seluruh Indonesia dari BMKG.</p>
+        <div class="test-box">
+          <button class="btn btn-primary" onclick="testDirect('/api/tools/gempa/terkini', 'res-gempa15')">Coba Request</button>
         </div>
+        <pre class="res-box" id="res-gempa15"></pre>
       </div>
-      <p class="ep-desc">Jadwal waktu sholat harian per kota/kabupaten di seluruh Indonesia.</p>
-      <div class="test-box">
-        <input type="text" class="test-input" id="input-sholat" placeholder="Nama kota..." value="jakarta">
-        <button class="btn btn-primary" onclick="testApi('/api/tools/jadwalsholat?kota=', 'input-sholat', 'res-sholat')">Coba Request</button>
-      </div>
-      <pre class="res-box" id="res-sholat"></pre>
-    </div>
 
-    <!-- GITHUB STALK -->
-    <div class="ep-card">
-      <div class="ep-header">
-        <div class="ep-route">
-          <span class="method-get">GET</span>
-          <span>/api/tools/github</span>
+      <!-- JADWAL SHOLAT -->
+      <div class="ep-card" data-name="jadwal sholat kemenag">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">ALL</span>
+            <span>/api/tools/jadwalsholat</span>
+            <span class="badge-engine">myQuran Kemenag</span>
+          </div>
         </div>
+        <p class="ep-desc">Jadwal waktu sholat harian per kota/kabupaten di seluruh Indonesia.</p>
+        <div class="test-box">
+          <input type="text" class="test-input" id="in-sholat" placeholder="Nama kota..." value="jakarta">
+          <button class="btn btn-primary" onclick="testApi('/api/tools/jadwalsholat?kota=', 'in-sholat', 'res-sholat')">Coba Request</button>
+        </div>
+        <pre class="res-box" id="res-sholat"></pre>
       </div>
-      <p class="ep-desc">Stalker profil GitHub: bio, repositori publik, followers, dan avatar.</p>
-      <div class="test-box">
-        <input type="text" class="test-input" id="input-gh" placeholder="Username GitHub..." value="zorafaizz">
-        <button class="btn btn-primary" onclick="testApi('/api/tools/github?username=', 'input-gh', 'res-gh')">Coba Request</button>
-      </div>
-      <pre class="res-box" id="res-gh"></pre>
-    </div>
 
-    <!-- IP LOOKUP -->
-    <div class="ep-card">
-      <div class="ep-header">
-        <div class="ep-route">
-          <span class="method-get">GET</span>
-          <span>/api/tools/iplookup</span>
+      <!-- LIRIK LAGU -->
+      <div class="ep-card" data-name="lirik lagu lyrics">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">ALL</span>
+            <span>/api/tools/lirik</span>
+            <span class="badge-engine">Lyrics.ovh</span>
+          </div>
         </div>
+        <p class="ep-desc">Pencarian lirik lagu lengkap berdasarkan artis dan judul.</p>
+        <div class="test-box">
+          <input type="text" class="test-input" id="in-artist" placeholder="Artis (contoh: coldplay)" value="coldplay" style="max-width:160px">
+          <input type="text" class="test-input" id="in-title" placeholder="Judul (contoh: yellow)" value="yellow">
+          <button class="btn btn-primary" onclick="testLirik()">Coba Request</button>
+        </div>
+        <pre class="res-box" id="res-lirik"></pre>
       </div>
-      <p class="ep-desc">Lookup informasi geolokasi dan ISP dari alamat IP publik.</p>
-      <div class="test-box">
-        <input type="text" class="test-input" id="input-ip" placeholder="Alamat IP..." value="8.8.8.8">
-        <button class="btn btn-primary" onclick="testApi('/api/tools/iplookup?ip=', 'input-ip', 'res-ip')">Coba Request</button>
+
+      <!-- SHORTLINK -->
+      <div class="ep-card" data-name="shortlink tinyurl">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">ALL</span>
+            <span>/api/tools/shortlink</span>
+            <span class="badge-engine">TinyURL API</span>
+          </div>
+        </div>
+        <p class="ep-desc">Pemendek tautan URL instan dan permanen.</p>
+        <div class="test-box">
+          <input type="text" class="test-input" id="in-short" placeholder="URL panjang..." value="https://api.itsfaiz.my.id">
+          <button class="btn btn-primary" onclick="testApi('/api/tools/shortlink?url=', 'in-short', 'res-short')">Coba Request</button>
+        </div>
+        <pre class="res-box" id="res-short"></pre>
       </div>
-      <pre class="res-box" id="res-ip"></pre>
+
+      <!-- GITHUB STALK -->
+      <div class="ep-card" data-name="github stalk">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">ALL</span>
+            <span>/api/tools/github</span>
+            <span class="badge-engine">GitHub API</span>
+          </div>
+        </div>
+        <p class="ep-desc">Stalker profil GitHub: bio, repositori publik, followers, dan avatar.</p>
+        <div class="test-box">
+          <input type="text" class="test-input" id="in-gh" placeholder="Username GitHub..." value="zorafaizz">
+          <button class="btn btn-primary" onclick="testApi('/api/tools/github?username=', 'in-gh', 'res-gh')">Coba Request</button>
+        </div>
+        <pre class="res-box" id="res-gh"></pre>
+      </div>
+
+      <!-- IP LOOKUP -->
+      <div class="ep-card" data-name="ip lookup whois">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">ALL</span>
+            <span>/api/tools/iplookup</span>
+            <span class="badge-engine">IPWho.is</span>
+          </div>
+        </div>
+        <p class="ep-desc">Lookup informasi geolokasi dan ISP dari alamat IP publik.</p>
+        <div class="test-box">
+          <input type="text" class="test-input" id="in-ip" placeholder="Alamat IP..." value="8.8.8.8">
+          <button class="btn btn-primary" onclick="testApi('/api/tools/iplookup?ip=', 'in-ip', 'res-ip')">Coba Request</button>
+        </div>
+        <pre class="res-box" id="res-ip"></pre>
+      </div>
     </div>
   </div>
 
@@ -363,6 +536,46 @@
       } catch (err) {
         resEl.textContent = 'Error: ' + err.message;
       }
+    }
+
+    async function testLirik() {
+      const artist = document.getElementById('in-artist').value.trim();
+      const title = document.getElementById('in-title').value.trim();
+      const resEl = document.getElementById('res-lirik');
+      resEl.style.display = 'block';
+      resEl.textContent = 'Mengirim request ke server...';
+      try {
+        const res = await fetch(`/api/tools/lirik?artist=${encodeURIComponent(artist)}&title=${encodeURIComponent(title)}`);
+        const json = await res.json();
+        resEl.textContent = JSON.stringify(json, null, 2);
+      } catch (err) {
+        resEl.textContent = 'Error: ' + err.message;
+      }
+    }
+
+    function setCategory(cat, btn) {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      document.querySelectorAll('.section-group').forEach(group => {
+        if (cat === 'all' || group.getAttribute('data-group') === cat) {
+          group.style.display = 'block';
+        } else {
+          group.style.display = 'none';
+        }
+      });
+    }
+
+    function filterEndpoints() {
+      const q = document.getElementById('searchFilter').value.toLowerCase();
+      document.querySelectorAll('.ep-card').forEach(card => {
+        const text = (card.getAttribute('data-name') || '') + ' ' + card.innerText.toLowerCase();
+        if (text.includes(q)) {
+          card.style.display = 'block';
+        } else {
+          card.style.display = 'none';
+        }
+      });
     }
   </script>
 </body>

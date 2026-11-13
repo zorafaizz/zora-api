@@ -7,9 +7,12 @@ import { scrapeTikTok } from './scrapers/tiktok.js';
 import { scrapeMediafire } from './scrapers/mediafire.js';
 import { scrapeFacebook } from './scrapers/facebook.js';
 import { scrapeYouTube } from './scrapers/youtube.js';
+import { scrapeTwitter } from './scrapers/twitter.js';
+import { scrapeSpotify } from './scrapers/spotify.js';
+import { scrapePinterest } from './scrapers/pinterest.js';
 import { askAI } from './scrapers/ai.js';
 import { getGempa, getGempaTerkini } from './scrapers/bmkg.js';
-import { getJadwalSholat, githubStalk, ipLookup } from './scrapers/tools.js';
+import { getJadwalSholat, getLyrics, shortenUrl, githubStalk, ipLookup } from './scrapers/tools.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -23,114 +26,208 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Helper response wrapper
-const sendSuccess = (res, result) => res.json({ status: true, creator: CREATOR, result });
-const sendError = (res, error, code = 400) => res.status(code).json({ status: false, creator: CREATOR, error: error.message || error });
-
-// Health check
-app.get('/health', (req, res) => {
-  res.json({ status: true, creator: CREATOR, uptime: `${Math.floor(process.uptime())}s`, memory: process.memoryUsage() });
+// Middleware tracking waktu respons
+app.use((req, res, next) => {
+  req._startTime = Date.now();
+  next();
 });
 
-// --- DOWNLOADER ENDPOINTS ---
+// Helper response wrapper
+const sendSuccess = (req, res, result) => {
+  const latency = `${Date.now() - (req._startTime || Date.now())}ms`;
+  return res.json({ status: true, creator: CREATOR, latency, result });
+};
+
+const sendError = (req, res, error, code = 400) => {
+  const latency = `${Date.now() - (req._startTime || Date.now())}ms`;
+  return res.status(code).json({ status: false, creator: CREATOR, latency, error: error.message || error });
+};
+
+// Health check & Server Stats
+app.get('/health', (req, res) => {
+  res.json({
+    status: true,
+    creator: CREATOR,
+    uptime: `${Math.floor(process.uptime())}s`,
+    node_version: process.version,
+    memory: process.memoryUsage()
+  });
+});
+
+// ==========================================
+// 1. DOWNLOADER ENDPOINTS
+// ==========================================
+
+// TikTok (Dual Engine: TikWM + yt-dlp)
 app.all('/api/downloader/tiktok', async (req, res) => {
   try {
     const url = req.query.url || req.body?.url;
     const data = await scrapeTikTok(url);
-    sendSuccess(res, data);
+    sendSuccess(req, res, data);
   } catch (err) {
-    sendError(res, err);
+    sendError(req, res, err);
   }
 });
 
-app.all('/api/downloader/mediafire', async (req, res) => {
-  try {
-    const url = req.query.url || req.body?.url;
-    const data = await scrapeMediafire(url);
-    sendSuccess(res, data);
-  } catch (err) {
-    sendError(res, err);
-  }
-});
-
-app.all('/api/downloader/facebook', async (req, res) => {
-  try {
-    const url = req.query.url || req.body?.url;
-    const data = await scrapeFacebook(url);
-    sendSuccess(res, data);
-  } catch (err) {
-    sendError(res, err);
-  }
-});
-
+// YouTube (Dual Engine: yt-dlp)
 app.all('/api/downloader/youtube', async (req, res) => {
   try {
     const url = req.query.url || req.body?.url;
     const data = await scrapeYouTube(url);
-    sendSuccess(res, data);
+    sendSuccess(req, res, data);
   } catch (err) {
-    sendError(res, err);
+    sendError(req, res, err);
   }
 });
 
-// --- AI ENDPOINTS ---
+// Facebook (Dual Engine: FDown + yt-dlp)
+app.all('/api/downloader/facebook', async (req, res) => {
+  try {
+    const url = req.query.url || req.body?.url;
+    const data = await scrapeFacebook(url);
+    sendSuccess(req, res, data);
+  } catch (err) {
+    sendError(req, res, err);
+  }
+});
+
+// Twitter / X (Dual Engine: X2Twitter + yt-dlp)
+app.all('/api/downloader/twitter', async (req, res) => {
+  try {
+    const url = req.query.url || req.body?.url;
+    const data = await scrapeTwitter(url);
+    sendSuccess(req, res, data);
+  } catch (err) {
+    sendError(req, res, err);
+  }
+});
+
+// Spotify & Music Downloader
+app.all('/api/downloader/spotify', async (req, res) => {
+  try {
+    const query = req.query.url || req.query.q || req.body?.url || req.body?.q;
+    const data = await scrapeSpotify(query);
+    sendSuccess(req, res, data);
+  } catch (err) {
+    sendError(req, res, err);
+  }
+});
+
+// Pinterest Downloader
+app.all('/api/downloader/pinterest', async (req, res) => {
+  try {
+    const url = req.query.url || req.body?.url;
+    const data = await scrapePinterest(url);
+    sendSuccess(req, res, data);
+  } catch (err) {
+    sendError(req, res, err);
+  }
+});
+
+// MediaFire Direct Downloader
+app.all('/api/downloader/mediafire', async (req, res) => {
+  try {
+    const url = req.query.url || req.body?.url;
+    const data = await scrapeMediafire(url);
+    sendSuccess(req, res, data);
+  } catch (err) {
+    sendError(req, res, err);
+  }
+});
+
+// ==========================================
+// 2. ARTIFICIAL INTELLIGENCE (AI)
+// ==========================================
+
+// AI Chat (Multi-Model: OpenAI -> Mistral -> Qwen)
 app.all('/api/ai/chat', async (req, res) => {
   try {
     const prompt = req.query.prompt || req.body?.prompt;
     const system = req.query.system || req.body?.system || undefined;
-    const data = await askAI(prompt, system);
-    sendSuccess(res, data);
+    const model = req.query.model || req.body?.model || 'openai';
+    const data = await askAI(prompt, system, model);
+    sendSuccess(req, res, data);
   } catch (err) {
-    sendError(res, err);
+    sendError(req, res, err);
   }
 });
 
-// --- TOOLS & SCRAPERS ---
+// ==========================================
+// 3. TOOLS & SCRAPERS
+// ==========================================
+
+// BMKG Gempa Terkini & Auto
 app.get('/api/tools/gempa', async (req, res) => {
   try {
     const data = await getGempa();
-    sendSuccess(res, data);
+    sendSuccess(req, res, data);
   } catch (err) {
-    sendError(res, err);
+    sendError(req, res, err);
   }
 });
 
 app.get('/api/tools/gempa/terkini', async (req, res) => {
   try {
     const data = await getGempaTerkini();
-    sendSuccess(res, data);
+    sendSuccess(req, res, data);
   } catch (err) {
-    sendError(res, err);
+    sendError(req, res, err);
   }
 });
 
+// Jadwal Sholat Kemenag
 app.all('/api/tools/jadwalsholat', async (req, res) => {
   try {
-    const kota = req.query.kota || req.body.kota || 'jakarta';
+    const kota = req.query.kota || req.body?.kota || 'jakarta';
     const data = await getJadwalSholat(kota);
-    sendSuccess(res, data);
+    sendSuccess(req, res, data);
   } catch (err) {
-    sendError(res, err);
+    sendError(req, res, err);
   }
 });
 
+// Lirik Lagu
+app.all('/api/tools/lirik', async (req, res) => {
+  try {
+    const artist = req.query.artist || req.body?.artist;
+    const title = req.query.title || req.body?.title;
+    const data = await getLyrics(artist, title);
+    sendSuccess(req, res, data);
+  } catch (err) {
+    sendError(req, res, err);
+  }
+});
+
+// Shortlink
+app.all('/api/tools/shortlink', async (req, res) => {
+  try {
+    const url = req.query.url || req.body?.url;
+    const data = await shortenUrl(url);
+    sendSuccess(req, res, data);
+  } catch (err) {
+    sendError(req, res, err);
+  }
+});
+
+// GitHub Stalk
 app.all('/api/tools/github', async (req, res) => {
   try {
-    const username = req.query.username || req.body.username;
+    const username = req.query.username || req.body?.username;
     const data = await githubStalk(username);
-    sendSuccess(res, data);
+    sendSuccess(req, res, data);
   } catch (err) {
-    sendError(res, err);
+    sendError(req, res, err);
   }
 });
 
+// IP Lookup
 app.all('/api/tools/iplookup', async (req, res) => {
   try {
-    const ip = req.query.ip || req.body.ip || req.ip;
+    const ip = req.query.ip || req.body?.ip || req.ip;
     const data = await ipLookup(ip);
-    sendSuccess(res, data);
+    sendSuccess(req, res, data);
   } catch (err) {
-    sendError(res, err);
+    sendError(req, res, err);
   }
 });
 

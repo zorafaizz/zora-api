@@ -1,5 +1,4 @@
 import axios from 'axios';
-import * as cheerio from 'cheerio';
 
 export async function getJadwalSholat(kota = 'jakarta') {
   try {
@@ -28,6 +27,39 @@ export async function getJadwalSholat(kota = 'jakarta') {
     };
   } catch (err) {
     throw new Error(`Jadwal Sholat Error: ${err.message}`);
+  }
+}
+
+export async function getLyrics(artist, title) {
+  if (!artist || !title) throw new Error('Parameter artist dan title wajib diisi');
+
+  try {
+    const res = await axios.get(`https://api.lyrics.ovh/v1/${encodeURIComponent(artist.trim())}/${encodeURIComponent(title.trim())}`, { timeout: 10000 });
+    if (!res.data?.lyrics) throw new Error('Lirik tidak ditemukan');
+
+    return {
+      status: true,
+      artist,
+      title,
+      lyrics: res.data.lyrics.trim()
+    };
+  } catch (err) {
+    throw new Error(`Lyrics Scraper Error: ${err.message}`);
+  }
+}
+
+export async function shortenUrl(url) {
+  if (!url) throw new Error('Parameter url wajib diisi');
+
+  try {
+    const res = await axios.get(`https://tinyurl.com/api-create.php?url=${encodeURIComponent(url.trim())}`, { timeout: 10000 });
+    return {
+      status: true,
+      original_url: url,
+      short_url: res.data.trim()
+    };
+  } catch (err) {
+    throw new Error(`Shortlink Error: ${err.message}`);
   }
 }
 
