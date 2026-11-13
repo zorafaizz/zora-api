@@ -1,0 +1,16 @@
+[Unit]
+Description=Zora REST API Service (api.itsfaiz.my.id)
+After=network.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/home/zorafaiz/api-service
+ExecStart=/usr/bin/node /home/zorafaiz/api-service/server.js
+Restart=always
+RestartSec=3
+Environment=NODE_ENV=production
+Environment=PORT=3095
+
+[Install]
+WantedBy=multi-user.target
