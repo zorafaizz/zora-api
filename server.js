@@ -16,6 +16,8 @@ import { enhanceHD, enhanceUHD } from './scrapers/upscaler.js';
 import { askAI } from './scrapers/ai.js';
 import { getGempa, getGempaTerkini } from './scrapers/bmkg.js';
 import { getJadwalSholat, getLyrics, shortenUrl, githubStalk, ipLookup } from './scrapers/tools.js';
+import { findAlightMotionPreset } from './library/tools/alight_motion.js';
+import { solveCloudflareWAF, solveTurnstileToken } from './library/solvers/cloudflare.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -285,6 +287,40 @@ app.all('/api/tools/iplookup', async (req, res) => {
   try {
     const ip = req.query.ip || req.body?.ip || req.ip;
     const data = await ipLookup(ip);
+    sendSuccess(req, res, data);
+  } catch (err) {
+    sendError(req, res, err);
+  }
+});
+
+// Alight Motion Preset Finder (Reverse-Engineered from am.izzxd.my.id)
+app.all(['/api/tools/presetam', '/api/tools/findpresetam'], async (req, res) => {
+  try {
+    const url = req.query.url || req.body?.url;
+    const data = await findAlightMotionPreset(url);
+    sendSuccess(req, res, data);
+  } catch (err) {
+    sendError(req, res, err);
+  }
+});
+
+// Cloudflare WAF Solver (Reverse-Engineered from bycf.izzcs.my.id)
+app.all('/api/solver/waf', async (req, res) => {
+  try {
+    const targetUrl = req.query.url || req.body?.url;
+    const data = await solveCloudflareWAF(targetUrl);
+    sendSuccess(req, res, data);
+  } catch (err) {
+    sendError(req, res, err);
+  }
+});
+
+// Cloudflare Turnstile Token Solver
+app.all('/api/solver/turnstile', async (req, res) => {
+  try {
+    const targetUrl = req.query.url || req.body?.url;
+    const sitekey = req.query.sitekey || req.body?.sitekey;
+    const data = await solveTurnstileToken(targetUrl, sitekey);
     sendSuccess(req, res, data);
   } catch (err) {
     sendError(req, res, err);
