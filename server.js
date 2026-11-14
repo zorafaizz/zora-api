@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import path from 'path';
+import axios from 'axios';
 import { fileURLToPath } from 'url';
 
 import { scrapeAIO } from './scrapers/aio.js';
@@ -324,6 +325,23 @@ app.all('/api/solver/turnstile', async (req, res) => {
     sendSuccess(req, res, data);
   } catch (err) {
     sendError(req, res, err);
+  }
+});
+
+// Native FlareSolverr Bridge (/v1 and /api/solver/flaresolverr)
+app.all(['/v1', '/api/solver/flaresolverr'], async (req, res) => {
+  try {
+    const payload = req.method === 'GET' ? req.query : req.body;
+    const response = await axios.post('http://127.0.0.1:8191/v1', payload, {
+      headers: { 'Content-Type': 'application/json' },
+      timeout: 60000
+    });
+    return res.json(response.data);
+  } catch (err) {
+    return res.status(500).json({
+      status: 'error',
+      message: err.response?.data?.message || err.message
+    });
   }
 });
 
