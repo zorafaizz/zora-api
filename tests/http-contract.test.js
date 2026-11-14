@@ -98,4 +98,29 @@ test('HTTP Server & Contract Verification Tests', async (t) => {
     assert.equal(res.body.status, true);
     assert.ok(res.body.result.email, 'Must return generated email');
   });
+
+  await t.test('GET /api/v1/openapi.json documents all 42 endpoints including new capabilities', async () => {
+    const res = await request(app).get('/api/v1/openapi.json');
+    assert.equal(res.status, 200);
+    assert.equal(Object.keys(res.body.paths).length, 42);
+    assert.ok(res.body.paths['/api/downloader/pixeldrain']);
+    assert.ok(res.body.paths['/api/search/manga']);
+    assert.ok(res.body.paths['/api/tools/ssweb']);
+  });
+
+  await t.test('New URL-accepting endpoints reject SSRF loopback/metadata targets', async () => {
+    const ssrfRes = await request(app)
+      .get('/api/v1/tools/ssweb')
+      .query({ url: 'http://169.254.169.254/latest/meta-data/' })
+      .set('Authorization', `Bearer ${liveKey.rawKey}`);
+    assert.ok([400, 403, 422, 500].includes(ssrfRes.status));
+    assert.equal(ssrfRes.body.status, false);
+
+    const pdRes = await request(app)
+      .get('/api/v1/downloader/pixeldrain')
+      .query({ url: 'http://127.0.0.1:6379/u/abcd1234' })
+      .set('Authorization', `Bearer ${liveKey.rawKey}`);
+    assert.ok([400, 403, 422, 500].includes(pdRes.status));
+    assert.equal(pdRes.body.status, false);
+  });
 });

@@ -4,7 +4,7 @@ import { ENDPOINT_REGISTRY, findEndpointByPath } from '../src/registry/endpoints
 
 test('Endpoint Registry Integrity Validation', async (t) => {
   await t.test('registry should contain active endpoints', () => {
-    assert.ok(ENDPOINT_REGISTRY.length > 15, 'Registry must have at least 15 endpoints');
+    assert.equal(ENDPOINT_REGISTRY.length, 42, 'Registry must contain all 42 active endpoints');
   });
 
   await t.test('all endpoint IDs and paths must be unique', () => {
@@ -53,5 +53,17 @@ test('Endpoint Registry Integrity Validation', async (t) => {
     const ep3 = findEndpointByPath('/health');
     assert.ok(ep3, 'Must find /health');
     assert.equal(ep3.id, 'sys.health');
+
+    const ep4 = findEndpointByPath('/api/v1/downloader/pixeldrain');
+    assert.ok(ep4, 'Must find /api/v1/downloader/pixeldrain');
+    assert.equal(ep4.id, 'dl.pixeldrain');
+
+    const ep5 = findEndpointByPath('/api/v1/tools/ssweb');
+    assert.ok(ep5, 'Must find /api/v1/tools/ssweb');
+    assert.equal(ep5.id, 'tool.ssweb');
+
+    const ep6 = findEndpointByPath('/api/tools/npm');
+    assert.ok(ep6, 'Must find alias /api/tools/npm');
+    assert.equal(ep6.id, 'stalk.npm');
   });
 });

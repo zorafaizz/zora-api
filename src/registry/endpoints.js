@@ -58,7 +58,22 @@ export const ENDPOINT_REGISTRY = [
     deadline_ms: 25000,
     concurrency_limit: 20,
     execution_mode: 'sync',
-    provider_list: ['tikwm', 'savetube', 'fdown', 'x2twitter', 'spotify', 'pinterest', 'mediafire'],
+    provider_list: [
+      'ttdl_zone',
+      'tikwm',
+      'savetube',
+      'youtube_initial_player',
+      'fdown',
+      'twimg_syndication',
+      'fxtwitter',
+      'x2twitter',
+      'spotify_embed',
+      'pinterest_html_json',
+      'soundcloud_api_v2',
+      'mediafire_cheerio',
+      'sfile_cheerio',
+      'pixeldrain_api'
+    ],
     resource_class: 'medium',
     risk_class: 'low',
     metadata: {
@@ -86,7 +101,7 @@ export const ENDPOINT_REGISTRY = [
     deadline_ms: 15000,
     concurrency_limit: 25,
     execution_mode: 'sync',
-    provider_list: ['tikwm', 'yt-dlp'],
+    provider_list: ['ttdl_zone', 'tikwm', 'lovetik', 'yt-dlp'],
     resource_class: 'medium',
     risk_class: 'low',
     metadata: {
@@ -114,7 +129,7 @@ export const ENDPOINT_REGISTRY = [
     deadline_ms: 25000,
     concurrency_limit: 15,
     execution_mode: 'sync',
-    provider_list: ['savetube_vip', 'yt-dlp'],
+    provider_list: ['savetube_vip', 'youtube_initial_player', 'invidious_nadeko', 'yt-dlp', 'noembed'],
     resource_class: 'high',
     risk_class: 'low',
     metadata: {
@@ -198,7 +213,7 @@ export const ENDPOINT_REGISTRY = [
     deadline_ms: 15000,
     concurrency_limit: 20,
     execution_mode: 'sync',
-    provider_list: ['x2twitter', 'yt-dlp'],
+    provider_list: ['twimg_syndication', 'fxtwitter', 'x2twitter', 'yt-dlp', 'twitter_oembed'],
     resource_class: 'medium',
     risk_class: 'low',
     metadata: {
@@ -226,7 +241,7 @@ export const ENDPOINT_REGISTRY = [
     deadline_ms: 25000,
     concurrency_limit: 15,
     execution_mode: 'sync',
-    provider_list: ['spotify_oembed', 'itunes_search', 'yt-dlp'],
+    provider_list: ['spotify_embed', 'fabdl', 'itunes_search', 'spotify_oembed'],
     resource_class: 'medium',
     risk_class: 'low',
     metadata: {
@@ -254,7 +269,7 @@ export const ENDPOINT_REGISTRY = [
     deadline_ms: 15000,
     concurrency_limit: 25,
     execution_mode: 'sync',
-    provider_list: ['direct_pin', 'yt-dlp'],
+    provider_list: ['pinterest_html_json', 'pinterest_oembed', 'yt-dlp'],
     resource_class: 'low',
     risk_class: 'low',
     metadata: {
@@ -282,7 +297,7 @@ export const ENDPOINT_REGISTRY = [
     deadline_ms: 15000,
     concurrency_limit: 20,
     execution_mode: 'sync',
-    provider_list: ['soundcloud_api'],
+    provider_list: ['soundcloud_api_v2', 'soundcloud_mobi', 'soundcloud_oembed'],
     resource_class: 'low',
     risk_class: 'low',
     metadata: {
@@ -344,6 +359,34 @@ export const ENDPOINT_REGISTRY = [
     metadata: {
       title: 'MediaFire Direct Link',
       summary: 'Bypass halaman MediaFire untuk mendapatkan link unduhan langsung',
+      tags: ['Downloader']
+    }
+  },
+  {
+    id: 'dl.pixeldrain',
+    category: 'Downloaders',
+    subcategory: 'File',
+    method: 'ALL',
+    path: '/api/downloader/pixeldrain',
+    aliases: ['/api/v1/downloader/pixeldrain'],
+    scopes: ['read:media'],
+    status: 'active',
+    billing_policy: {
+      type: 'free_eligible',
+      default_credits: 1,
+      paid_credits: 1
+    },
+    price_version: 'v1',
+    cache_policy: { enabled: true, ttl_seconds: 900, vary_by_auth: false },
+    deadline_ms: 12000,
+    concurrency_limit: 30,
+    execution_mode: 'sync',
+    provider_list: ['pixeldrain_api'],
+    resource_class: 'low',
+    risk_class: 'low',
+    metadata: {
+      title: 'Pixeldrain File & Album Downloader',
+      summary: 'Ekstraksi metadata berkas, SHA256, dan direct download link Pixeldrain',
       tags: ['Downloader']
     }
   },
@@ -518,7 +561,7 @@ export const ENDPOINT_REGISTRY = [
     deadline_ms: 8000,
     concurrency_limit: 50,
     execution_mode: 'sync',
-    provider_list: ['myquran_api'],
+    provider_list: ['aladhan_kemenag', 'myquran_api'],
     resource_class: 'minimal',
     risk_class: 'low',
     metadata: {
@@ -550,7 +593,7 @@ export const ENDPOINT_REGISTRY = [
     deadline_ms: 10000,
     concurrency_limit: 40,
     execution_mode: 'sync',
-    provider_list: ['lyrics_ovh'],
+    provider_list: ['lrclib', 'lyrics_ovh'],
     resource_class: 'minimal',
     risk_class: 'low',
     metadata: {
@@ -578,7 +621,7 @@ export const ENDPOINT_REGISTRY = [
     deadline_ms: 8000,
     concurrency_limit: 50,
     execution_mode: 'sync',
-    provider_list: ['tinyurl'],
+    provider_list: ['dagd', 'spoome', 'isgd', 'tinyurl'],
     resource_class: 'minimal',
     risk_class: 'low',
     metadata: {
@@ -606,7 +649,7 @@ export const ENDPOINT_REGISTRY = [
     deadline_ms: 12000,
     concurrency_limit: 30,
     execution_mode: 'sync',
-    provider_list: ['gsmarena_cheerio'],
+    provider_list: ['wikipedia_device_specs', 'gsmarena_cheerio'],
     resource_class: 'low',
     risk_class: 'low',
     metadata: {
@@ -634,7 +677,7 @@ export const ENDPOINT_REGISTRY = [
     deadline_ms: 12000,
     concurrency_limit: 30,
     execution_mode: 'sync',
-    provider_list: ['kusonime_cheerio'],
+    provider_list: ['anilist_graphql', 'kitsu_edge', 'kusonime_cheerio', 'jikan_mal'],
     resource_class: 'low',
     risk_class: 'low',
     metadata: {
@@ -662,7 +705,7 @@ export const ENDPOINT_REGISTRY = [
     deadline_ms: 10000,
     concurrency_limit: 30,
     execution_mode: 'sync',
-    provider_list: ['tempmail_io'],
+    provider_list: ['mail_tm', 'tempmail_lol', 'guerrillamail', 'tempmail_io'],
     resource_class: 'minimal',
     risk_class: 'low',
     metadata: {
@@ -690,7 +733,7 @@ export const ENDPOINT_REGISTRY = [
     deadline_ms: 10000,
     concurrency_limit: 30,
     execution_mode: 'sync',
-    provider_list: ['tempmail_io'],
+    provider_list: ['mail_tm', 'tempmail_lol', 'guerrillamail', 'tempmail_io'],
     resource_class: 'minimal',
     risk_class: 'low',
     metadata: {
@@ -746,7 +789,7 @@ export const ENDPOINT_REGISTRY = [
     deadline_ms: 6000,
     concurrency_limit: 50,
     execution_mode: 'sync',
-    provider_list: ['ip_api'],
+    provider_list: ['ipwhois', 'ipapi_co', 'freeipapi'],
     resource_class: 'minimal',
     risk_class: 'low',
     metadata: {
@@ -780,6 +823,314 @@ export const ENDPOINT_REGISTRY = [
     metadata: {
       title: 'Alight Motion Preset Finder',
       summary: 'Pencarian link preset AM 5MB dan file XML dari TikTok / Shorts',
+      tags: ['Utilities']
+    }
+  },
+  {
+    id: 'search.manga',
+    category: 'Search & Discovery',
+    subcategory: 'Manga',
+    method: 'ALL',
+    path: '/api/search/manga',
+    aliases: ['/api/v1/search/manga'],
+    scopes: ['public'],
+    status: 'active',
+    billing_policy: {
+      type: 'free_eligible',
+      default_credits: 1,
+      paid_credits: 1
+    },
+    price_version: 'v1',
+    cache_policy: { enabled: true, ttl_seconds: 86400, vary_by_auth: false },
+    deadline_ms: 15000,
+    concurrency_limit: 30,
+    execution_mode: 'sync',
+    provider_list: ['anilist_graphql', 'kitsu_edge'],
+    resource_class: 'low',
+    risk_class: 'low',
+    metadata: {
+      title: 'Manga, Manhwa & Light Novel Search',
+      summary: 'Pencarian metadata komik manga, manhwa, chapter, volume, dan skor komunitas',
+      tags: ['Search']
+    }
+  },
+  {
+    id: 'search.wikipedia',
+    category: 'Search & Discovery',
+    subcategory: 'Encyclopedia',
+    method: 'ALL',
+    path: '/api/search/wikipedia',
+    aliases: ['/api/v1/search/wikipedia'],
+    scopes: ['public'],
+    status: 'active',
+    billing_policy: {
+      type: 'free_eligible',
+      default_credits: 1,
+      paid_credits: 1
+    },
+    price_version: 'v1',
+    cache_policy: { enabled: true, ttl_seconds: 86400, vary_by_auth: false },
+    deadline_ms: 12000,
+    concurrency_limit: 40,
+    execution_mode: 'sync',
+    provider_list: ['wikipedia_rest_v1', 'mediawiki_extracts'],
+    resource_class: 'minimal',
+    risk_class: 'low',
+    metadata: {
+      title: 'Wikipedia Encyclopedia Summary',
+      summary: 'Ringkasan artikel ensiklopedia Wikipedia multibahasa beserta gambar dan koordinat',
+      tags: ['Search']
+    }
+  },
+  {
+    id: 'search.pinterest',
+    category: 'Search & Discovery',
+    subcategory: 'Visual',
+    method: 'ALL',
+    path: '/api/search/pinterest',
+    aliases: ['/api/v1/search/pinterest'],
+    scopes: ['public'],
+    status: 'active',
+    billing_policy: {
+      type: 'free_eligible',
+      default_credits: 1,
+      paid_credits: 1
+    },
+    price_version: 'v1',
+    cache_policy: { enabled: true, ttl_seconds: 3600, vary_by_auth: false },
+    deadline_ms: 15000,
+    concurrency_limit: 25,
+    execution_mode: 'sync',
+    provider_list: ['pinterest_resource', 'pinterest_html_search'],
+    resource_class: 'low',
+    risk_class: 'low',
+    metadata: {
+      title: 'Pinterest Visual Pin Search',
+      summary: 'Pencarian koleksi gambar resolusi tinggi dari katalog Pinterest',
+      tags: ['Search']
+    }
+  },
+  {
+    id: 'search.applemusic',
+    category: 'Search & Discovery',
+    subcategory: 'Music',
+    method: 'ALL',
+    path: '/api/search/applemusic',
+    aliases: ['/api/v1/search/applemusic'],
+    scopes: ['public'],
+    status: 'active',
+    billing_policy: {
+      type: 'free_eligible',
+      default_credits: 1,
+      paid_credits: 1
+    },
+    price_version: 'v1',
+    cache_policy: { enabled: true, ttl_seconds: 3600, vary_by_auth: false },
+    deadline_ms: 12000,
+    concurrency_limit: 35,
+    execution_mode: 'sync',
+    provider_list: ['itunes_catalog_id', 'itunes_catalog_us'],
+    resource_class: 'minimal',
+    risk_class: 'low',
+    metadata: {
+      title: 'Apple Music & iTunes Track Search',
+      summary: 'Pencarian katalog lagu Apple Music, artwork 600px, dan preview audio M4A',
+      tags: ['Search']
+    }
+  },
+  {
+    id: 'search.steam',
+    category: 'Search & Discovery',
+    subcategory: 'Gaming',
+    method: 'ALL',
+    path: '/api/search/steam',
+    aliases: ['/api/v1/search/steam'],
+    scopes: ['public'],
+    status: 'active',
+    billing_policy: {
+      type: 'free_eligible',
+      default_credits: 1,
+      paid_credits: 1
+    },
+    price_version: 'v1',
+    cache_policy: { enabled: true, ttl_seconds: 3600, vary_by_auth: false },
+    deadline_ms: 15000,
+    concurrency_limit: 30,
+    execution_mode: 'sync',
+    provider_list: ['steam_storesearch', 'steam_cheapshark'],
+    resource_class: 'low',
+    risk_class: 'low',
+    metadata: {
+      title: 'Steam Store Game & Price Search',
+      summary: 'Pencarian game PC di Steam Store beserta harga Rupiah, diskon, dan Metascore',
+      tags: ['Search']
+    }
+  },
+  {
+    id: 'search.sticker',
+    category: 'Search & Discovery',
+    subcategory: 'Stickers',
+    method: 'ALL',
+    path: '/api/search/sticker',
+    aliases: ['/api/v1/search/sticker'],
+    scopes: ['public'],
+    status: 'active',
+    billing_policy: {
+      type: 'free_eligible',
+      default_credits: 1,
+      paid_credits: 1
+    },
+    price_version: 'v1',
+    cache_policy: { enabled: true, ttl_seconds: 3600, vary_by_auth: false },
+    deadline_ms: 15000,
+    concurrency_limit: 25,
+    execution_mode: 'sync',
+    provider_list: ['sticker_stickerly_v4', 'sticker_tenor_web'],
+    resource_class: 'low',
+    risk_class: 'low',
+    metadata: {
+      title: 'Sticker Pack Search (Sticker.ly & Tenor)',
+      summary: 'Pencarian paket stiker statis dan animasi untuk WhatsApp/Telegram',
+      tags: ['Search']
+    }
+  },
+  {
+    id: 'search.soundboard',
+    category: 'Search & Discovery',
+    subcategory: 'Audio',
+    method: 'ALL',
+    path: '/api/search/soundboard',
+    aliases: ['/api/v1/search/soundboard'],
+    scopes: ['public'],
+    status: 'active',
+    billing_policy: {
+      type: 'free_eligible',
+      default_credits: 1,
+      paid_credits: 1
+    },
+    price_version: 'v1',
+    cache_policy: { enabled: true, ttl_seconds: 86400, vary_by_auth: false },
+    deadline_ms: 15000,
+    concurrency_limit: 25,
+    execution_mode: 'sync',
+    provider_list: ['soundboard_myinstants', 'soundboard_archive_org'],
+    resource_class: 'low',
+    risk_class: 'low',
+    metadata: {
+      title: 'Meme Soundboard & SFX Search',
+      summary: 'Pencarian efek suara meme dan tombol audio MP3 instan',
+      tags: ['Search']
+    }
+  },
+  {
+    id: 'stalk.npm',
+    category: 'Social & Public Profiles',
+    subcategory: 'Developer',
+    method: 'ALL',
+    path: '/api/stalker/npm',
+    aliases: ['/api/tools/npm', '/api/v1/stalker/npm'],
+    scopes: ['public'],
+    status: 'active',
+    billing_policy: {
+      type: 'free_eligible',
+      default_credits: 1,
+      paid_credits: 1
+    },
+    price_version: 'v1',
+    cache_policy: { enabled: true, ttl_seconds: 3600, vary_by_auth: false },
+    deadline_ms: 15000,
+    concurrency_limit: 35,
+    execution_mode: 'sync',
+    provider_list: ['npm_official_registry', 'npm_npms_io'],
+    resource_class: 'minimal',
+    risk_class: 'low',
+    metadata: {
+      title: 'NPM Package Inspector & Stats',
+      summary: 'Inspeksi metadata package NPM, lisensi, ukuran distribusi, dan jumlah unduhan bulanan',
+      tags: ['Profiles']
+    }
+  },
+  {
+    id: 'tool.translate',
+    category: 'Utilities',
+    subcategory: 'Language',
+    method: 'ALL',
+    path: '/api/tools/translate',
+    aliases: ['/api/v1/tools/translate'],
+    scopes: ['public'],
+    status: 'active',
+    billing_policy: {
+      type: 'free_eligible',
+      default_credits: 1,
+      paid_credits: 1
+    },
+    price_version: 'v1',
+    cache_policy: { enabled: true, ttl_seconds: 86400, vary_by_auth: false },
+    deadline_ms: 12000,
+    concurrency_limit: 50,
+    execution_mode: 'sync',
+    provider_list: ['translate_google_gtx', 'translate_mymemory'],
+    resource_class: 'minimal',
+    risk_class: 'low',
+    metadata: {
+      title: 'Multi-Engine Language Translator',
+      summary: 'Penerjemah teks otomatis lintas bahasa dengan deteksi bahasa sumber',
+      tags: ['Utilities']
+    }
+  },
+  {
+    id: 'tool.dns',
+    category: 'Utilities',
+    subcategory: 'Network',
+    method: 'ALL',
+    path: '/api/tools/dns',
+    aliases: ['/api/v1/tools/dns'],
+    scopes: ['public'],
+    status: 'active',
+    billing_policy: {
+      type: 'free_eligible',
+      default_credits: 1,
+      paid_credits: 1
+    },
+    price_version: 'v1',
+    cache_policy: { enabled: true, ttl_seconds: 600, vary_by_auth: false },
+    deadline_ms: 10000,
+    concurrency_limit: 50,
+    execution_mode: 'sync',
+    provider_list: ['dns_cloudflare_doh', 'dns_google_doh'],
+    resource_class: 'minimal',
+    risk_class: 'low',
+    metadata: {
+      title: 'DNS over HTTPS (DoH) Resolver',
+      summary: 'Resolusi record DNS (A, AAAA, MX, TXT, NS, CNAME, CAA) dengan validasi DNSSEC',
+      tags: ['Utilities']
+    }
+  },
+  {
+    id: 'tool.ssweb',
+    category: 'Utilities',
+    subcategory: 'Web Capture',
+    method: 'ALL',
+    path: '/api/tools/ssweb',
+    aliases: ['/api/v1/tools/ssweb'],
+    scopes: ['public'],
+    status: 'active',
+    billing_policy: {
+      type: 'free_eligible',
+      default_credits: 1,
+      paid_credits: 1
+    },
+    price_version: 'v1',
+    cache_policy: { enabled: true, ttl_seconds: 1800, vary_by_auth: false },
+    deadline_ms: 16000,
+    concurrency_limit: 20,
+    execution_mode: 'sync',
+    provider_list: ['ssweb_thumio', 'ssweb_wp_mshots'],
+    resource_class: 'medium',
+    risk_class: 'low',
+    metadata: {
+      title: 'Web Page Screenshot Capture (SSRF Protected)',
+      summary: 'Tangkapan layar halaman web resolusi desktop 1280x800 dengan proteksi SSRF penuh',
       tags: ['Utilities']
     }
   },

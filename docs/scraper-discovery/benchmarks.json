@@ -1,0 +1,2868 @@
+{
+  "generated_at": "2026-11-14T18:00:00Z",
+  "execution_environment": {
+    "host": "Ubuntu Linux 6.8.0-124-generic x86_64 (VPS Datacenter IP)",
+    "node_version": "v22.23.3",
+    "concurrency_limit": 4,
+    "per_attempt_timeout_ms": 8500,
+    "rounds_executed": 3
+  },
+  "summary": {
+    "total_provider_evaluations": 75,
+    "passed_100_percent": 51,
+    "partial_success": 1,
+    "failed_or_blocked": 23
+  },
+  "benchmarks": [
+    {
+      "provider_id": "tiktok.tikwm",
+      "capability": "dl.tiktok",
+      "candidate_ref": "existing:scrapers/tiktok.js",
+      "failure_domain": "tikwm.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 830,
+        "p50": 830,
+        "p95": 1326,
+        "max": 1326
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1326,
+          "payloadBytes": 4631,
+          "failureClass": null,
+          "note": "No-WM play URL returned"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 830,
+          "payloadBytes": 4658,
+          "failureClass": null,
+          "note": "No-WM play URL returned"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "tiktok.ttdlzone",
+      "capability": "dl.tiktok",
+      "candidate_ref": "CAND-0522-ZANE",
+      "failure_domain": "ttdl.zone.id",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 226,
+        "p50": 226,
+        "p95": 5914,
+        "max": 5914
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 5914,
+          "payloadBytes": 5224,
+          "failureClass": null,
+          "note": "JSON payload returned"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 226,
+          "payloadBytes": 5223,
+          "failureClass": null,
+          "note": "JSON payload returned"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "tiktok.oembed",
+      "capability": "dl.tiktok",
+      "candidate_ref": "existing+CAND-0522-ZANE",
+      "failure_domain": "tiktok.com",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 170,
+        "p50": 170,
+        "p95": 732,
+        "max": 732
+      },
+      "primary_failure_class": "PARSE_OR_SCHEMA_MISMATCH",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": 200,
+          "latencyMs": 732,
+          "payloadBytes": 542,
+          "failureClass": "PARSE_OR_SCHEMA_MISMATCH",
+          "note": "{\"version\":\"1.0\",\"type\":\"video\",\"width\":\"325\",\"height\":\"578\",\"html\":\"<iframe height=\\\"578\\\" width=\\\""
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": 200,
+          "latencyMs": 170,
+          "payloadBytes": 542,
+          "failureClass": "PARSE_OR_SCHEMA_MISMATCH",
+          "note": "{\"version\":\"1.0\",\"type\":\"video\",\"width\":\"325\",\"height\":\"578\",\"html\":\"<iframe height=\\\"578\\\" width=\\\""
+        }
+      ],
+      "round": 1,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "youtube.oembed_official",
+      "capability": "dl.ytmp4 / search.youtube",
+      "candidate_ref": "public_oembed",
+      "failure_domain": "youtube.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 127,
+        "p50": 127,
+        "p95": 866,
+        "max": 866
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 866,
+          "payloadBytes": 868,
+          "failureClass": null,
+          "note": "Rick Astley - Never Gonna Give You Up (Official Vi"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 127,
+          "payloadBytes": 868,
+          "failureClass": null,
+          "note": "Rick Astley - Never Gonna Give You Up (Official Vi"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "youtube.noembed",
+      "capability": "dl.ytmp4",
+      "candidate_ref": "CAND-0453-JHXFC",
+      "failure_domain": "noembed.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 96,
+        "p50": 96,
+        "p95": 565,
+        "max": 565
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 565,
+          "payloadBytes": 844,
+          "failureClass": null,
+          "note": "Rick Astley - Never Gonna Give You Up (Official Vi"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 96,
+          "payloadBytes": 844,
+          "failureClass": null,
+          "note": "Rick Astley - Never Gonna Give You Up (Official Vi"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "youtube.piped_kavin",
+      "capability": "search.youtube",
+      "candidate_ref": "existing:scrapers/youtube.js",
+      "failure_domain": "pipedapi.kavin.rocks",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 413,
+        "p50": 413,
+        "p95": 743,
+        "max": 743
+      },
+      "primary_failure_class": "UPSTREAM_5XX",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": 525,
+          "latencyMs": 743,
+          "payloadBytes": 0,
+          "failureClass": "UPSTREAM_5XX",
+          "note": "status=525"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": 525,
+          "latencyMs": 413,
+          "payloadBytes": 0,
+          "failureClass": "UPSTREAM_5XX",
+          "note": "status=525"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "youtube.html_ytinitialdata",
+      "capability": "search.youtube",
+      "candidate_ref": "existing:scrapers/youtube.js",
+      "failure_domain": "youtube.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 595,
+        "p50": 595,
+        "p95": 812,
+        "max": 812
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 595,
+          "payloadBytes": 1421360,
+          "failureClass": null,
+          "note": "ytInitialData videoRenderer present"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 812,
+          "payloadBytes": 1424227,
+          "failureClass": null,
+          "note": "ytInitialData videoRenderer present"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "instagram.instaloadr",
+      "capability": "dl.instagram",
+      "candidate_ref": "CAND-0462-JHXFC",
+      "failure_domain": "instaloadr.com",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 6246,
+        "p50": 6246,
+        "p95": 8505,
+        "max": 8505
+      },
+      "primary_failure_class": "UPSTREAM_4XX",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": 422,
+          "latencyMs": 6246,
+          "payloadBytes": 70,
+          "failureClass": "UPSTREAM_4XX",
+          "note": "{\"detail\":\"Couldn't resolve that link. It may be private or expired.\"}"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 8505,
+          "payloadBytes": 0,
+          "failureClass": "TIMEOUT",
+          "note": "Timeout after 8500ms"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "twitter.vxtwitter_api",
+      "capability": "dl.twitter",
+      "candidate_ref": "existing:scrapers/twitter.js",
+      "failure_domain": "vxtwitter.com",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 215,
+        "p50": 215,
+        "p95": 928,
+        "max": 928
+      },
+      "primary_failure_class": "PARSE_OR_SCHEMA_MISMATCH",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 928,
+          "payloadBytes": 0,
+          "failureClass": "PARSE_OR_SCHEMA_MISMATCH",
+          "note": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 215,
+          "payloadBytes": 0,
+          "failureClass": "PARSE_OR_SCHEMA_MISMATCH",
+          "note": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "twitter.fxtwitter_api",
+      "capability": "dl.twitter",
+      "candidate_ref": "existing:scrapers/twitter.js",
+      "failure_domain": "fxtwitter.com",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 1563,
+        "p50": 1563,
+        "p95": 2318,
+        "max": 2318
+      },
+      "primary_failure_class": "UPSTREAM_4XX",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": 404,
+          "latencyMs": 2318,
+          "payloadBytes": 222,
+          "failureClass": "UPSTREAM_4XX",
+          "note": "{\"code\":404,\"message\":\"NOT_FOUND\",\"tweet\":{\"type\":\"tombstone\",\"provider\":\"twitter\",\"reason\":\"unavail"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": 404,
+          "latencyMs": 1563,
+          "payloadBytes": 222,
+          "failureClass": "UPSTREAM_4XX",
+          "note": "{\"code\":404,\"message\":\"NOT_FOUND\",\"tweet\":{\"type\":\"tombstone\",\"provider\":\"twitter\",\"reason\":\"unavail"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "twitter.syndication_twimg",
+      "capability": "dl.twitter",
+      "candidate_ref": "cleanroom_public_syndication",
+      "failure_domain": "twimg.com",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 144,
+        "p50": 144,
+        "p95": 1090,
+        "max": 1090
+      },
+      "primary_failure_class": "PARSE_OR_SCHEMA_MISMATCH",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": 200,
+          "latencyMs": 1090,
+          "payloadBytes": 276,
+          "failureClass": "PARSE_OR_SCHEMA_MISMATCH",
+          "note": "{\"__typename\":\"TweetTombstone\",\"tombstone\":{\"text\":{\"entities\":[{\"from_index\":26,\"ref\":{\"__typename\""
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": 200,
+          "latencyMs": 144,
+          "payloadBytes": 276,
+          "failureClass": "PARSE_OR_SCHEMA_MISMATCH",
+          "note": "{\"__typename\":\"TweetTombstone\",\"tombstone\":{\"text\":{\"entities\":[{\"from_index\":26,\"ref\":{\"__typename\""
+        }
+      ],
+      "round": 1,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "spotify.oembed",
+      "capability": "dl.spotify",
+      "candidate_ref": "existing:scrapers/spotify.js",
+      "failure_domain": "spotify.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 282,
+        "p50": 282,
+        "p95": 863,
+        "max": 863
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 863,
+          "payloadBytes": 750,
+          "failureClass": null,
+          "note": "Never Gonna Give You Up"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 282,
+          "payloadBytes": 750,
+          "failureClass": null,
+          "note": "Never Gonna Give You Up"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "spotify.embed_json",
+      "capability": "dl.spotify",
+      "candidate_ref": "CAND-0516-ZANE",
+      "failure_domain": "open.spotify.com/embed",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 385,
+        "p50": 385,
+        "p95": 1469,
+        "max": 1469
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 385,
+          "payloadBytes": 10526,
+          "failureClass": null,
+          "note": "title=Never Gonna Give You Up, preview=true"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1469,
+          "payloadBytes": 10524,
+          "failureClass": null,
+          "note": "title=Never Gonna Give You Up, preview=true"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "spotify.fabdl",
+      "capability": "dl.spotify",
+      "candidate_ref": "existing:scrapers/spotify.js",
+      "failure_domain": "fabdl.com",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 322,
+        "p50": 322,
+        "p95": 1390,
+        "max": 1390
+      },
+      "primary_failure_class": "AUTH_OR_FORBIDDEN",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": 403,
+          "latencyMs": 1390,
+          "payloadBytes": 81,
+          "failureClass": "AUTH_OR_FORBIDDEN",
+          "note": "{\n    \"error\": {\n        \"code\": 403,\n        \"message\": \"invalid origin\"\n    }\n}"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": 403,
+          "latencyMs": 322,
+          "payloadBytes": 81,
+          "failureClass": "AUTH_OR_FORBIDDEN",
+          "note": "{\n    \"error\": {\n        \"code\": 403,\n        \"message\": \"invalid origin\"\n    }\n}"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "spotify.itunes_preview_fallback",
+      "capability": "dl.spotify / search.applemusic",
+      "candidate_ref": "CAND-0444-JHXFC",
+      "failure_domain": "itunes.apple.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 115,
+        "p50": 115,
+        "p95": 811,
+        "max": 811
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 811,
+          "payloadBytes": 8222,
+          "failureClass": null,
+          "note": "track=Never Gonna Give You Up"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 115,
+          "payloadBytes": 8222,
+          "failureClass": null,
+          "note": "track=Never Gonna Give You Up"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "soundcloud.oembed",
+      "capability": "dl.soundcloud",
+      "candidate_ref": "existing:src/scrapers/soundcloud.js",
+      "failure_domain": "soundcloud.com",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 404,
+        "p50": 404,
+        "p95": 631,
+        "max": 631
+      },
+      "primary_failure_class": "PARSE_OR_SCHEMA_MISMATCH",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 631,
+          "payloadBytes": 0,
+          "failureClass": "PARSE_OR_SCHEMA_MISMATCH",
+          "note": "Unexpected end of JSON input"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 404,
+          "payloadBytes": 0,
+          "failureClass": "PARSE_OR_SCHEMA_MISMATCH",
+          "note": "Unexpected end of JSON input"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "soundcloud.apiv2_dynamic_client",
+      "capability": "dl.soundcloud",
+      "candidate_ref": "CAND-0215-CKTHV",
+      "failure_domain": "api-v2.soundcloud.com",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 591,
+        "p50": 591,
+        "p95": 1149,
+        "max": 1149
+      },
+      "primary_failure_class": "UPSTREAM_4XX",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": 404,
+          "latencyMs": 1149,
+          "payloadBytes": 2,
+          "failureClass": "UPSTREAM_4XX",
+          "note": "{}"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": 404,
+          "latencyMs": 591,
+          "payloadBytes": 2,
+          "failureClass": "UPSTREAM_4XX",
+          "note": "{}"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "pinterest.oembed",
+      "capability": "dl.pinterest",
+      "candidate_ref": "cleanroom_pinterest_oembed",
+      "failure_domain": "pinterest.com/oembed",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 627,
+        "p50": 627,
+        "p95": 1406,
+        "max": 1406
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1406,
+          "payloadBytes": 551,
+          "failureClass": null,
+          "note": "Next stop: Pinterest!"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 627,
+          "payloadBytes": 551,
+          "failureClass": null,
+          "note": "Next stop: Pinterest!"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "pinterest.pinsearch_resource",
+      "capability": "search.pinterest",
+      "candidate_ref": "CAND-0158-GHERZ (MIT)",
+      "failure_domain": "pinterest.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 924,
+        "p50": 924,
+        "p95": 2095,
+        "max": 2095
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 2095,
+          "payloadBytes": 120606,
+          "failureClass": null,
+          "note": "results=10 status=200"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 924,
+          "payloadBytes": 120612,
+          "failureClass": null,
+          "note": "results=10 status=200"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "secondary_fallback"
+    },
+    {
+      "provider_id": "tempmail.1secmail",
+      "capability": "tool.tempmail",
+      "candidate_ref": "existing:src/scrapers/tempmail.js",
+      "failure_domain": "1secmail.com",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 635,
+        "p50": 635,
+        "p95": 1173,
+        "max": 1173
+      },
+      "primary_failure_class": "NETWORK_OR_DNS",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 1173,
+          "payloadBytes": 0,
+          "failureClass": "NETWORK_OR_DNS",
+          "note": "fetch failed"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 635,
+          "payloadBytes": 0,
+          "failureClass": "NETWORK_OR_DNS",
+          "note": "fetch failed"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "tempmail.mailtm",
+      "capability": "tool.tempmail",
+      "candidate_ref": "CAND-0386-PBOMN",
+      "failure_domain": "api.mail.tm",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 330,
+        "p50": 330,
+        "p95": 863,
+        "max": 863
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 863,
+          "payloadBytes": 348,
+          "failureClass": null,
+          "note": "domains=1 (fldubai.com)"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 330,
+          "payloadBytes": 348,
+          "failureClass": null,
+          "note": "domains=1 (fldubai.com)"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "tempmail.tempmail_lol",
+      "capability": "tool.tempmail",
+      "candidate_ref": "CAND-0254-CKTHV",
+      "failure_domain": "api.tempmail.lol",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 387,
+        "p50": 387,
+        "p95": 497,
+        "max": 497
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 201,
+          "latencyMs": 497,
+          "payloadBytes": 94,
+          "failureClass": null,
+          "note": "created=leland4759cd@8mg.marchslurp.com"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 201,
+          "latencyMs": 387,
+          "payloadBytes": 94,
+          "failureClass": null,
+          "note": "created=decamp4759ce@o30.marchslurp.com"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "tempmail.guerrillamail",
+      "capability": "tool.tempmail",
+      "candidate_ref": "cleanroom_guerrillamail_api",
+      "failure_domain": "guerrillamail.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 391,
+        "p50": 391,
+        "p95": 3857,
+        "max": 3857
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 3857,
+          "payloadBytes": 149,
+          "failureClass": null,
+          "note": "addr=hffseuyz@guerrillamailblock.com"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 391,
+          "payloadBytes": 149,
+          "failureClass": null,
+          "note": "addr=xxdwswze@guerrillamailblock.com"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "lyrics.lrclib",
+      "capability": "util.lirik",
+      "candidate_ref": "existing:scrapers/tools.js",
+      "failure_domain": "lrclib.net",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 476,
+        "p50": 476,
+        "p95": 1192,
+        "max": 1192
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1192,
+          "payloadBytes": 158723,
+          "failureClass": null,
+          "note": "hits=20"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 476,
+          "payloadBytes": 158723,
+          "failureClass": null,
+          "note": "hits=20"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "lyrics.lyrics_ovh",
+      "capability": "util.lirik",
+      "candidate_ref": "cleanroom_lyrics_ovh_itunes",
+      "failure_domain": "lyrics.ovh",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 439,
+        "p50": 439,
+        "p95": 1631,
+        "max": 1631
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1631,
+          "payloadBytes": 30547,
+          "failureClass": null,
+          "note": "suggest=15"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 439,
+          "payloadBytes": 30547,
+          "failureClass": null,
+          "note": "suggest=15"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "shortlink.isgd",
+      "capability": "util.shortlink",
+      "candidate_ref": "existing:scrapers/tools.js",
+      "failure_domain": "is.gd",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 166,
+        "p50": 166,
+        "p95": 632,
+        "max": 632
+      },
+      "primary_failure_class": "PARSE_OR_SCHEMA_MISMATCH",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 632,
+          "payloadBytes": 0,
+          "failureClass": "PARSE_OR_SCHEMA_MISMATCH",
+          "note": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 166,
+          "payloadBytes": 0,
+          "failureClass": "PARSE_OR_SCHEMA_MISMATCH",
+          "note": "Unexpected token '<', \"<!DOCTYPE \"... is not valid JSON"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "shortlink.cleanuri",
+      "capability": "util.shortlink",
+      "candidate_ref": "cleanroom_cleanuri",
+      "failure_domain": "cleanuri.com",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 8500,
+        "p50": 8500,
+        "p95": 8501,
+        "max": 8501
+      },
+      "primary_failure_class": "TIMEOUT",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 8501,
+          "payloadBytes": 0,
+          "failureClass": "TIMEOUT",
+          "note": "Timeout after 8500ms"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 8500,
+          "payloadBytes": 0,
+          "failureClass": "TIMEOUT",
+          "note": "Timeout after 8500ms"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "iplookup.ipwhois",
+      "capability": "util.iplookup",
+      "candidate_ref": "existing:scrapers/tools.js",
+      "failure_domain": "ipwho.is",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 169,
+        "p50": 169,
+        "p95": 656,
+        "max": 656
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 656,
+          "payloadBytes": 670,
+          "failureClass": null,
+          "note": "United States / Google LLC"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 169,
+          "payloadBytes": 670,
+          "failureClass": null,
+          "note": "United States / Google LLC"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "iplookup.freeipapi",
+      "capability": "util.iplookup",
+      "candidate_ref": "cleanroom_freeipapi",
+      "failure_domain": "freeipapi.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 365,
+        "p50": 365,
+        "p95": 1376,
+        "max": 1376
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1376,
+          "payloadBytes": 1129,
+          "failureClass": null,
+          "note": "United States / Google LLC"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 365,
+          "payloadBytes": 1129,
+          "failureClass": null,
+          "note": "United States / Google LLC"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "iplookup.ipapi_co",
+      "capability": "util.iplookup",
+      "candidate_ref": "cleanroom_ipapi_co",
+      "failure_domain": "ipapi.co",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 293,
+        "p50": 293,
+        "p95": 762,
+        "max": 762
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 762,
+          "payloadBytes": 771,
+          "failureClass": null,
+          "note": "United States / Google LLC"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 293,
+          "payloadBytes": 771,
+          "failureClass": null,
+          "note": "United States / Google LLC"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "anime.kusonime",
+      "capability": "search.anime",
+      "candidate_ref": "existing:src/scrapers/anime.js",
+      "failure_domain": "kusonime.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 573,
+        "p50": 573,
+        "p95": 1028,
+        "max": 1028
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1028,
+          "payloadBytes": 71677,
+          "failureClass": null,
+          "note": "status=200 valid=true"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 573,
+          "payloadBytes": 71785,
+          "failureClass": null,
+          "note": "status=200 valid=true"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "anime.jikan_mal",
+      "capability": "search.anime",
+      "candidate_ref": "CAND-0270-CKTHV / Jikan v4",
+      "failure_domain": "api.jikan.moe",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 506,
+        "p50": 506,
+        "p95": 662,
+        "max": 662
+      },
+      "primary_failure_class": "NETWORK_OR_DNS",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 662,
+          "payloadBytes": 0,
+          "failureClass": "NETWORK_OR_DNS",
+          "note": "fetch failed"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 506,
+          "payloadBytes": 0,
+          "failureClass": "NETWORK_OR_DNS",
+          "note": "fetch failed"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "anime_manga.anilist_graphql",
+      "capability": "search.anime / search.manga",
+      "candidate_ref": "CAND-0084-CKIZZ",
+      "failure_domain": "graphql.anilist.co",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 441,
+        "p50": 441,
+        "p95": 791,
+        "max": 791
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 791,
+          "payloadBytes": 1535,
+          "failureClass": null,
+          "note": "hits=5 (Sousou no Frieren)"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 441,
+          "payloadBytes": 1535,
+          "failureClass": null,
+          "note": "hits=5 (Sousou no Frieren)"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "manga.mangadex_api",
+      "capability": "search.manga",
+      "candidate_ref": "CAND-0434-JHXFC / CAND-0505-ZANE",
+      "failure_domain": "api.mangadex.org",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 159,
+        "p50": 159,
+        "p95": 609,
+        "max": 609
+      },
+      "primary_failure_class": "PARSE_OR_SCHEMA_MISMATCH",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 609,
+          "payloadBytes": 0,
+          "failureClass": "PARSE_OR_SCHEMA_MISMATCH",
+          "note": "Unexpected token 'B', \"Bot challe\"... is not valid JSON"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 159,
+          "payloadBytes": 0,
+          "failureClass": "PARSE_OR_SCHEMA_MISMATCH",
+          "note": "Unexpected token 'B', \"Bot challe\"... is not valid JSON"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "manga.jikan_manga",
+      "capability": "search.manga",
+      "candidate_ref": "Jikan v4 Manga",
+      "failure_domain": "api.jikan.moe",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 504,
+        "p50": 504,
+        "p95": 505,
+        "max": 505
+      },
+      "primary_failure_class": "NETWORK_OR_DNS",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 504,
+          "payloadBytes": 0,
+          "failureClass": "NETWORK_OR_DNS",
+          "note": "fetch failed"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": null,
+          "latencyMs": 505,
+          "payloadBytes": 0,
+          "failureClass": "NETWORK_OR_DNS",
+          "note": "fetch failed"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "ai.pollinations_openai",
+      "capability": "ai.chat",
+      "candidate_ref": "existing:scrapers/ai.js",
+      "failure_domain": "text.pollinations.ai",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 589,
+        "p50": 589,
+        "p95": 3492,
+        "max": 3492
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 3492,
+          "payloadBytes": 578,
+          "failureClass": null,
+          "note": "PONG"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 589,
+          "payloadBytes": 578,
+          "failureClass": null,
+          "note": "PONG"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "ai.pollinations_image",
+      "capability": "ai.text2img",
+      "candidate_ref": "CAND-0520-ZANE",
+      "failure_domain": "image.pollinations.ai",
+      "runs": 2,
+      "success_rate": 0.5,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 642,
+        "p50": 642,
+        "p95": 7519,
+        "max": 7519
+      },
+      "primary_failure_class": "UPSTREAM_4XX",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 7519,
+          "payloadBytes": 10466,
+          "failureClass": null,
+          "note": "ct=image/jpeg bytes=10466"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": 402,
+          "latencyMs": 642,
+          "payloadBytes": 323,
+          "failureClass": "UPSTREAM_4XX",
+          "note": "ct=application/json; charset=utf-8 bytes=323"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "degraded_fallback"
+    },
+    {
+      "provider_id": "translate.google_gtx",
+      "capability": "util.translate",
+      "candidate_ref": "CAND-0389-PBOMN / CAND-0399-PBOMN",
+      "failure_domain": "translate.googleapis.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 158,
+        "p50": 158,
+        "p95": 1806,
+        "max": 1806
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1806,
+          "payloadBytes": 240,
+          "failureClass": null,
+          "note": "Arsitektur multi-mesin yang tangguh"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 158,
+          "payloadBytes": 240,
+          "failureClass": null,
+          "note": "Arsitektur multi-mesin yang tangguh"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "translate.mymemory",
+      "capability": "util.translate",
+      "candidate_ref": "CAND-0399-PBOMN",
+      "failure_domain": "api.mymemory.translated.net",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 1062,
+        "p50": 1062,
+        "p95": 2152,
+        "max": 2152
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 2152,
+          "payloadBytes": 1476,
+          "failureClass": null,
+          "note": "Sistem beroperasi"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1062,
+          "payloadBytes": 1476,
+          "failureClass": null,
+          "note": "Sistem beroperasi"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "secondary_fallback"
+    },
+    {
+      "provider_id": "dns.cloudflare_doh",
+      "capability": "dev.dns",
+      "candidate_ref": "CAND-0408-PBOMN / CAND-0505-ZANE",
+      "failure_domain": "cloudflare-dns.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 186,
+        "p50": 186,
+        "p95": 662,
+        "max": 662
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 662,
+          "payloadBytes": 183,
+          "failureClass": null,
+          "note": "answers=1 ip=20.247.166.64"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 186,
+          "payloadBytes": 183,
+          "failureClass": null,
+          "note": "answers=1 ip=20.247.166.64"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "dns.google_doh",
+      "capability": "dev.dns",
+      "candidate_ref": "CAND-0505-ZANE",
+      "failure_domain": "dns.google",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 426,
+        "p50": 426,
+        "p95": 1277,
+        "max": 1277
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1277,
+          "payloadBytes": 227,
+          "failureClass": null,
+          "note": "answers=1 ip=57.155.223.240"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 426,
+          "payloadBytes": 186,
+          "failureClass": null,
+          "note": "answers=1 ip=57.155.223.240"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "ssweb.microlink",
+      "capability": "img.ssweb",
+      "candidate_ref": "CAND-0055-CKIZZ / CAND-0400-PBOMN",
+      "failure_domain": "api.microlink.io",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 348,
+        "p50": 348,
+        "p95": 1928,
+        "max": 1928
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1928,
+          "payloadBytes": 949,
+          "failureClass": null,
+          "note": "https://iad.microlink.io/yd5Df6p68OT-hLYZvfw83S8tcjPLBmEGtngMr3SpMg6E7rkFnMW6IyMXlzB6fwoh5C_4UBR5e35m9c6_KuPaAw.png"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 348,
+          "payloadBytes": 949,
+          "failureClass": null,
+          "note": "https://iad.microlink.io/yd5Df6p68OT-hLYZvfw83S8tcjPLBmEGtngMr3SpMg6E7rkFnMW6IyMXlzB6fwoh5C_4UBR5e35m9c6_KuPaAw.png"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "ssweb.thumio",
+      "capability": "img.ssweb",
+      "candidate_ref": "CAND-0518-ZANE",
+      "failure_domain": "image.thum.io",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 436,
+        "p50": 436,
+        "p95": 3567,
+        "max": 3567
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 3567,
+          "payloadBytes": 29745,
+          "failureClass": null,
+          "note": "ct=image/png bytes=29745"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 436,
+          "payloadBytes": 29745,
+          "failureClass": null,
+          "note": "ct=image/png bytes=29745"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "pixeldrain.api_info",
+      "capability": "dl.pixeldrain",
+      "candidate_ref": "CAND-0407-PBOMN",
+      "failure_domain": "pixeldrain.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 528,
+        "p50": 528,
+        "p95": 1642,
+        "max": 1642
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 404,
+          "latencyMs": 1642,
+          "payloadBytes": 94,
+          "failureClass": null,
+          "note": "status=404 body={\"success\":false,\"value\":\"not_found\",\"message\":\"The entity you requested could n"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 404,
+          "latencyMs": 528,
+          "payloadBytes": 94,
+          "failureClass": null,
+          "note": "status=404 body={\"success\":false,\"value\":\"not_found\",\"message\":\"The entity you requested could n"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "sholat.myquran_kemenag",
+      "capability": "regional.sholat",
+      "candidate_ref": "CAND-0090-CKIZZ",
+      "failure_domain": "api.myquran.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 1807,
+        "p50": 1807,
+        "p95": 2301,
+        "max": 2301
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 2301,
+          "payloadBytes": 129,
+          "failureClass": null,
+          "note": "kota=KOTA JAKARTA (1301)"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1807,
+          "payloadBytes": 129,
+          "failureClass": null,
+          "note": "kota=KOTA JAKARTA (1301)"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "secondary_fallback"
+    },
+    {
+      "provider_id": "sholat.aladhan",
+      "capability": "regional.sholat",
+      "candidate_ref": "cleanroom_aladhan_api",
+      "failure_domain": "api.aladhan.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 742,
+        "p50": 742,
+        "p95": 2811,
+        "max": 2811
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 2811,
+          "payloadBytes": 1274,
+          "failureClass": null,
+          "note": "Fajr=04:03 Maghrib=17:49"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 742,
+          "payloadBytes": 1274,
+          "failureClass": null,
+          "note": "Fajr=04:03 Maghrib=17:49"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "wikipedia.rest_id",
+      "capability": "search.wikipedia",
+      "candidate_ref": "cleanroom_wikimedia_rest",
+      "failure_domain": "wikipedia.org",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 49,
+        "p50": 49,
+        "p95": 928,
+        "max": 928
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 928,
+          "payloadBytes": 2947,
+          "failureClass": null,
+          "note": "Indonesia, dengan nama resmi Republik Indonesia, adalah sebuah negara "
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 49,
+          "payloadBytes": 2947,
+          "failureClass": null,
+          "note": "Indonesia, dengan nama resmi Republik Indonesia, adalah sebuah negara "
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "github.user_profile",
+      "capability": "stalk.github",
+      "candidate_ref": "CAND-0212-GHERZ / GitHub REST",
+      "failure_domain": "api.github.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 95,
+        "p50": 95,
+        "p95": 590,
+        "max": 590
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 590,
+          "payloadBytes": 1358,
+          "failureClass": null,
+          "note": "repos=12 followers=331999"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 95,
+          "payloadBytes": 1358,
+          "failureClass": null,
+          "note": "repos=12 followers=331999"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "steam.storesearch",
+      "capability": "search.steam",
+      "candidate_ref": "CAND-0183-GHERZ",
+      "failure_domain": "store.steampowered.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 557,
+        "p50": 557,
+        "p95": 690,
+        "max": 690
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 690,
+          "payloadBytes": 2434,
+          "failureClass": null,
+          "note": "items=6 (ELDEN RING)"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 557,
+          "payloadBytes": 2434,
+          "failureClass": null,
+          "note": "items=6 (ELDEN RING)"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "steam.cheapshark_deals",
+      "capability": "search.steam",
+      "candidate_ref": "cleanroom_cheapshark_fallback",
+      "failure_domain": "cheapshark.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 445,
+        "p50": 445,
+        "p95": 811,
+        "max": 811
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 811,
+          "payloadBytes": 1676,
+          "failureClass": null,
+          "note": "deals=5 (ELDEN RING)"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 445,
+          "payloadBytes": 1676,
+          "failureClass": null,
+          "note": "deals=5 (ELDEN RING)"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "stickerly.search",
+      "capability": "search.sticker",
+      "candidate_ref": "CAND-0229-CKTHV / CAND-0479-CDXKU",
+      "failure_domain": "api.sticker.ly",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 477,
+        "p50": 477,
+        "p95": 1522,
+        "max": 1522
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1522,
+          "payloadBytes": 59544,
+          "failureClass": null,
+          "note": "packs=56 (Cats emojis)"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 477,
+          "payloadBytes": 59544,
+          "failureClass": null,
+          "note": "packs=56 (Cats emojis)"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "myinstants.soundboard",
+      "capability": "audio.soundboard",
+      "candidate_ref": "CAND-0272-CKTHV / CAND-0515-ZANE",
+      "failure_domain": "myinstants.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 196,
+        "p50": 196,
+        "p95": 791,
+        "max": 791
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 791,
+          "payloadBytes": 95715,
+          "failureClass": null,
+          "note": "sounds_found=36"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 196,
+          "payloadBytes": 95715,
+          "failureClass": null,
+          "note": "sounds_found=36"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "tracemoe.api_me",
+      "capability": "search.tracemoe",
+      "candidate_ref": "CAND-0438-JHXFC",
+      "failure_domain": "api.trace.moe",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 405,
+        "p50": 405,
+        "p95": 1241,
+        "max": 1241
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1241,
+          "payloadBytes": 76,
+          "failureClass": null,
+          "note": "quota=100 used=0"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 405,
+          "payloadBytes": 76,
+          "failureClass": null,
+          "note": "quota=100 used=0"
+        }
+      ],
+      "round": 1,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "twitter.vxtwitter_real",
+      "capability": "dl.twitter",
+      "candidate_ref": "existing:scrapers/twitter.js",
+      "failure_domain": "vxtwitter.com",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 139,
+        "p50": 139,
+        "p95": 358,
+        "max": 358
+      },
+      "primary_failure_class": "SCHEMA_OR_UPSTREAM",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": 403,
+          "latencyMs": 358,
+          "payloadBytes": 5681,
+          "failureClass": "SCHEMA_OR_UPSTREAM",
+          "note": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta htt"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": 403,
+          "latencyMs": 139,
+          "payloadBytes": 5681,
+          "failureClass": "SCHEMA_OR_UPSTREAM",
+          "note": "<!DOCTYPE html><html lang=\"en-US\"><head><title>Just a moment...</title><meta htt"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "twitter.fxtwitter_real",
+      "capability": "dl.twitter",
+      "candidate_ref": "existing:scrapers/twitter.js",
+      "failure_domain": "fxtwitter.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 431,
+        "p50": 431,
+        "p95": 658,
+        "max": 658
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 658,
+          "payloadBytes": 1156,
+          "failureClass": null,
+          "note": "just setting up my twttr"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 431,
+          "payloadBytes": 1156,
+          "failureClass": null,
+          "note": "just setting up my twttr"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "twitter.syndication_twimg_real",
+      "capability": "dl.twitter",
+      "candidate_ref": "cleanroom_public_syndication",
+      "failure_domain": "twimg.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 199,
+        "p50": 199,
+        "p95": 856,
+        "max": 856
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 856,
+          "payloadBytes": 920,
+          "failureClass": null,
+          "note": "@jack: just setting up my twttr"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 199,
+          "payloadBytes": 920,
+          "failureClass": null,
+          "note": "@jack: just setting up my twttr"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "soundcloud.oembed_active",
+      "capability": "dl.soundcloud",
+      "candidate_ref": "existing:src/scrapers/soundcloud.js",
+      "failure_domain": "soundcloud.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 362,
+        "p50": 362,
+        "p95": 849,
+        "max": 849
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 849,
+          "payloadBytes": 763,
+          "failureClass": null,
+          "note": "Forss - Flickermood by Forss"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 362,
+          "payloadBytes": 763,
+          "failureClass": null,
+          "note": "Forss - Flickermood by Forss"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "twitter.oembed_publish",
+      "capability": "dl.twitter",
+      "candidate_ref": "cleanroom_publish_twitter",
+      "failure_domain": "publish.twitter.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 709,
+        "p50": 709,
+        "p95": 1673,
+        "max": 1673
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1673,
+          "payloadBytes": 630,
+          "failureClass": null,
+          "note": "author=jack"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 709,
+          "payloadBytes": 630,
+          "failureClass": null,
+          "note": "author=jack"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "shortlink.tinyurl",
+      "capability": "util.shortlink",
+      "candidate_ref": "existing:scrapers/tools.js",
+      "failure_domain": "tinyurl.com",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 414,
+        "p50": 414,
+        "p95": 983,
+        "max": 983
+      },
+      "primary_failure_class": "SCHEMA_OR_UPSTREAM",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": 400,
+          "latencyMs": 983,
+          "payloadBytes": 5,
+          "failureClass": "SCHEMA_OR_UPSTREAM",
+          "note": "Error"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": 400,
+          "latencyMs": 414,
+          "payloadBytes": 5,
+          "failureClass": "SCHEMA_OR_UPSTREAM",
+          "note": "Error"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "shortlink.dagd",
+      "capability": "util.shortlink",
+      "candidate_ref": "cleanroom_dagd",
+      "failure_domain": "da.gd",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 450,
+        "p50": 450,
+        "p95": 1237,
+        "max": 1237
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1237,
+          "payloadBytes": 20,
+          "failureClass": null,
+          "note": "https://da.gd/3qQxb"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 450,
+          "payloadBytes": 20,
+          "failureClass": null,
+          "note": "https://da.gd/3qQxb"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "shortlink.spoome",
+      "capability": "util.shortlink",
+      "candidate_ref": "cleanroom_spoome",
+      "failure_domain": "spoo.me",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 528,
+        "p50": 528,
+        "p95": 1002,
+        "max": 1002
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1002,
+          "payloadBytes": 102,
+          "failureClass": null,
+          "note": "http://spoo.me/SEtjQ5"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 528,
+          "payloadBytes": 102,
+          "failureClass": null,
+          "note": "http://spoo.me/wW8N5A"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "manga.kitsu_api",
+      "capability": "search.manga",
+      "candidate_ref": "cleanroom_kitsu_jsonapi",
+      "failure_domain": "kitsu.io",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 591,
+        "p50": 591,
+        "p95": 1154,
+        "max": 1154
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 591,
+          "payloadBytes": 26432,
+          "failureClass": null,
+          "note": "hits=5 (Berserk)"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1154,
+          "payloadBytes": 26432,
+          "failureClass": null,
+          "note": "hits=5 (Berserk)"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "anime.kitsu_api",
+      "capability": "search.anime",
+      "candidate_ref": "cleanroom_kitsu_jsonapi",
+      "failure_domain": "kitsu.io",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 1111,
+        "p50": 1111,
+        "p95": 1999,
+        "max": 1999
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1999,
+          "payloadBytes": 25772,
+          "failureClass": null,
+          "note": "hits=5 (Sousou no Frieren)"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1111,
+          "payloadBytes": 25772,
+          "failureClass": null,
+          "note": "hits=5 (Sousou no Frieren)"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "secondary_fallback"
+    },
+    {
+      "provider_id": "manga.anilist_graphql",
+      "capability": "search.manga",
+      "candidate_ref": "CAND-0084-CKIZZ",
+      "failure_domain": "graphql.anilist.co",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 525,
+        "p50": 525,
+        "p95": 1491,
+        "max": 1491
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1491,
+          "payloadBytes": 4250,
+          "failureClass": null,
+          "note": "hits=5 (Berserk)"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 525,
+          "payloadBytes": 4250,
+          "failureClass": null,
+          "note": "hits=5 (Berserk)"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "youtube.vidssave",
+      "capability": "dl.ytmp4 / dl.ytmp3",
+      "candidate_ref": "CAND-0261-CKTHV / CAND-0465-JHXFC",
+      "failure_domain": "api.vidssave.com",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 191,
+        "p50": 191,
+        "p95": 960,
+        "max": 960
+      },
+      "primary_failure_class": "SCHEMA_OR_UPSTREAM",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": 200,
+          "latencyMs": 960,
+          "payloadBytes": 58,
+          "failureClass": "SCHEMA_OR_UPSTREAM",
+          "note": "resources=0 body={\"msg\":\"failed\",\"status\":0,\"status_code\":\"analyze_failed\"}"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": 200,
+          "latencyMs": 191,
+          "payloadBytes": 58,
+          "failureClass": "SCHEMA_OR_UPSTREAM",
+          "note": "resources=0 body={\"msg\":\"failed\",\"status\":0,\"status_code\":\"analyze_failed\"}"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "spotify.fabdl_with_origin",
+      "capability": "dl.spotify",
+      "candidate_ref": "existing:scrapers/spotify.js (fixed headers)",
+      "failure_domain": "fabdl.com",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 429,
+        "p50": 429,
+        "p95": 934,
+        "max": 934
+      },
+      "primary_failure_class": "SCHEMA_OR_UPSTREAM",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": 403,
+          "latencyMs": 934,
+          "payloadBytes": 81,
+          "failureClass": "SCHEMA_OR_UPSTREAM",
+          "note": "{\n    \"error\": {\n        \"code\": 403,\n        \"message\": \"invalid origin\"\n    }\n"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": 403,
+          "latencyMs": 429,
+          "payloadBytes": 81,
+          "failureClass": "SCHEMA_OR_UPSTREAM",
+          "note": "{\n    \"error\": {\n        \"code\": 403,\n        \"message\": \"invalid origin\"\n    }\n"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "tiktok.oembed_fixed_check",
+      "capability": "dl.tiktok",
+      "candidate_ref": "existing:scrapers/tiktok.js",
+      "failure_domain": "tiktok.com",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 257,
+        "p50": 257,
+        "p95": 1110,
+        "max": 1110
+      },
+      "primary_failure_class": "SCHEMA_OR_UPSTREAM",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": 200,
+          "latencyMs": 1110,
+          "payloadBytes": 542,
+          "failureClass": "SCHEMA_OR_UPSTREAM",
+          "note": "invalid"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": 200,
+          "latencyMs": 257,
+          "payloadBytes": 542,
+          "failureClass": "SCHEMA_OR_UPSTREAM",
+          "note": "invalid"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "wikipedia.rest_en_fallback",
+      "capability": "search.wikipedia",
+      "candidate_ref": "cleanroom_wikimedia_rest",
+      "failure_domain": "en.wikipedia.org",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 81,
+        "p50": 81,
+        "p95": 927,
+        "max": 927
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 927,
+          "payloadBytes": 2758,
+          "failureClass": null,
+          "note": "Linux is a family of free and open-source software Unix-like operating"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 81,
+          "payloadBytes": 2758,
+          "failureClass": null,
+          "note": "Linux is a family of free and open-source software Unix-like operating"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "npm.registry_package",
+      "capability": "stalk.github / dev.npm",
+      "candidate_ref": "CAND-0211-GHERZ / npm registry",
+      "failure_domain": "registry.npmjs.org",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 275,
+        "p50": 275,
+        "p95": 1712,
+        "max": 1712
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1712,
+          "payloadBytes": 5972,
+          "failureClass": null,
+          "note": "packages=5 (express@5.3.0)"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 275,
+          "payloadBytes": 5972,
+          "failureClass": null,
+          "note": "packages=5 (express@5.3.0)"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "soundcloud.apiv2_active",
+      "capability": "dl.soundcloud",
+      "candidate_ref": "CAND-0215-CKTHV",
+      "failure_domain": "api-v2.soundcloud.com",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 1485,
+        "p50": 1485,
+        "p95": 2122,
+        "max": 2122
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 2122,
+          "payloadBytes": 4011,
+          "failureClass": null,
+          "note": "id=293 transcodings=3"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 1485,
+          "payloadBytes": 4011,
+          "failureClass": null,
+          "note": "id=293 transcodings=3"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "secondary_fallback"
+    },
+    {
+      "provider_id": "gsmarena.mobile_site",
+      "capability": "search.gsmarena",
+      "candidate_ref": "existing:src/scrapers/gsmarena.js",
+      "failure_domain": "gsmarena.com",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 1670,
+        "p50": 1670,
+        "p95": 1691,
+        "max": 1691
+      },
+      "primary_failure_class": "SCHEMA_OR_UPSTREAM",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": 200,
+          "latencyMs": 1691,
+          "payloadBytes": 7895,
+          "failureClass": "SCHEMA_OR_UPSTREAM",
+          "note": "status=200 makers=false"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": 200,
+          "latencyMs": 1670,
+          "payloadBytes": 7895,
+          "failureClass": "SCHEMA_OR_UPSTREAM",
+          "note": "status=200 makers=false"
+        }
+      ],
+      "round": 2,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "youtube.savenow_ajax",
+      "capability": "dl.ytmp3 / dl.ytmp4",
+      "candidate_ref": "CAND-0179-GHERZ / CAND-0200-GHERZ",
+      "failure_domain": "savenow.to",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 310,
+        "p50": 310,
+        "p95": 1157,
+        "max": 1157
+      },
+      "primary_failure_class": "SCHEMA_OR_UPSTREAM",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": 403,
+          "latencyMs": 1157,
+          "payloadBytes": 405,
+          "failureClass": "SCHEMA_OR_UPSTREAM",
+          "note": "{\"docs_url\":\"https://video-download-api.com/api/docs\",\"error_code\":\"api_key_required\",\"message\":\"Thi"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": 403,
+          "latencyMs": 310,
+          "payloadBytes": 405,
+          "failureClass": "SCHEMA_OR_UPSTREAM",
+          "note": "{\"docs_url\":\"https://video-download-api.com/api/docs\",\"error_code\":\"api_key_required\",\"message\":\"Thi"
+        }
+      ],
+      "round": 3,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "youtube.invidious_nadeko",
+      "capability": "search.youtube / dl.ytmp4",
+      "candidate_ref": "cleanroom_invidious_alt",
+      "failure_domain": "inv.nadeko.net",
+      "runs": 2,
+      "success_rate": 0,
+      "schema_valid": false,
+      "latency_ms": {
+        "min": 478,
+        "p50": 478,
+        "p95": 1465,
+        "max": 1465
+      },
+      "primary_failure_class": "SCHEMA_OR_UPSTREAM",
+      "samples": [
+        {
+          "attempt": 1,
+          "success": false,
+          "httpStatus": 403,
+          "latencyMs": 1465,
+          "payloadBytes": 17,
+          "failureClass": "SCHEMA_OR_UPSTREAM",
+          "note": "status=403"
+        },
+        {
+          "attempt": 2,
+          "success": false,
+          "httpStatus": 403,
+          "latencyMs": 478,
+          "payloadBytes": 17,
+          "failureClass": "SCHEMA_OR_UPSTREAM",
+          "note": "status=403"
+        }
+      ],
+      "round": 3,
+      "recommended_role": "rejected_or_inactive"
+    },
+    {
+      "provider_id": "device_specs.wikipedia_search_api",
+      "capability": "search.gsmarena",
+      "candidate_ref": "cleanroom_wikimedia_device_specs",
+      "failure_domain": "en.wikipedia.org",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 561,
+        "p50": 561,
+        "p95": 881,
+        "max": 881
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 881,
+          "payloadBytes": 2392,
+          "failureClass": null,
+          "note": "hits=5 (IPhone Duo)"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 561,
+          "payloadBytes": 2392,
+          "failureClass": null,
+          "note": "hits=5 (IPhone Duo)"
+        }
+      ],
+      "round": 3,
+      "recommended_role": "primary_or_co_primary"
+    },
+    {
+      "provider_id": "tiktok.ttdlzone_detail",
+      "capability": "dl.tiktok",
+      "candidate_ref": "CAND-0522-ZANE",
+      "failure_domain": "ttdl.zone.id",
+      "runs": 2,
+      "success_rate": 1,
+      "schema_valid": true,
+      "latency_ms": {
+        "min": 215,
+        "p50": 215,
+        "p95": 716,
+        "max": 716
+      },
+      "primary_failure_class": null,
+      "samples": [
+        {
+          "attempt": 1,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 716,
+          "payloadBytes": 5223,
+          "failureClass": null,
+          "note": "keys=ok,cached,data sample={\"ok\":true,\"cached\":true,\"data\":{\"type\":\"video\",\"author\":{\"id\":\"107955\",\"username\":\"tiktok\",\"nickname\":\"user76"
+        },
+        {
+          "attempt": 2,
+          "success": true,
+          "httpStatus": 200,
+          "latencyMs": 215,
+          "payloadBytes": 5223,
+          "failureClass": null,
+          "note": "keys=ok,cached,data sample={\"ok\":true,\"cached\":true,\"data\":{\"type\":\"video\",\"author\":{\"id\":\"107955\",\"username\":\"tiktok\",\"nickname\":\"user76"
+        }
+      ],
+      "round": 3,
+      "recommended_role": "primary_or_co_primary"
+    }
+  ]
+}

@@ -57,6 +57,24 @@ Untuk menjamin **100% backward compatibility** terhadap bot WhatsApp (ZoraMD, Lu
 | `solve.waf` | Solvers | ALL | `/api/solver/waf`<br>`/api/v1/solver/waf` | `url` | Local FlareSolverr v3.5.2 (Port 8191) | Heavy I/O | No Cache | Paid Only (5 Credits) |
 | `solve.turnstile` | Solvers | ALL | `/api/solver/turnstile`<br>`/api/v1/solver/turnstile` | `url`, `sitekey` | Local FlareSolverr v3.5.2 (Port 8191) | Heavy I/O | No Cache | Paid Only (5 Credits) |
 | `solve.bridge`| Solvers | ALL | `/v1`<br>`/api/solver/flaresolverr` | Body / Query | Local FlareSolverr v3.5.2 Bridge | Heavy I/O | No Cache | Paid Only (5 Credits) |
+| `dl.soundcloud` | Downloader | ALL | `/api/downloader/soundcloud`<br>`/api/search/soundcloud`<br>`/api/v1/downloader/soundcloud` | `q` / `url` | SoundCloud API v2 (Dynamic Client ID) + Mobi + oEmbed | Low | 30 Min TTL | Eligible Free / 1 Credit |
+| `dl.sfile` | Downloader | ALL | `/api/downloader/sfile`<br>`/api/v1/downloader/sfile` | `url` | Sfile Multi-Step Cheerio Parser | Low | 15 Min TTL | Eligible Free / 1 Credit |
+| `dl.pixeldrain` | Downloader | ALL | `/api/downloader/pixeldrain`<br>`/api/v1/downloader/pixeldrain` | `url` | Pixeldrain File & List API (SSRF Protected) | Low | 15 Min TTL | Eligible Free / 1 Credit |
+| `search.gsmarena` | Search & Disc | ALL | `/api/search/gsmarena`<br>`/api/v1/search/gsmarena` | `q` | Wikipedia Device Specs + GSMArena Failover | Low | 7 Hari TTL | Eligible Free / 1 Credit |
+| `search.anime` | Search & Disc | ALL | `/api/search/anime`<br>`/api/v1/search/anime` | `q` | AniList GraphQL + Kitsu Edge + Kusonime + Jikan | Low | 24 Jam TTL | Eligible Free / 1 Credit |
+| `search.manga` | Search & Disc | ALL | `/api/search/manga`<br>`/api/v1/search/manga` | `q` | AniList GraphQL + Kitsu Edge Manga | Low | 24 Jam TTL | Eligible Free / 1 Credit |
+| `search.wikipedia` | Search & Disc | ALL | `/api/search/wikipedia`<br>`/api/v1/search/wikipedia` | `q`, `lang` | Wikipedia REST v1 + MediaWiki Extracts | Minimal | 24 Jam TTL | Eligible Free / 1 Credit |
+| `search.pinterest` | Search & Disc | ALL | `/api/search/pinterest`<br>`/api/v1/search/pinterest` | `q` | Pinterest Resource API + HTML Search Fallback | Low | 1 Jam TTL | Eligible Free / 1 Credit |
+| `search.applemusic` | Search & Disc | ALL | `/api/search/applemusic`<br>`/api/v1/search/applemusic` | `q` | iTunes / Apple Music Catalog ID & US | Minimal | 1 Jam TTL | Eligible Free / 1 Credit |
+| `search.steam` | Search & Disc | ALL | `/api/search/steam`<br>`/api/v1/search/steam` | `q` | Steam Storesearch API + CheapShark Fallback | Low | 1 Jam TTL | Eligible Free / 1 Credit |
+| `search.sticker` | Search & Disc | ALL | `/api/search/sticker`<br>`/api/v1/search/sticker` | `q` | Sticker.ly v4 SmartSearch + Tenor Web | Low | 1 Jam TTL | Eligible Free / 1 Credit |
+| `search.soundboard` | Search & Disc | ALL | `/api/search/soundboard`<br>`/api/v1/search/soundboard` | `q` | MyInstants MP3 Extractor + Archive.org | Low | 24 Jam TTL | Eligible Free / 1 Credit |
+| `stalk.npm` | Profiles | ALL | `/api/stalker/npm`<br>`/api/tools/npm`<br>`/api/v1/stalker/npm` | `pkg` | Official NPM Registry + Downloads + npms.io | Minimal | 1 Jam TTL | Eligible Free / 1 Credit |
+| `tool.tempmail` | Utilities | GET | `/api/tools/tempmail`<br>`/api/v1/tools/tempmail` | - | Mail.tm + TempMail.lol + GuerrillaMail + Temp-Mail.io | Minimal | No Cache | Eligible Free / 1 Credit |
+| `tool.tempmail.inbox` | Utilities | GET | `/api/tools/tempmail/inbox`<br>`/api/v1/tools/tempmail/inbox` | `email` | Bounded Session Router across 4 TempMail Providers | Minimal | No Cache | Eligible Free / 1 Credit |
+| `tool.translate` | Utilities | ALL | `/api/tools/translate`<br>`/api/v1/tools/translate` | `text`, `to`, `from` | Google GTX + MyMemory Translator | Minimal | 24 Jam TTL | Eligible Free / 1 Credit |
+| `tool.dns` | Utilities | ALL | `/api/tools/dns`<br>`/api/v1/tools/dns` | `domain`, `type` | Cloudflare DoH + Google DoH Resolver | Minimal | 10 Min TTL | Eligible Free / 1 Credit |
+| `tool.ssweb` | Utilities | ALL | `/api/tools/ssweb`<br>`/api/v1/tools/ssweb` | `url` | SSRF-Guarded Thum.io + WP mShots Capture | Medium | 30 Min TTL | Eligible Free / 1 Credit |
 
 ---
 

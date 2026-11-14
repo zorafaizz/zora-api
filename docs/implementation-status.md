@@ -101,6 +101,15 @@
 - [x] Live HTTPS verified (`https://api.itsfaiz.my.id/health` & `https://api.itsfaiz.my.id/docs`).
 - [x] All 48 automated tests passing (0 failures).
 
+### Phase G: Scraper Discovery, Multi-Engine Failover & 42-Endpoint Expansion (COMPLETED ✓)
+- [x] Exhaustive 12-source external scraper discovery (`529` candidates analyzed; `524` public artifacts isolated in `staging/`; `5` password-locked items respected; `xmz-scraper.my.id` documented dead).
+- [x] Linear $O(N)$ 4-level deduplication (`12` exact, `39` structural clones across `36` clusters, `47` same-upstream, `99` independent providers, `296` unique capabilities) & policy/security gate (`docs/scraper-discovery/*`).
+- [x] Empirical 3-round live staging benchmarks (`75` provider evaluations, bounded concurrency `4`, timeout `8500ms`).
+- [x] Multi-Engine Provider Orchestrator (`src/core/resilience.js`: `executeMultiProvider`, EWMA health scoring $\alpha=0.3$, `FailureDomainTracker`, retry budgets with jitter, deadline propagation, bulkhead concurrency caps).
+- [x] Upgraded 11 existing scraper modules (`tiktok`, `twitter`, `spotify`, `pinterest`, `youtube`, `tools`, `aio`, `soundcloud`, `tempmail`, `anime`, `gsmarena`) to true multi-provider failover chains.
+- [x] Added 12 clean-room endpoints (`dl.pixeldrain`, `search.manga`, `search.wikipedia`, `search.pinterest`, `search.applemusic`, `search.steam`, `search.sticker`, `search.soundboard`, `stalk.npm`, `tool.translate`, `tool.dns`, `tool.ssweb`) expanding `ENDPOINT_REGISTRY` from `30` to `42` active endpoints.
+- [x] Expanded automated test suite (`tests/multi-engine.test.js`, `tests/registry.test.js`, `tests/http-contract.test.js`) passing 100%.
+
 ---
 
 ## 4. Final Verification Summary

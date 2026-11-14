@@ -9,6 +9,7 @@ import { logger } from './src/core/logger.js';
 import { closeDb } from './src/core/db.js';
 import { closeRedis } from './src/core/redis.js';
 import { getOrSetCache } from './src/core/cache.js';
+import { getProviderHealthSnapshot } from './src/core/resilience.js';
 import { requestIdMiddleware } from './src/middleware/request-id.js';
 import { legacyCompatMiddleware } from './src/middleware/legacy-compat.js';
 import { rateLimiterMiddleware } from './src/middleware/rate-limiter.js';
@@ -48,6 +49,16 @@ import { scrapeSfile } from './src/scrapers/sfile.js';
 import { searchDevice } from './src/scrapers/gsmarena.js';
 import { searchAnime } from './src/scrapers/anime.js';
 import { createTempEmail, getTempInbox } from './src/scrapers/tempmail.js';
+import { scrapePixeldrain } from './src/scrapers/pixeldrain.js';
+import { searchManga } from './src/scrapers/manga.js';
+import { searchWikipedia } from './src/scrapers/wikipedia.js';
+import { searchPinterest } from './src/scrapers/pinterest-search.js';
+import { searchAppleMusic } from './src/scrapers/applemusic.js';
+import { searchSteam } from './src/scrapers/steam.js';
+import { searchSticker } from './src/scrapers/sticker.js';
+import { searchSoundboard } from './src/scrapers/soundboard.js';
+import { stalkNpm } from './src/scrapers/npm-stalk.js';
+import { translateText, dnsLookup, screenshotWeb } from './src/scrapers/network-tools.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -82,7 +93,9 @@ app.get(['/health', '/api/v1/health'], (req, res) => {
     uptime: `${Math.floor(process.uptime())}s`,
     node_version: process.version,
     memory: process.memoryUsage(),
-    cluster: 'Asia/Jakarta'
+    cluster: 'Asia/Jakarta',
+    total_endpoints: ENDPOINT_REGISTRY.length,
+    provider_health: getProviderHealthSnapshot()
   });
 });
 
@@ -352,6 +365,17 @@ app.all(['/api/downloader/mediafire', '/api/v1/downloader/mediafire'], async (re
   }
 });
 
+// Pixeldrain Direct Downloader (NEW)
+app.all(['/api/downloader/pixeldrain', '/api/v1/downloader/pixeldrain'], async (req, res) => {
+  try {
+    const url = req.query.url || req.body?.url;
+    const data = await getOrSetCache(`pixeldrain:${url}`, 900, () => scrapePixeldrain(url));
+    res.sendSuccess(data);
+  } catch (err) {
+    res.sendError(err);
+  }
+});
+
 // ==========================================
 // 2. ARTIFICIAL INTELLIGENCE (AI)
 // ==========================================
@@ -518,6 +542,133 @@ app.all(['/api/tools/presetam', '/api/tools/findpresetam', '/api/v1/tools/preset
   try {
     const url = req.query.url || req.body?.url;
     const data = await getOrSetCache(`presetam:${url}`, 3600, () => findAlightMotionPreset(url));
+    res.sendSuccess(data);
+  } catch (err) {
+    res.sendError(err);
+  }
+});
+
+// Manga, Manhwa & Light Novel Search (NEW)
+app.all(['/api/search/manga', '/api/v1/search/manga'], async (req, res) => {
+  try {
+    const q = req.query.q || req.body?.q;
+    const data = await getOrSetCache(`manga:${q}`, 86400, () => searchManga(q));
+    res.sendSuccess(data);
+  } catch (err) {
+    res.sendError(err);
+  }
+});
+
+// Wikipedia Encyclopedia Summary (NEW)
+app.all(['/api/search/wikipedia', '/api/v1/search/wikipedia'], async (req, res) => {
+  try {
+    const q = req.query.q || req.body?.q;
+    const lang = req.query.lang || req.body?.lang || 'id';
+    const data = await getOrSetCache(`wikipedia:${lang}:${q}`, 86400, () => searchWikipedia(q, lang));
+    res.sendSuccess(data);
+  } catch (err) {
+    res.sendError(err);
+  }
+});
+
+// Pinterest Visual Pin Search (NEW)
+app.all(['/api/search/pinterest', '/api/v1/search/pinterest'], async (req, res) => {
+  try {
+    const q = req.query.q || req.body?.q;
+    const data = await getOrSetCache(`pinterest_search:${q}`, 3600, () => searchPinterest(q));
+    res.sendSuccess(data);
+  } catch (err) {
+    res.sendError(err);
+  }
+});
+
+// Apple Music & iTunes Track Search (NEW)
+app.all(['/api/search/applemusic', '/api/v1/search/applemusic'], async (req, res) => {
+  try {
+    const q = req.query.q || req.body?.q;
+    const data = await getOrSetCache(`applemusic:${q}`, 3600, () => searchAppleMusic(q));
+    res.sendSuccess(data);
+  } catch (err) {
+    res.sendError(err);
+  }
+});
+
+// Steam Store Game & Price Search (NEW)
+app.all(['/api/search/steam', '/api/v1/search/steam'], async (req, res) => {
+  try {
+    const q = req.query.q || req.body?.q;
+    const data = await getOrSetCache(`steam:${q}`, 3600, () => searchSteam(q));
+    res.sendSuccess(data);
+  } catch (err) {
+    res.sendError(err);
+  }
+});
+
+// Sticker Pack Search (NEW)
+app.all(['/api/search/sticker', '/api/v1/search/sticker'], async (req, res) => {
+  try {
+    const q = req.query.q || req.body?.q;
+    const data = await getOrSetCache(`sticker:${q}`, 3600, () => searchSticker(q));
+    res.sendSuccess(data);
+  } catch (err) {
+    res.sendError(err);
+  }
+});
+
+// Meme Soundboard & SFX Search (NEW)
+app.all(['/api/search/soundboard', '/api/v1/search/soundboard'], async (req, res) => {
+  try {
+    const q = req.query.q || req.body?.q;
+    const data = await getOrSetCache(`soundboard:${q}`, 86400, () => searchSoundboard(q));
+    res.sendSuccess(data);
+  } catch (err) {
+    res.sendError(err);
+  }
+});
+
+// NPM Package Stalker & Stats (NEW)
+app.all(['/api/stalker/npm', '/api/tools/npm', '/api/v1/stalker/npm'], async (req, res) => {
+  try {
+    const pkg = req.query.pkg || req.query.name || req.body?.pkg || req.body?.name;
+    const data = await getOrSetCache(`npm:${pkg}`, 3600, () => stalkNpm(pkg));
+    res.sendSuccess(data);
+  } catch (err) {
+    res.sendError(err);
+  }
+});
+
+// Multi-Engine Translator (NEW)
+app.all(['/api/tools/translate', '/api/v1/tools/translate'], async (req, res) => {
+  try {
+    const text = req.query.text || req.query.q || req.body?.text || req.body?.q;
+    const to = req.query.to || req.body?.to || 'id';
+    const from = req.query.from || req.body?.from || 'auto';
+    const data = await getOrSetCache(`translate:${from}:${to}:${text}`, 86400, () =>
+      translateText(text, to, from)
+    );
+    res.sendSuccess(data);
+  } catch (err) {
+    res.sendError(err);
+  }
+});
+
+// DNS over HTTPS (DoH) Lookup (NEW)
+app.all(['/api/tools/dns', '/api/v1/tools/dns'], async (req, res) => {
+  try {
+    const domain = req.query.domain || req.body?.domain;
+    const type = req.query.type || req.body?.type || 'A';
+    const data = await getOrSetCache(`dns:${type}:${domain}`, 600, () => dnsLookup(domain, type));
+    res.sendSuccess(data);
+  } catch (err) {
+    res.sendError(err);
+  }
+});
+
+// Web Screenshot Capture (SSRF-Protected) (NEW)
+app.all(['/api/tools/ssweb', '/api/v1/tools/ssweb'], async (req, res) => {
+  try {
+    const url = req.query.url || req.body?.url;
+    const data = await getOrSetCache(`ssweb:${url}`, 1800, () => screenshotWeb(url));
     res.sendSuccess(data);
   } catch (err) {
     res.sendError(err);
