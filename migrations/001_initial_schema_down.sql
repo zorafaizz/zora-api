@@ -1,0 +1,11 @@
+-- 001_initial_schema_down.sql: Reversible Migration DOWN
+
+DROP TABLE IF EXISTS audit_logs CASCADE;
+DROP TABLE IF EXISTS invoices CASCADE;
+DROP TABLE IF EXISTS credit_reservations CASCADE;
+DROP TABLE IF EXISTS credit_ledger CASCADE;
+DROP TABLE IF EXISTS wallets CASCADE;
+DROP TABLE IF EXISTS daily_quotas CASCADE;
+DROP TABLE IF EXISTS api_keys CASCADE;
+DROP TABLE IF EXISTS oauth_identities CASCADE;
+DROP TABLE IF EXISTS accounts CASCADE;

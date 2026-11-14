@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Zora REST API — High Speed Media Scraper &amp; Bot Tools</title>
+  <title>KanjutGede API — High Speed Media Scraper &amp; Bot Tools</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -17,7 +17,6 @@
       --text-muted: #a1a1aa;
       --accent: #3b82f6;
       --green: #10b981;
-      --purple: #a855f7;
       --font: 'Plus Jakarta Sans', sans-serif;
       --mono: 'JetBrains Mono', monospace;
     }
@@ -29,7 +28,7 @@
       line-height: 1.5;
       padding: 30px 20px;
     }
-    .container { max-width: 980px; margin: 0 auto; }
+    .container { max-width: 1040px; margin: 0 auto; }
     header {
       border-bottom: 1px solid var(--border);
       padding-bottom: 24px;
@@ -55,6 +54,34 @@
       font-weight: 600;
     }
     .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
+    .btn-docs {
+      background: #18181b;
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 0.85rem;
+      transition: all 0.15s;
+    }
+    .btn-docs:hover { background: #27272a; border-color: #3f3f46; }
+
+    .grid-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+    .stat-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 20px;
+    }
+    .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+    .stat-val { font-size: 1.35rem; font-weight: 700; margin-top: 6px; font-family: var(--mono); }
+
     .info-box {
       background: var(--card);
       border: 1px solid var(--border);
@@ -209,14 +236,36 @@
   <div class="container">
     <header>
       <div class="brand">
-        <h1>Zora REST API</h1>
-        <p>Endpoint Scraper &amp; Bot Tools — Dual-Engine Auto Failover</p>
+        <h1>KanjutGede API</h1>
+        <p>Enterprise Media Scraper &amp; Bot Tools — Engine, Quota &amp; Billing Infrastructure</p>
       </div>
-      <div class="status-badge">
-        <span class="dot"></span>
-        <span>SISTEM AKTIF</span>
+      <div style="display:flex; gap:10px; align-items:center;">
+        <div class="status-badge">
+          <span class="dot"></span>
+          <span>CLUSTER ONLINE &bull; ASIA/JAKARTA</span>
+        </div>
+        <a href="/docs" class="btn-docs">OpenAPI / Scalar Docs</a>
       </div>
     </header>
+
+    <div class="grid-stats">
+      <div class="stat-card">
+        <div class="stat-label">Host Infrastructure</div>
+        <div class="stat-val">12 Cores &bull; 31GB</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">System Uptime</div>
+        <div class="stat-val" id="stat-uptime">Loading...</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Daily Free Quota</div>
+        <div class="stat-val" style="color: var(--green);">20 Req / Hari</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-label">Lifetime Test Quota</div>
+        <div class="stat-val" style="color: var(--accent);">50 Requests</div>
+      </div>
+    </div>
 
     <div class="info-box">
       <div>
@@ -230,14 +279,14 @@
     </div>
 
     <!-- PENCARIAN -->
-    <input type="text" class="search-box" id="searchFilter" placeholder="Ketik untuk mencari endpoint (contoh: aio, tiktok, instagram, youtube, hd, gempa)..." oninput="filterEndpoints()">
+    <input type="text" class="search-box" id="searchFilter" placeholder="Ketik untuk mencari endpoint (contoh: aio, tiktok, instagram, youtube, hd, gempa, soundcloud, sfile)..." oninput="filterEndpoints()">
 
     <!-- FILTER KATEGORI -->
     <div class="nav-filters">
-      <button class="filter-btn active" onclick="setCategory('all', this)">Semua (17)</button>
-      <button class="filter-btn" onclick="setCategory('downloader', this)">Downloader (9)</button>
-      <button class="filter-btn" onclick="setCategory('ai', this)">Artificial Intelligence (1)</button>
-      <button class="filter-btn" onclick="setCategory('tools', this)">Tools, HD &amp; Scrapers (7)</button>
+      <button class="filter-btn active" onclick="setCategory('all', this)">Semua</button>
+      <button class="filter-btn" onclick="setCategory('downloader', this)">Downloader</button>
+      <button class="filter-btn" onclick="setCategory('ai', this)">AI</button>
+      <button class="filter-btn" onclick="setCategory('tools', this)">Tools &amp; Scrapers</button>
     </div>
 
     <!-- ==================== DOWNLOADER ==================== -->
@@ -363,38 +412,38 @@
         <pre class="res-box" id="res-spotify"></pre>
       </div>
 
-      <!-- PINTEREST -->
-      <div class="ep-card" data-name="pinterest pindl">
+      <!-- SOUNDCLOUD -->
+      <div class="ep-card" data-name="soundcloud sound cloud lagu audio">
         <div class="ep-header">
           <div class="ep-route">
             <span class="method-get">ALL</span>
-            <span>/api/downloader/pinterest</span>
-            <span class="badge-engine">yt-dlp Core</span>
+            <span>/api/downloader/soundcloud</span>
+            <span class="badge-engine">SoundCloud Mobile API</span>
           </div>
         </div>
-        <p class="ep-desc">Ekstraksi link video dan gambar resolusi asli dari Pinterest pin.</p>
+        <p class="ep-desc">Pencarian dan streaming audio dari SoundCloud dengan metadata lengkap.</p>
         <div class="test-box">
-          <input type="text" class="test-input" id="in-pin" placeholder="https://pin.it/... atau https://pinterest.com/pin/...">
-          <button class="btn btn-primary" onclick="testApi('/api/downloader/pinterest?url=', 'in-pin', 'res-pin')">Coba Request</button>
+          <input type="text" class="test-input" id="in-sc" placeholder="Judul lagu..." value="alan walker faded">
+          <button class="btn btn-primary" onclick="testApi('/api/downloader/soundcloud?q=', 'in-sc', 'res-sc')">Coba Request</button>
         </div>
-        <pre class="res-box" id="res-pin"></pre>
+        <pre class="res-box" id="res-sc"></pre>
       </div>
 
-      <!-- MEDIAFIRE -->
-      <div class="ep-card" data-name="mediafire mf">
+      <!-- SFILE MOBI -->
+      <div class="ep-card" data-name="sfile mobi download link">
         <div class="ep-header">
           <div class="ep-route">
             <span class="method-get">ALL</span>
-            <span>/api/downloader/mediafire</span>
-            <span class="badge-engine">Cheerio Direct</span>
+            <span>/api/downloader/sfile</span>
+            <span class="badge-engine">Sfile Cheerio Multi-Step</span>
           </div>
         </div>
-        <p class="ep-desc">Ekstraksi link direct download file MediaFire beserta nama dan ukuran file.</p>
+        <p class="ep-desc">Bypass download link bertingkat dari Sfile.mobi langsung ke file asli.</p>
         <div class="test-box">
-          <input type="text" class="test-input" id="in-mf" placeholder="https://www.mediafire.com/file/...">
-          <button class="btn btn-primary" onclick="testApi('/api/downloader/mediafire?url=', 'in-mf', 'res-mf')">Coba Request</button>
+          <input type="text" class="test-input" id="in-sfile" placeholder="https://sfile.mobi/...">
+          <button class="btn btn-primary" onclick="testApi('/api/downloader/sfile?url=', 'in-sfile', 'res-sfile')">Coba Request</button>
         </div>
-        <pre class="res-box" id="res-mf"></pre>
+        <pre class="res-box" id="res-sfile"></pre>
       </div>
     </div>
 
@@ -424,6 +473,56 @@
     <div class="section-group" data-group="tools">
       <div class="category-title">Tools, HD Enhancer &amp; Scrapers</div>
 
+      <!-- GSMARENA -->
+      <div class="ep-card" data-name="gsmarena phone spesifikasi hp gadget">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">ALL</span>
+            <span>/api/search/gsmarena</span>
+            <span class="badge-engine">GSMArena Fast Search</span>
+          </div>
+        </div>
+        <p class="ep-desc">Pencarian spesifikasi perangkat smartphone dan tablet dari basis data GSMArena.</p>
+        <div class="test-box">
+          <input type="text" class="test-input" id="in-gsm" placeholder="Nama hp (contoh: Pixel 8, iPhone 15)..." value="Pixel 8">
+          <button class="btn btn-primary" onclick="testApi('/api/search/gsmarena?q=', 'in-gsm', 'res-gsm')">Coba Request</button>
+        </div>
+        <pre class="res-box" id="res-gsm"></pre>
+      </div>
+
+      <!-- ANIME KUSONIME -->
+      <div class="ep-card" data-name="anime kusonime wibu">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">ALL</span>
+            <span>/api/search/anime</span>
+            <span class="badge-engine">Kusonime Direct</span>
+          </div>
+        </div>
+        <p class="ep-desc">Pencarian anime, informasi rilis, genre, dan tautan download batch dari Kusonime.</p>
+        <div class="test-box">
+          <input type="text" class="test-input" id="in-anime" placeholder="Judul anime..." value="Naruto">
+          <button class="btn btn-primary" onclick="testApi('/api/search/anime?q=', 'in-anime', 'res-anime')">Coba Request</button>
+        </div>
+        <pre class="res-box" id="res-anime"></pre>
+      </div>
+
+      <!-- TEMPMAIL -->
+      <div class="ep-card" data-name="tempmail email sementara disposable otp">
+        <div class="ep-header">
+          <div class="ep-route">
+            <span class="method-get">GET</span>
+            <span>/api/tools/tempmail</span>
+            <span class="badge-engine">Temp-Mail.io</span>
+          </div>
+        </div>
+        <p class="ep-desc">Buat alamat email sementara baru secara instan untuk verifikasi OTP.</p>
+        <div class="test-box">
+          <button class="btn btn-primary" onclick="testDirect('/api/tools/tempmail', 'res-tempmail')">Buat Email Baru</button>
+        </div>
+        <pre class="res-box" id="res-tempmail"></pre>
+      </div>
+
       <!-- IMAGE ENHANCER HD -->
       <div class="ep-card" data-name="hd remini enhance image sharp">
         <div class="ep-header">
@@ -439,23 +538,6 @@
           <button class="btn btn-primary" onclick="testApi('/api/tools/hd?url=', 'in-hd', 'res-hd')">Coba Request</button>
         </div>
         <pre class="res-box" id="res-hd"></pre>
-      </div>
-
-      <!-- IMAGE ENHANCER UHD (UPSCALER) -->
-      <div class="ep-card" data-name="uhd upscaler super resolution 2x 4x">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/tools/uhd</span>
-            <span class="badge-engine">Lanczos3 Super-Resolution</span>
-          </div>
-        </div>
-        <p class="ep-desc">Super-Resolution 2x / 4x Upscaling memperbesar piksel gambar tanpa blur.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-uhd" placeholder="https://.../gambar.jpg" value="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200">
-          <button class="btn btn-primary" onclick="testApi('/api/tools/uhd?scale=2&url=', 'in-uhd', 'res-uhd')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-uhd"></pre>
       </div>
 
       <!-- BMKG GEMPA -->
@@ -474,22 +556,6 @@
         <pre class="res-box" id="res-gempa"></pre>
       </div>
 
-      <!-- BMKG 15 GEMPA -->
-      <div class="ep-card" data-name="gempa terkini bmkg">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">GET</span>
-            <span>/api/tools/gempa/terkini</span>
-            <span class="badge-engine">BMKG Realtime</span>
-          </div>
-        </div>
-        <p class="ep-desc">Daftar 15 gempa bumi terkini di seluruh Indonesia dari BMKG.</p>
-        <div class="test-box">
-          <button class="btn btn-primary" onclick="testDirect('/api/tools/gempa/terkini', 'res-gempa15')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-gempa15"></pre>
-      </div>
-
       <!-- JADWAL SHOLAT -->
       <div class="ep-card" data-name="jadwal sholat kemenag">
         <div class="ep-header">
@@ -506,79 +572,24 @@
         </div>
         <pre class="res-box" id="res-sholat"></pre>
       </div>
-
-      <!-- LIRIK LAGU -->
-      <div class="ep-card" data-name="lirik lagu lyrics">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/tools/lirik</span>
-            <span class="badge-engine">Lyrics.ovh</span>
-          </div>
-        </div>
-        <p class="ep-desc">Pencarian lirik lagu lengkap berdasarkan artis dan judul.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-artist" placeholder="Artis (contoh: coldplay)" value="coldplay" style="max-width:160px">
-          <input type="text" class="test-input" id="in-title" placeholder="Judul (contoh: yellow)" value="yellow">
-          <button class="btn btn-primary" onclick="testLirik()">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-lirik"></pre>
-      </div>
-
-      <!-- SHORTLINK -->
-      <div class="ep-card" data-name="shortlink tinyurl">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/tools/shortlink</span>
-            <span class="badge-engine">TinyURL API</span>
-          </div>
-        </div>
-        <p class="ep-desc">Pemendek tautan URL instan dan permanen.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-short" placeholder="URL panjang..." value="https://api.itsfaiz.my.id">
-          <button class="btn btn-primary" onclick="testApi('/api/tools/shortlink?url=', 'in-short', 'res-short')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-short"></pre>
-      </div>
-
-      <!-- GITHUB STALK -->
-      <div class="ep-card" data-name="github stalk">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/tools/github</span>
-            <span class="badge-engine">GitHub API</span>
-          </div>
-        </div>
-        <p class="ep-desc">Stalker profil GitHub: bio, repositori publik, followers, dan avatar.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-gh" placeholder="Username GitHub..." value="zorafaizz">
-          <button class="btn btn-primary" onclick="testApi('/api/tools/github?username=', 'in-gh', 'res-gh')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-gh"></pre>
-      </div>
-
-      <!-- IP LOOKUP -->
-      <div class="ep-card" data-name="ip lookup whois">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/tools/iplookup</span>
-            <span class="badge-engine">IPWho.is</span>
-          </div>
-        </div>
-        <p class="ep-desc">Lookup informasi geolokasi dan ISP dari alamat IP publik.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-ip" placeholder="Alamat IP..." value="8.8.8.8">
-          <button class="btn btn-primary" onclick="testApi('/api/tools/iplookup?ip=', 'in-ip', 'res-ip')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-ip"></pre>
-      </div>
     </div>
   </div>
 
   <script>
+    fetch('/health')
+      .then(res => res.json())
+      .then(data => {
+        if (data.uptime) {
+          const upSec = parseInt(data.uptime);
+          const hrs = Math.floor(upSec / 3600);
+          const mins = Math.floor((upSec % 3600) / 60);
+          document.getElementById('stat-uptime').innerText = `${hrs}j ${mins}m`;
+        }
+      })
+      .catch(() => {
+        document.getElementById('stat-uptime').innerText = 'Online';
+      });
+
     async function testApi(endpoint, inputId, resId) {
       const val = document.getElementById(inputId).value.trim();
       const resEl = document.getElementById(resId);
@@ -599,21 +610,6 @@
       resEl.textContent = 'Mengirim request ke server...';
       try {
         const res = await fetch(endpoint);
-        const json = await res.json();
-        resEl.textContent = JSON.stringify(json, null, 2);
-      } catch (err) {
-        resEl.textContent = 'Error: ' + err.message;
-      }
-    }
-
-    async function testLirik() {
-      const artist = document.getElementById('in-artist').value.trim();
-      const title = document.getElementById('in-title').value.trim();
-      const resEl = document.getElementById('res-lirik');
-      resEl.style.display = 'block';
-      resEl.textContent = 'Mengirim request ke server...';
-      try {
-        const res = await fetch(`/api/tools/lirik?artist=${encodeURIComponent(artist)}&title=${encodeURIComponent(title)}`);
         const json = await res.json();
         resEl.textContent = JSON.stringify(json, null, 2);
       } catch (err) {
