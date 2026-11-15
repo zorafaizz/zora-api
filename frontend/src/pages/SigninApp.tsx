@@ -17,12 +17,12 @@ import { CommandModal } from '../components/CommandModal';
 
 
 function resolveSafeReturnTo(): string {
-  if (typeof window === 'undefined') return '/explorer.html';
+  if (typeof window === 'undefined') return '/explorer';
   const raw = new URLSearchParams(window.location.search).get('returnTo') || '';
   if (raw.startsWith('/') && !raw.startsWith('//') && !raw.includes('\\')) {
     return raw;
   }
-  return '/explorer.html';
+  return '/explorer';
 }
 
 type GateStage = 'loading' | 'email' | 'otp' | 'signed_in' | 'reauth_otp';
@@ -318,7 +318,7 @@ export const SigninApp: React.FC = () => {
             {errorMsg && (
               <div
                 role="alert"
-                className="flex items-start gap-2.5 rounded-xl border border-rose-500/45 bg-rose-500/10 p-3.5 text-xs text-rose-600 dark:text-rose-300"
+                className="flex items-start gap-2.5 rounded-xl border border-celestial-primary/45 bg-celestial-elevated p-3.5 text-xs text-celestial-primary"
               >
                 <XCircle className="mt-0.5 h-4 w-4 shrink-0" strokeWidth={1.5} />
                 <span>{errorMsg}</span>
@@ -433,8 +433,8 @@ export const SigninApp: React.FC = () => {
 
             {stage === 'signed_in' && (
               <div className="space-y-4">
-                <div className="rounded-xl border border-emerald-500/35 bg-emerald-500/10 p-4">
-                  <div className="font-mono text-[11px] uppercase tracking-wider text-emerald-700 dark:text-emerald-300">
+<div className="rounded-xl border border-celestial-border bg-celestial-elevated p-4">
+                    <div className="font-mono text-[11px] uppercase tracking-wider text-celestial-primary">
                     ACTIVE SESSION ESTABLISHED
                   </div>
                   <div className="mt-1 font-mono text-sm font-semibold text-celestial-primary">
@@ -473,7 +473,7 @@ export const SigninApp: React.FC = () => {
                   <button
                     type="button"
                     onClick={() => handleLogout(true)}
-                    className="inline-flex min-h-[40px] items-center gap-1.5 rounded-lg border border-rose-400/40 bg-rose-400/10 px-3.5 py-2 font-mono text-xs text-rose-300 hover:bg-rose-400/20"
+                    className="inline-flex min-h-[40px] items-center gap-1.5 rounded-lg border border-celestial-border bg-celestial-canvas px-3.5 py-2 font-mono text-xs text-celestial-secondary hover:border-celestial-primary hover:text-celestial-primary"
                   >
                     <KeyRound className="h-3.5 w-3.5" strokeWidth={1.5} />
                     <span>Revoke All Sessions</span>
@@ -502,7 +502,7 @@ export const SigninApp: React.FC = () => {
             </div>
 
             <div className="mt-10 rounded-2xl border border-celestial-border/60 bg-celestial-canvas/45 p-4">
-              <div className="flex items-center gap-2"><span className={`h-2.5 w-2.5 rounded-full ${apiState === 'success' ? 'bg-emerald-400' : apiState === 'error' ? 'bg-rose-400' : apiState === 'loading' ? 'animate-pulse bg-celestial-sky' : 'bg-celestial-muted'}`} /><span className="text-xs font-semibold uppercase tracking-wider text-celestial-primary">{apiState}</span></div>
+              <div className="flex items-center gap-2"><span className={`h-2.5 w-2.5 rounded-full ${apiState === 'loading' ? 'animate-pulse bg-celestial-primary' : apiState === 'idle' ? 'bg-celestial-muted' : 'bg-celestial-primary'}`} /><span className="text-xs font-semibold uppercase tracking-wider text-celestial-primary">{apiState}</span></div>
               <p className="mt-2 text-xs leading-5 text-celestial-secondary" aria-live="polite">{operatorNote || 'Session gate is ready.'}</p>
             </div>
           </aside>

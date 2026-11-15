@@ -5,21 +5,10 @@ import { motion } from 'motion/react';
 import {
   ArrowRight,
   ArrowUpRight,
-  Braces,
   Check,
   CircleStop,
-  Code2,
   Copy,
-  FileJson2,
-  Gauge,
-  Layers3,
-  LockKeyhole,
-  Pause,
-  Play,
   Route,
-  ShieldCheck,
-  Volume2,
-  VolumeX,
   Zap,
 } from 'lucide-react';
 import {
@@ -37,35 +26,22 @@ import {
 import { CelestialNavbar } from '../components/CelestialNavbar';
 import { CommandModal } from '../components/CommandModal';
 import { JsonViewer } from '../components/JsonViewer';
+import { LandingHero } from '../components/landing/LandingHero';
+import {
+  CapabilityRail,
+  DocsSection,
+  LandingCta,
+  LandingFooter,
+  SystemSection,
+} from '../components/landing/LandingSections';
 import { useCelestialTheme } from '../lib/theme';
 
 gsap.registerPlugin(ScrollTrigger);
 
 const FEATURED_IDS = ['sys.health', 'search.anime', 'stalk.github', 'util.iplookup', 'search.manga'];
 
-const VALUE_BLOCKS = [
-  {
-    icon: ShieldCheck,
-    index: '01',
-    title: 'Safe by default',
-    copy: 'Volatile credentials, bounded response streams, and automatic redaction keep experimentation from becoming a security footgun.',
-  },
-  {
-    icon: Braces,
-    index: '02',
-    title: 'One predictable shape',
-    copy: 'Consistent JSON envelopes and real OpenAPI contracts make every route feel familiar after the first request.',
-  },
-  {
-    icon: Gauge,
-    index: '03',
-    title: 'Built for iteration',
-    copy: 'Tune parameters, execute explicitly, inspect headers, then move to production-ready snippets without changing context.',
-  },
-];
-
 export const LandingApp: React.FC = () => {
-  const { theme, reducedMotion } = useCelestialTheme();
+  const { reducedMotion } = useCelestialTheme();
   const rootRef = useRef<HTMLDivElement | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const abortRef = useRef<AbortController | null>(null);
@@ -165,11 +141,6 @@ export const LandingApp: React.FC = () => {
         ease: 'none',
         scrollTrigger: { trigger: '.hero-cinematic', start: 'top top', end: 'bottom top', scrub: 0.7 },
       });
-      gsap.to('.anime-parallax-image', {
-        yPercent: -12,
-        ease: 'none',
-        scrollTrigger: { trigger: '.bento-image-card', start: 'top bottom', end: 'bottom top', scrub: 0.8 },
-      });
     }, rootRef);
     return () => context.revert();
   }, [reducedMotion]);
@@ -260,10 +231,9 @@ export const LandingApp: React.FC = () => {
     }
   };
 
-  const isDark = theme === 'dark';
-
   return (
     <div ref={rootRef} className="celestial-atmosphere min-h-screen overflow-x-clip">
+      <a href="#main-content" className="skip-link">Skip to Content</a>
       <CelestialNavbar
         activeRoute="landing"
         onOpenCommand={() => setCommandOpen(true)}
@@ -274,80 +244,17 @@ export const LandingApp: React.FC = () => {
       />
       <CommandModal open={commandOpen} onClose={() => setCommandOpen(false)} endpoints={endpoints} />
 
-      <main>
-        <section className="hero-cinematic relative isolate min-h-[100svh] overflow-hidden border-b border-celestial-border/60">
-          <div className="hero-background-media absolute inset-0 -z-20">
-            <video
-              ref={videoRef}
-              autoPlay={!reducedMotion}
-              loop
-              muted
-              playsInline
-              preload="metadata"
-              poster="/assets/media/intro-poster.webp"
-              className={`h-full w-full object-cover ${isDark ? 'brightness-[0.72]' : 'brightness-[0.8]'}`}
-            >
-              <source src="/assets/media/intro.webm" type="video/webm" />
-              <source src="/assets/media/intro.mp4" type="video/mp4" />
-            </video>
-          </div>
-          <div className="hero-film-overlay absolute inset-0 -z-10" aria-hidden="true" />
-          <div className="hero-editorial-grid mx-auto grid min-h-[100svh] max-w-[1480px] grid-cols-12 content-end px-5 pb-10 pt-32 sm:px-8 sm:pb-14 lg:px-12 lg:pb-16">
-            <div className="col-span-12 lg:col-span-9">
-              <div className="hero-reveal mb-5 flex items-center gap-3 font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-white/68 sm:text-xs">
-                <span className="status-dot" />
-                REST infrastructure for people who ship
-              </div>
-              <h1 className="hero-title text-white">
-                <span className="hero-mask-word"><span>Build beyond</span></span>
-                <span className="hero-mask-word hero-title-accent"><span>the obvious.</span></span>
-              </h1>
-              <div className="hero-reveal mt-7 grid gap-7 border-t border-white/20 pt-6 sm:grid-cols-[minmax(0,34rem)_1fr] sm:items-end lg:max-w-5xl">
-                <p className="max-w-xl text-pretty text-sm leading-7 text-white/72 sm:text-base">
-                  Search, media extraction, developer utilities, and discovery APIs—one clean contract, one focused workbench, zero dashboard theatre.
-                </p>
-                <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
-                  <motion.a
-                    whileTap={{ scale: 0.98 }}
-                    href="/explorer.html"
-                    className="btn-celestial-primary animated-button group inline-flex min-h-13 items-center justify-center gap-3 rounded-full px-6 py-3.5 text-sm font-semibold"
-                  >
-                    <span>Open Workbench</span>
-                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-                  </motion.a>
-                  <a href="/docs" className="btn-glass animated-button inline-flex min-h-13 items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold">
-                    Read API Docs
-                    <ArrowUpRight className="h-4 w-4" />
-                  </a>
-                </div>
-              </div>
-            </div>
-
-            <div className="hero-reveal col-span-12 mt-8 flex flex-wrap items-end justify-between gap-5 border-t border-white/15 pt-5 text-white lg:mt-12">
-              <div className="grid grid-cols-3 gap-6 sm:gap-12">
-                <div><strong className="hero-metric">{endpoints.length || '—'}</strong><span className="hero-metric-label">real routes</span></div>
-                <div><strong className="hero-metric">3.1</strong><span className="hero-metric-label">OpenAPI</span></div>
-                <div><strong className="hero-metric">1 MB</strong><span className="hero-metric-label">stream guard</span></div>
-              </div>
-              <div className="flex items-center gap-2">
-                <button type="button" onClick={toggleVideo} aria-label={videoPaused ? 'Play hero video' : 'Pause hero video'} className="media-control">
-                  {videoPaused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
-                </button>
-                <button type="button" onClick={toggleAudio} aria-label={videoMuted ? 'Unmute hero video' : 'Mute hero video'} className="media-control">
-                  {videoMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-                </button>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section data-reveal className="border-y border-celestial-border/60 bg-celestial-surface/55 py-5">
-          <div className="ticker-track" aria-label="API capabilities">
-            {[...Array(2)].flatMap((_, repeat) => ['SEARCH', 'EXTRACT', 'DISCOVER', 'AUTOMATE', 'INSPECT'].map((word) => (
-              <React.Fragment key={`${repeat}-${word}`}><span>{word}</span><i /></React.Fragment>
-            )))}
-          </div>
-        </section>
+      <main id="main-content">
+        <LandingHero
+          endpointCount={endpoints.length}
+          reducedMotion={reducedMotion}
+          videoRef={videoRef}
+          videoMuted={videoMuted}
+          videoPaused={videoPaused}
+          onToggleAudio={toggleAudio}
+          onToggleVideo={toggleVideo}
+        />
+        <CapabilityRail />
 
         <section data-reveal id="playground" className="mx-auto max-w-[1480px] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
           <div className="mb-12 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
@@ -375,7 +282,7 @@ export const LandingApp: React.FC = () => {
                   </button>
                 ))}
               </div>
-              <a href="/explorer.html" className="rail-footer">Browse all {endpoints.length || ''} routes <ArrowUpRight className="h-3.5 w-3.5" /></a>
+              <a href="/explorer" className="rail-footer">Browse all {endpoints.length || ''} routes <ArrowUpRight className="h-3.5 w-3.5" /></a>
             </aside>
 
             <div className="min-w-0 bg-celestial-canvas/45">
@@ -439,82 +346,11 @@ export const LandingApp: React.FC = () => {
           </div>
         </section>
 
-        <section data-reveal className="bento-section border-y border-celestial-border/60">
-          <div className="mx-auto max-w-[1480px] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
-            <div className="mb-12 grid gap-6 lg:grid-cols-12 lg:items-end">
-              <div className="lg:col-span-8">
-                <p className="section-kicker">SYSTEM, RECOMPOSED</p>
-                <h2 className="section-title">A sharper interface for a faster thought.</h2>
-              </div>
-              <p className="max-w-md text-pretty text-sm leading-7 text-celestial-secondary lg:col-span-4">Swiss discipline in the grid. Cinematic tension in the composition. The API stays direct, readable, and deliberately alive.</p>
-            </div>
-
-            <div className="cinematic-bento">
-              <article className="bento-image-card group">
-                <img src="/assets/media/anime-operator-blue.png" alt="Original anime API operator in a cobalt-lit server corridor" width="1672" height="941" loading="lazy" className="anime-parallax-image" />
-                <div className="bento-image-shade" />
-                <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-6 sm:p-8">
-                  <div><span className="bento-index">01 / VISUAL SYSTEM</span><h3 className="bento-title text-white">Cool focus.<br />Zero noise.</h3></div>
-                  <ArrowUpRight className="h-5 w-5 text-white/70 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
-                </div>
-              </article>
-
-              <article className="bento-stat-card">
-                <span className="bento-index">LIVE CATALOG</span>
-                <strong className="bento-stat">{endpoints.length || '—'}</strong>
-                <p>Real routes generated from the source contract—not decorative dashboard data.</p>
-                <div className="bento-orbit" aria-hidden="true" />
-              </article>
-
-              {VALUE_BLOCKS.map(({ icon: Icon, index, title, copy }) => (
-                <article key={index} className="bento-value-card group">
-                  <div className="flex items-center justify-between"><span className="bento-index">{index}</span><Icon className="h-5 w-5 text-celestial-sky" /></div>
-                  <div><h3>{title}</h3><p>{copy}</p></div>
-                  <span className="bento-line" aria-hidden="true" />
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section data-reveal className="mx-auto max-w-[1480px] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
-          <div className="docs-stage grid overflow-hidden lg:grid-cols-[0.95fr_1.05fr]">
-            <div className="p-7 sm:p-10 lg:p-14">
-              <p className="section-kicker">DOCUMENTATION, RECOMPOSED</p>
-              <h2 className="section-title">Docs that don&apos;t feel like homework.</h2>
-              <p className="mt-6 max-w-lg text-sm leading-7 text-celestial-secondary">Searchable contracts, focused request examples, clear auth rules, and code you can copy without hunting through a wall of chrome.</p>
-              <a href="/docs" className="mt-9 inline-flex items-center gap-2 text-sm font-semibold text-celestial-primary hover:text-celestial-sky">Explore OpenAPI docs <ArrowRight className="h-4 w-4" /></a>
-            </div>
-            <div className="docs-visual">
-              <div className="docs-mini-sidebar"><span>GETTING STARTED</span><b>Introduction</b><b>Authentication</b><span>ENDPOINTS</span><b>Search</b><b>Downloaders</b><b>Utilities</b></div>
-              <div className="docs-mini-content">
-                <div className="flex items-center gap-2"><span className="method-pill">GET</span><code>/api/v1/search/anime</code></div>
-                <h3>Search anime</h3>
-                <p>Discover titles and metadata through the unified response envelope.</p>
-                <div className="docs-code"><span>curl</span> https://api.itsfaiz.my.id/api/v1/search/anime?q=frieren</div>
-                <div className="docs-response"><FileJson2 className="h-4 w-4" /><span>200 · application/json</span></div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section data-reveal className="mx-auto max-w-[1480px] px-5 pb-24 sm:px-8 lg:px-12 lg:pb-32">
-          <div className="cta-panel">
-            <div>
-              <p className="section-kicker">READY TO BUILD?</p>
-              <h2 className="mt-3 font-display text-4xl font-semibold tracking-[-0.055em] text-celestial-primary sm:text-6xl">Your next request is one click away.</h2>
-            </div>
-            <a href="/explorer.html" className="btn-celestial-primary inline-flex min-h-14 shrink-0 items-center justify-center gap-3 rounded-2xl px-7 text-sm font-semibold">Launch workbench <ArrowUpRight className="h-4 w-4" /></a>
-          </div>
-        </section>
+        <SystemSection endpointCount={endpoints.length} />
+        <DocsSection />
+        <LandingCta />
       </main>
-
-      <footer className="border-t border-celestial-border/60 px-5 py-8 sm:px-8 lg:px-12">
-        <div className="mx-auto flex max-w-[1480px] flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-3"><img src="/icon.png" alt="KanjutGede" className="h-8 w-8 rounded-lg" /><div><strong className="block text-sm text-celestial-primary">KanjutGede API</strong><span className="text-xs text-celestial-muted">Built for developers who prefer shipping.</span></div></div>
-          <div className="flex gap-5 text-xs font-medium text-celestial-secondary"><a href="/docs">Docs</a><a href="/explorer.html">Workbench</a><a href="/signin.html">Sign in</a></div>
-        </div>
-      </footer>
+      <LandingFooter />
     </div>
   );
 };

@@ -74,7 +74,7 @@ export const CommandModal: React.FC<CommandModalProps> = ({
         badge: 'WORKBENCH',
         kind: 'nav',
         action: () => {
-          window.location.href = '/explorer.html';
+          window.location.href = '/explorer';
         },
       },
       {
@@ -84,7 +84,7 @@ export const CommandModal: React.FC<CommandModalProps> = ({
         badge: 'AUTH',
         kind: 'nav',
         action: () => {
-          window.location.href = '/signin.html';
+          window.location.href = '/signin';
         },
       },
       {
@@ -150,7 +150,7 @@ export const CommandModal: React.FC<CommandModalProps> = ({
             onSelectEndpoint(ep);
             onClose();
           } else {
-            window.location.href = `/explorer.html?endpoint=${encodeURIComponent(ep.id)}`;
+            window.location.href = `/explorer?endpoint=${encodeURIComponent(ep.id)}`;
           }
         },
       }));

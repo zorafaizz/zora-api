@@ -358,7 +358,7 @@ export const ExplorerApp: React.FC = () => {
                 <span>IN-MEMORY BEARER KEY (ZERO STORAGE PERSISTENCE)</span>
               </span>
               <a
-                href="/signin.html?returnTo=%2Fexplorer.html"
+                href="/signin?returnTo=%2Fexplorer"
                 className="font-mono text-[11px] text-celestial-sky hover:underline"
               >
                 Need Session Auth? Sign In →
@@ -402,14 +402,14 @@ export const ExplorerApp: React.FC = () => {
             </div>
 
             {quotaError && (
-              <div className="flex items-center gap-2 font-mono text-[11px] text-rose-400">
+              <div className="flex items-center gap-2 font-mono text-[11px] text-celestial-primary">
                 <ShieldAlert className="h-3.5 w-3.5 shrink-0" strokeWidth={1.5} />
                 <span>{quotaError}</span>
               </div>
             )}
 
             {quotaInfo && (
-              <div className="flex flex-wrap items-center gap-3 rounded-lg border border-emerald-400/35 bg-emerald-400/10 px-3 py-1.5 font-mono text-[11px] text-emerald-300">
+              <div className="flex flex-wrap items-center gap-3 rounded-lg border border-celestial-border bg-celestial-elevated px-3 py-1.5 font-mono text-[11px] text-celestial-primary">
                 <span>Account: {quotaInfo.email}</span>
                 {quotaInfo.balance !== undefined && <span>· Credits: {quotaInfo.balance}</span>}
                 {quotaInfo.plan && <span>· Tier: {quotaInfo.plan}</span>}
@@ -500,7 +500,7 @@ export const ExplorerApp: React.FC = () => {
                         <span className="rounded bg-celestial-sky/15 px-1.5 py-0.5 font-semibold text-celestial-sky">
                           {ep.method}
                         </span>
-                        <span className={ep.public ? 'font-medium text-emerald-600 dark:text-emerald-400' : 'font-medium text-celestial-lilac'}>
+                        <span className={ep.public ? 'font-medium text-celestial-primary' : 'font-medium text-celestial-secondary'}>
                           {ep.public ? 'PUBLIC' : `${ep.credits} CR`}
                         </span>
                       </div>
@@ -589,7 +589,7 @@ export const ExplorerApp: React.FC = () => {
                               <span className="font-medium text-celestial-primary">
                                 {param.name}
                                 {param.required && (
-                                  <span className="ml-1 text-rose-400">*</span>
+                                  <span className="ml-1 text-celestial-primary">*</span>
                                 )}
                               </span>
                               <span className="text-celestial-muted">
@@ -664,7 +664,7 @@ export const ExplorerApp: React.FC = () => {
                       <button
                         type="button"
                         onClick={cancelExecution}
-                        className="inline-flex min-h-[42px] items-center gap-1.5 rounded-xl border border-rose-400/55 bg-rose-400/15 px-3.5 py-2 font-mono text-xs text-rose-300 transition-colors hover:bg-rose-400/25"
+                        className="inline-flex min-h-[42px] items-center gap-1.5 rounded-xl border border-celestial-border bg-celestial-elevated px-3.5 py-2 font-mono text-xs text-celestial-secondary transition-colors hover:border-celestial-primary hover:text-celestial-primary"
                       >
                         <Square className="h-3.5 w-3.5" strokeWidth={1.5} />
                         <span>Cancel Stream</span>
@@ -712,7 +712,7 @@ export const ExplorerApp: React.FC = () => {
                     >
                       {snippetCopied ? (
                         <>
-                          <Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={1.5} />
+                          <Check className="h-3.5 w-3.5 text-celestial-primary" strokeWidth={1.5} />
                           <span>Copied</span>
                         </>
                       ) : (
@@ -738,7 +738,7 @@ export const ExplorerApp: React.FC = () => {
               </div>
               <div className="p-4">
                 <div className="flex items-center gap-2">
-                  <span className={`h-2.5 w-2.5 rounded-full ${apiState === 'success' ? 'bg-emerald-400' : apiState === 'error' ? 'bg-rose-400' : apiState === 'loading' ? 'animate-pulse bg-celestial-sky' : 'bg-celestial-muted'}`} />
+                  <span className={`h-2.5 w-2.5 rounded-full ${apiState === 'loading' ? 'animate-pulse bg-celestial-primary' : apiState === 'idle' ? 'bg-celestial-muted' : 'bg-celestial-primary'}`} />
                   <strong className="text-sm capitalize text-celestial-primary">{apiState}</strong>
                 </div>
                 <p className="mt-3 text-xs leading-5 text-celestial-secondary" aria-live="polite">{operatorNote || 'No request has been executed in this session.'}</p>

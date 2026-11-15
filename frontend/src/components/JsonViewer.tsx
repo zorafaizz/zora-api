@@ -27,7 +27,7 @@ const JsonTreeNode: React.FC<JsonNodeProps> = ({ name, value, depth }) => {
     let valClass = 'text-celestial-primary';
     let rendered = String(value);
     if (typeof value === 'string') {
-      valClass = 'text-emerald-600 dark:text-emerald-400';
+      valClass = 'text-celestial-secondary';
       rendered = `"${value}"`;
     } else if (typeof value === 'number') {
       valClass = 'font-medium text-celestial-sky';
@@ -138,10 +138,10 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
     status == null
       ? 'border-celestial-border/45 text-celestial-muted'
       : status >= 200 && status < 300
-        ? 'border-emerald-400/45 bg-emerald-400/10 text-emerald-400'
+        ? 'border-celestial-primary/45 bg-celestial-primary/10 text-celestial-primary'
         : status >= 400
-          ? 'border-rose-400/45 bg-rose-400/10 text-rose-400'
-          : 'border-celestial-sky/45 bg-celestial-sky/10 text-celestial-sky';
+          ? 'border-celestial-primary/65 bg-celestial-elevated text-celestial-primary'
+          : 'border-celestial-border bg-celestial-elevated text-celestial-secondary';
 
   return (
     <div className="celestial-card flex flex-col overflow-hidden">
@@ -209,7 +209,7 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
           >
             {copied ? (
               <>
-                <Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={1.5} />
+                <Check className="h-3.5 w-3.5 text-celestial-primary" strokeWidth={1.5} />
                 <span>Copied</span>
               </>
             ) : (
@@ -223,7 +223,7 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
       </div>
 
       {truncated && (
-        <div className="border-b border-amber-400/30 bg-amber-400/10 px-3.5 py-1.5 font-mono text-[11px] text-amber-300">
+        <div className="border-b border-celestial-border bg-celestial-elevated px-3.5 py-1.5 font-mono text-[11px] text-celestial-secondary">
           Stream shield capped output at 1.00 MB to keep browser memory responsive.
         </div>
       )}
