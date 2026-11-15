@@ -14,8 +14,7 @@ import {
 import { loadCatalog, type EndpointSpec, type OperatorApiState } from '../lib/api-bridge';
 import { CelestialNavbar } from '../components/CelestialNavbar';
 import { CommandModal } from '../components/CommandModal';
-import { AnimeCanvasFX } from '../components/AnimeCanvasFX';
-import { AnimeOperator } from '../components/AnimeOperator';
+
 
 function resolveSafeReturnTo(): string {
   if (typeof window === 'undefined') return '/explorer.html';
@@ -44,7 +43,7 @@ export const SigninApp: React.FC = () => {
 
   const [apiState, setApiState] = useState<OperatorApiState>('idle');
   const [operatorNote, setOperatorNote] = useState('');
-  const [burstSignal, setBurstSignal] = useState(0);
+  const [, setBurstSignal] = useState(0);
 
   const safeReturnTo = useMemo(() => resolveSafeReturnTo(), []);
 
@@ -288,8 +287,6 @@ export const SigninApp: React.FC = () => {
 
   return (
     <div className="celestial-atmosphere relative min-h-screen overflow-x-clip pb-16">
-      <AnimeCanvasFX apiState={apiState} burstSignal={burstSignal} />
-
       <CelestialNavbar
         activeRoute="signin"
         onOpenCommand={() => setCommandOpen(true)}
@@ -302,20 +299,19 @@ export const SigninApp: React.FC = () => {
         endpoints={endpoints}
       />
 
-      <main className="relative z-10 mx-auto max-w-5xl px-5 pt-28 sm:px-8 sm:pt-32">
-        <div className="grid items-center gap-8 lg:grid-cols-12">
-          {/* Left 7 Cols: Passwordless Auth Gate Card */}
-          <div className="celestial-card space-y-6 p-6 sm:p-8 lg:col-span-7">
-            <div className="space-y-2">
-              <div className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-celestial-lilac">
+      <main className="relative z-10 mx-auto max-w-6xl px-5 pt-32 sm:px-8 sm:pt-40">
+        <div className="grid items-stretch gap-6 lg:grid-cols-12">
+          <div className="celestial-card space-y-7 p-6 sm:p-9 lg:col-span-7 lg:p-12">
+            <div className="space-y-3">
+              <div className="section-kicker inline-flex items-center gap-2">
                 <Sparkles className="h-3.5 w-3.5" strokeWidth={1.5} />
-                <span>DEVELOPER SESSION GATE</span>
+                <span>SECURE DEVELOPER ACCESS</span>
               </div>
-              <h1 className="font-display text-2xl font-semibold tracking-tight text-celestial-primary sm:text-3xl">
-                Passwordless Astral Access
+              <h1 className="font-display text-4xl font-semibold tracking-[-0.055em] text-celestial-primary sm:text-6xl">
+                Sign in. Stay in flow.
               </h1>
-              <p className="text-xs leading-relaxed text-celestial-secondary sm:text-sm">
-                Protected by CSRF-bound session cookies and one-time 8-digit email verification.
+              <p className="max-w-xl text-sm leading-7 text-celestial-secondary">
+                One email, one 8-digit code, no password to remember. Your session remains protected by CSRF-bound cookies.
               </p>
             </div>
 
@@ -487,10 +483,29 @@ export const SigninApp: React.FC = () => {
             )}
           </div>
 
-          {/* Right 5 Cols: Sora Companion */}
-          <div className="lg:col-span-5">
-            <AnimeOperator apiState={apiState} statusText={operatorNote} />
-          </div>
+          <aside className="flex flex-col justify-between overflow-hidden rounded-[1.25rem] border border-celestial-border/70 bg-celestial-deep/70 p-6 sm:p-8 lg:col-span-5 lg:p-10">
+            <div>
+              <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-celestial-sky/35 bg-celestial-sky/10 text-celestial-sky">
+                <ShieldCheck className="h-5 w-5" />
+              </div>
+              <h2 className="mt-8 font-display text-2xl font-semibold tracking-[-0.04em] text-celestial-primary">A quiet security layer.</h2>
+              <p className="mt-3 text-sm leading-7 text-celestial-secondary">No social login maze and no password reset loop. Authentication stays focused on the job: getting you back to the API.</p>
+
+              <div className="mt-8 space-y-3">
+                {[['01', 'Browser-bound verification'], ['02', 'Opaque secure session'], ['03', 'Explicit device revocation']].map(([index, label]) => (
+                  <div key={index} className="flex items-center gap-4 border-t border-celestial-border/45 py-3">
+                    <span className="font-mono text-[10px] text-celestial-sky">{index}</span>
+                    <span className="text-sm font-medium text-celestial-primary">{label}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-10 rounded-2xl border border-celestial-border/60 bg-celestial-canvas/45 p-4">
+              <div className="flex items-center gap-2"><span className={`h-2.5 w-2.5 rounded-full ${apiState === 'success' ? 'bg-emerald-400' : apiState === 'error' ? 'bg-rose-400' : apiState === 'loading' ? 'animate-pulse bg-celestial-sky' : 'bg-celestial-muted'}`} /><span className="text-xs font-semibold uppercase tracking-wider text-celestial-primary">{apiState}</span></div>
+              <p className="mt-2 text-xs leading-5 text-celestial-secondary" aria-live="polite">{operatorNote || 'Session gate is ready.'}</p>
+            </div>
+          </aside>
         </div>
       </main>
     </div>

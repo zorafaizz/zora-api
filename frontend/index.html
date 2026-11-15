@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>KanjutGede API — Celestial Blue Developer Platform</title>
+    <title>KanjutGede API — Make the Web Programmable</title>
     <meta
       name="description"
-      content="Cinematic REST API platform engineered for media extraction, developer utilities, anime discovery, and deterministic JSON delivery."
+      content="A focused REST API platform for search, media extraction, developer utilities, and predictable JSON delivery."
     />
-    <meta name="theme-color" content="#101827" />
+    <meta name="theme-color" content="#0c0c0e" />
     <link rel="icon" type="image/png" href="/icon.png" />
     <link rel="apple-touch-icon" href="/assets/icon-192.png" />
     <link
@@ -37,9 +37,10 @@
       (function () {
         try {
           var saved = localStorage.getItem('kg-celestial-theme');
-          if (saved === 'light' || saved === 'dark') {
-            document.documentElement.setAttribute('data-theme', saved);
-          }
+          var next = saved === 'light' || saved === 'dark'
+            ? saved
+            : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+          document.documentElement.setAttribute('data-theme', next);
         } catch (e) {}
       })();
     </script>

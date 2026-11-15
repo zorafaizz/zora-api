@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import {
+  ArrowUpRight,
   Check,
   Copy,
   Eye,
@@ -31,8 +32,6 @@ import {
 } from '../lib/api-bridge';
 import { CelestialNavbar } from '../components/CelestialNavbar';
 import { CommandModal } from '../components/CommandModal';
-import { AnimeCanvasFX } from '../components/AnimeCanvasFX';
-import { AnimeOperator } from '../components/AnimeOperator';
 import { JsonViewer } from '../components/JsonViewer';
 
 interface QuotaSnapshot {
@@ -65,7 +64,7 @@ export const ExplorerApp: React.FC = () => {
   // Execution & Companion State
   const [apiState, setApiState] = useState<OperatorApiState>('idle');
   const [operatorNote, setOperatorNote] = useState('');
-  const [burstSignal, setBurstSignal] = useState(0);
+  const [, setBurstSignal] = useState(0);
   const [snippetLang, setSnippetLang] = useState<SnippetLang>('cURL');
   const [snippetCopied, setSnippetCopied] = useState(false);
 
@@ -323,8 +322,6 @@ export const ExplorerApp: React.FC = () => {
 
   return (
     <div className="celestial-atmosphere relative min-h-screen overflow-x-clip pb-16">
-      <AnimeCanvasFX apiState={apiState} burstSignal={burstSignal} />
-
       <CelestialNavbar
         activeRoute="explorer"
         onOpenCommand={() => setCommandOpen(true)}
@@ -338,20 +335,18 @@ export const ExplorerApp: React.FC = () => {
         onSelectEndpoint={(ep) => setActiveId(ep.id)}
       />
 
-      <main className="relative z-10 mx-auto max-w-[1400px] px-4 pt-24 sm:px-6 sm:pt-28">
-        {/* Top Header + In-Memory Bearer Key Bar */}
-        <div className="mb-6 grid items-end gap-5 lg:grid-cols-12">
-          <div className="space-y-1.5 lg:col-span-5">
-            <div className="inline-flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-celestial-sky">
+      <main className="relative z-10 mx-auto max-w-[1480px] px-4 pt-28 sm:px-6 sm:pt-32 lg:px-10">
+        <div className="mb-8 grid items-end gap-6 lg:grid-cols-12">
+          <div className="space-y-2 lg:col-span-5">
+            <div className="section-kicker inline-flex items-center gap-2">
               <Sparkles className="h-3.5 w-3.5" strokeWidth={1.5} />
-              <span>CELESTIAL API WORKBENCH</span>
+              <span>LIVE API WORKBENCH</span>
             </div>
-            <h1 className="font-display text-2xl font-semibold tracking-tight text-celestial-primary sm:text-3xl">
-              Explorer &amp; Live HTTP Playground
+            <h1 className="font-display text-3xl font-semibold tracking-[-0.045em] text-celestial-primary sm:text-5xl">
+              Build the request. See the truth.
             </h1>
-            <p className="text-xs leading-relaxed text-celestial-secondary sm:text-sm">
-              Select any route, customize parameters, inspect live JSON envelopes, and copy
-              production-ready SDK snippets.
+            <p className="max-w-xl text-sm leading-6 text-celestial-secondary">
+              Explore the real contract, execute deliberately, inspect the response, and leave with code that is ready to adapt.
             </p>
           </div>
 
@@ -736,41 +731,34 @@ export const ExplorerApp: React.FC = () => {
             ) : null}
           </section>
 
-          {/* RIGHT DOCK: Living Companion Sora + Telemetry Metadata (3 Cols) */}
-          <aside className="space-y-4 lg:sticky lg:top-24 lg:col-span-3">
-            <AnimeOperator
-              apiState={apiState}
-              statusText={operatorNote}
-              compact={true}
-            />
+          <aside className="space-y-4 lg:sticky lg:top-28 lg:col-span-3">
+            <div className="celestial-card overflow-hidden">
+              <div className="border-b border-celestial-border/50 bg-celestial-deep/40 px-4 py-3">
+                <div className="section-kicker">REQUEST STATUS</div>
+              </div>
+              <div className="p-4">
+                <div className="flex items-center gap-2">
+                  <span className={`h-2.5 w-2.5 rounded-full ${apiState === 'success' ? 'bg-emerald-400' : apiState === 'error' ? 'bg-rose-400' : apiState === 'loading' ? 'animate-pulse bg-celestial-sky' : 'bg-celestial-muted'}`} />
+                  <strong className="text-sm capitalize text-celestial-primary">{apiState}</strong>
+                </div>
+                <p className="mt-3 text-xs leading-5 text-celestial-secondary" aria-live="polite">{operatorNote || 'No request has been executed in this session.'}</p>
+              </div>
+            </div>
 
             {activeEndpoint && (
-              <div className="celestial-card space-y-2.5 p-4 font-mono text-xs">
-                <div className="text-[11px] uppercase tracking-wider text-celestial-sky">
-                  Route Contract Metadata
-                </div>
-                <div className="flex justify-between border-b border-celestial-border/25 pb-1.5">
-                  <span className="text-celestial-muted">Category</span>
-                  <span className="text-celestial-primary">{activeEndpoint.category}</span>
-                </div>
-                <div className="flex justify-between border-b border-celestial-border/25 pb-1.5">
-                  <span className="text-celestial-muted">Credit Cost</span>
-                  <span className="text-celestial-primary">{activeEndpoint.credits} CR</span>
-                </div>
-                <div className="flex justify-between border-b border-celestial-border/25 pb-1.5">
-                  <span className="text-celestial-muted">Timeout Guard</span>
-                  <span className="text-celestial-primary">
-                    {((activeEndpoint.deadline || 20000) / 1000).toFixed(0)}s
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-celestial-muted">Cache TTL</span>
-                  <span className="text-celestial-primary">
-                    {activeEndpoint.cacheTtl ? `${activeEndpoint.cacheTtl}s` : 'Dynamic'}
-                  </span>
-                </div>
+              <div className="celestial-card space-y-3 p-4 font-mono text-xs">
+                <div className="section-kicker">CONTRACT DETAILS</div>
+                <div className="flex justify-between border-b border-celestial-border/40 pb-2"><span className="text-celestial-muted">Category</span><span className="text-celestial-primary">{activeEndpoint.category}</span></div>
+                <div className="flex justify-between border-b border-celestial-border/40 pb-2"><span className="text-celestial-muted">Access</span><span className="text-celestial-primary">{activeEndpoint.public ? 'Public' : 'Bearer'}</span></div>
+                <div className="flex justify-between border-b border-celestial-border/40 pb-2"><span className="text-celestial-muted">Credit cost</span><span className="text-celestial-primary">{activeEndpoint.credits} CR</span></div>
+                <div className="flex justify-between border-b border-celestial-border/40 pb-2"><span className="text-celestial-muted">Timeout</span><span className="text-celestial-primary">{((activeEndpoint.deadline || 20000) / 1000).toFixed(0)}s</span></div>
+                <div className="flex justify-between"><span className="text-celestial-muted">Cache</span><span className="text-celestial-primary">{activeEndpoint.cacheTtl ? `${activeEndpoint.cacheTtl}s` : 'Dynamic'}</span></div>
               </div>
             )}
+
+            <a href="/docs" className="group flex items-center justify-between rounded-2xl border border-celestial-border/70 bg-celestial-surface p-4 text-sm font-medium text-celestial-secondary transition-colors hover:border-celestial-sky/50 hover:text-celestial-primary">
+              <span>Read the full contract</span><ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
           </aside>
         </div>
       </main>
