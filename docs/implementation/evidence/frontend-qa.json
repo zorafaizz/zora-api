@@ -1,43 +1,8 @@
 {
-  "environment": "Chrome 157 headless, loopback static server, intercepted API fixtures; no live backend requests",
+  "environment": "Chrome headless, loopback static server, intercepted API fixtures; zero live upstream requests",
   "layouts": [
     {
       "route": "/",
-      "theme": "light",
-      "width": 320,
-      "scroll": 320,
-      "images": true
-    },
-    {
-      "route": "/",
-      "theme": "light",
-      "width": 390,
-      "scroll": 390,
-      "images": true
-    },
-    {
-      "route": "/",
-      "theme": "light",
-      "width": 768,
-      "scroll": 768,
-      "images": true
-    },
-    {
-      "route": "/",
-      "theme": "light",
-      "width": 1280,
-      "scroll": 1280,
-      "images": true
-    },
-    {
-      "route": "/",
-      "theme": "light",
-      "width": 1440,
-      "scroll": 1440,
-      "images": true
-    },
-    {
-      "route": "/",
       "theme": "dark",
       "width": 320,
       "scroll": 320,
@@ -72,35 +37,35 @@
       "images": true
     },
     {
-      "route": "/explorer.html?endpoint=dl.tiktok",
+      "route": "/",
       "theme": "light",
       "width": 320,
       "scroll": 320,
       "images": true
     },
     {
-      "route": "/explorer.html?endpoint=dl.tiktok",
+      "route": "/",
       "theme": "light",
       "width": 390,
       "scroll": 390,
       "images": true
     },
     {
-      "route": "/explorer.html?endpoint=dl.tiktok",
+      "route": "/",
       "theme": "light",
       "width": 768,
       "scroll": 768,
       "images": true
     },
     {
-      "route": "/explorer.html?endpoint=dl.tiktok",
+      "route": "/",
       "theme": "light",
       "width": 1280,
       "scroll": 1280,
       "images": true
     },
     {
-      "route": "/explorer.html?endpoint=dl.tiktok",
+      "route": "/",
       "theme": "light",
       "width": 1440,
       "scroll": 1440,
@@ -137,24 +102,130 @@
     {
       "route": "/explorer.html?endpoint=dl.tiktok",
       "theme": "dark",
+      "width": 1440,
+      "scroll": 1440,
+      "images": true
+    },
+    {
+      "route": "/explorer.html?endpoint=dl.tiktok",
+      "theme": "light",
+      "width": 320,
+      "scroll": 320,
+      "images": true
+    },
+    {
+      "route": "/explorer.html?endpoint=dl.tiktok",
+      "theme": "light",
+      "width": 390,
+      "scroll": 390,
+      "images": true
+    },
+    {
+      "route": "/explorer.html?endpoint=dl.tiktok",
+      "theme": "light",
+      "width": 768,
+      "scroll": 768,
+      "images": true
+    },
+    {
+      "route": "/explorer.html?endpoint=dl.tiktok",
+      "theme": "light",
+      "width": 1280,
+      "scroll": 1280,
+      "images": true
+    },
+    {
+      "route": "/explorer.html?endpoint=dl.tiktok",
+      "theme": "light",
+      "width": 1440,
+      "scroll": 1440,
+      "images": true
+    },
+    {
+      "route": "/signin.html",
+      "theme": "dark",
+      "width": 320,
+      "scroll": 320,
+      "images": true
+    },
+    {
+      "route": "/signin.html",
+      "theme": "dark",
+      "width": 390,
+      "scroll": 390,
+      "images": true
+    },
+    {
+      "route": "/signin.html",
+      "theme": "dark",
+      "width": 768,
+      "scroll": 768,
+      "images": true
+    },
+    {
+      "route": "/signin.html",
+      "theme": "dark",
+      "width": 1280,
+      "scroll": 1280,
+      "images": true
+    },
+    {
+      "route": "/signin.html",
+      "theme": "dark",
+      "width": 1440,
+      "scroll": 1440,
+      "images": true
+    },
+    {
+      "route": "/signin.html",
+      "theme": "light",
+      "width": 320,
+      "scroll": 320,
+      "images": true
+    },
+    {
+      "route": "/signin.html",
+      "theme": "light",
+      "width": 390,
+      "scroll": 390,
+      "images": true
+    },
+    {
+      "route": "/signin.html",
+      "theme": "light",
+      "width": 768,
+      "scroll": 768,
+      "images": true
+    },
+    {
+      "route": "/signin.html",
+      "theme": "light",
+      "width": 1280,
+      "scroll": 1280,
+      "images": true
+    },
+    {
+      "route": "/signin.html",
+      "theme": "light",
       "width": 1440,
       "scroll": 1440,
       "images": true
     }
   ],
   "flows": [
-    "no API requests without Execute",
-    "lazy intro, Skip/Escape, reduced motion",
-    "search and endpoint deep link",
-    "empty URL and required-key validation",
-    "native bridge docs-only; versioned request/Bearer auth fixture",
-    "redaction and header allowlist",
-    "bounded dense JSON rendering and hidden raw cleanup; clipboard success/failure",
-    "401/403/429/500/non-JSON/oversize",
-    "timeout and cancel ignore late responses",
-    "clear key/response and no secret persistence",
-    "theme system/persistence",
-    "keyboard skip, 200% zoom, offscreen pause and mobile greeting"
+    "30-viewport dual-theme layout matrix (320px-1440px) with zero horizontal overflow",
+    "zero API requests before explicit Execute",
+    "Quickstart preset switcher, Go/Python/TS/cURL snippets, and 200 OK envelope preview",
+    "Command Palette (Ctrl+K & mobile tap), live endpoint search, Escape focus restore",
+    "prefers-reduced-motion compliance and 200% zoom anti-overflow",
+    "Directory All (42) / Public (24) / Bearer (18) scope filters and deep link",
+    "Workbench sample fill, required parameter & API key guards, native bridge docs-only lock",
+    "Bearer redaction (nested + Unicode escape) and safe response header allowlist",
+    "Bounded 10k-item JSON rendering, Raw/Tree toggle, and clipboard fallback",
+    "401/403/429/500, non-JSON XSS literal safety, and >1 MB stream cutoff",
+    "Deadline timeout abort & user cancel ignoring late responses",
+    "Sign-in 503 disabled-auth boundary & open-redirect returnTo sanitization",
+    "Theme system/light/dark persistence and keyboard Skip-to-content navigation"
   ],
   "errors": []
 }

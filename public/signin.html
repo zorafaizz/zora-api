@@ -1,299 +1,144 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1" />
-    <meta name="theme-color" content="#20132c" />
-    <title>Sign in — KanjutGede</title>
-    <meta
-      name="description"
-      content="Media downloaders, search, AI and developer tools. Explore KanjutGede REST APIs with Momo."
-    />
-    <script src="/assets/theme.js"></script>
-    <link rel="icon" href="/assets/brand.webp" />
-    <link rel="stylesheet" href="/assets/site.css" />
-    <script type="module" src="/assets/signin.js"></script>
-  </head>
-  <body class="pocket tool-page">
-    <a class="skip" href="#main">Skip to content</a>
-    <header class="nav wrap">
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09090b">
+  <title>Developer Auth — KanjutGede</title>
+  <meta name="description" content="Passwordless eight-digit email session verification and Bearer API key authentication guidelines for KanjutGede.">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <script src="/assets/theme.js"></script>
+  <link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="wrap nav">
       <a class="brand" href="/">
-        <img
-          src="/assets/brand.webp"
-          width="38"
-          height="38"
-          alt="KG underwear logo"
-        />KanjutGede</a
-      >
-      <nav class="nav-links" aria-label="Main">
-        <a href="/#catalog">Find an API</a>
-        <a href="/explorer.html">Playground</a>
-        <a href="/docs">Docs</a>
-        <label class="theme-control">
-          <span class="sr-only">Theme</span>
-          <select id="theme" aria-label="Theme">
-            <option value="system">System theme</option>
-            <option value="light">Day world</option>
-            <option value="dark">Night world</option>
-          </select>
-        </label>
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.5 4v8M9.5 4L5.5 8l4 4"/>
+            <circle cx="12" cy="11.5" r="1.2" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        <span>KanjutGede</span>
+        <span class="version-pill">Auth</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <button class="cmd-trigger" type="button" data-open-cmd aria-label="Search endpoints">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+          </svg>
+          <span class="cmd-trigger-label">Jump to endpoint…</span>
+          <kbd class="kbd">⌘K</kbd>
+        </button>
+        <a class="nav-link" href="/">Overview</a>
+        <a class="nav-link" href="/explorer.html">Workbench</a>
+        <a class="nav-link" href="/docs">OpenAPI</a>
+        <a class="nav-link" href="/signin.html" aria-current="page">Auth</a>
+        <label class="sr-only" for="theme">Theme</label>
+        <select id="theme" class="theme-select" aria-label="Color theme">
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+          <option value="system">System</option>
+        </select>
       </nav>
-    </header>
-    <main id="main" class="wrap auth-page">
-      <section class="auth-layout">
-        <div class="auth-intro">
-          <p class="eyebrow">Your corner of the internet</p>
-          <h1>A code.<br />And you’re in.</h1>
-          <p>Sign in with your email. Your API keys stay yours.</p>
-          <div class="auth-companion character" data-state="idle">
-            <svg
-              class="momo"
-              viewBox="0 0 500 520"
-              xmlns="http://www.w3.org/2000/svg"
-              role="img"
-              aria-label="Momo, an original folded-ear internet familiar. KanjutGede companion."
-            >
-              <g stroke="#492b52" stroke-width="7" stroke-linejoin="round">
-                <g class="scarf-tail">
-                  <path
-                    d="M290 320Q390 285 452 369Q405 440 340 381Z"
-                    fill="#a9dfbf"
-                  />
-                  <path
-                    d="M324 336Q396 342 422 371"
-                    fill="none"
-                    stroke="#5e9682"
-                    stroke-width="4"
-                  />
-                </g>
-                <g class="momo-body">
-                  <path
-                    d="M172 404L150 455Q178 478 218 458L230 415M275 415L284 459Q327 478 352 451L330 403"
-                    fill="#9c6aaa"
-                  />
-                  <path
-                    d="M154 452L143 471Q176 487 217 471L218 458M286 460L287 475Q330 491 359 468L348 453"
-                    fill="#f5ae8d"
-                  />
-                  <path
-                    d="M160 290Q123 335 157 402Q245 455 337 402Q363 350 327 291"
-                    fill="#b67fbc"
-                  />
-                  <g class="arm">
-                    <path
-                      d="M327 329Q387 319 385 260Q396 231 410 250Q427 291 398 330Q377 361 340 373"
-                      fill="#b67fbc"
-                    />
-                  </g>
-                  <path
-                    d="M175 329Q113 331 130 377Q143 398 168 379"
-                    fill="#b67fbc"
-                  />
-                </g>
-                <g class="momo-head">
-                  <g class="ear-left">
-                    <path
-                      d="M181 145Q145 24 70 69L25 211L90 178L126 96L154 165Z"
-                      fill="#b67fbc"
-                    />
-                    <path d="M25 211L90 178L69 231Z" fill="#ffe5c9" />
-                  </g>
-                  <g class="ear-right">
-                    <path
-                      d="M315 145Q353 26 409 67L475 167L428 207L367 95L343 164Z"
-                      fill="#b67fbc"
-                    />
-                    <path d="M428 207L475 167L470 238Z" fill="#ffe5c9" />
-                  </g>
-                  <path
-                    d="M151 135Q171 111 224 113Q200 77 230 63Q260 46 262 74Q240 66 243 100Q264 110 283 110Q355 116 376 175Q418 275 344 318Q253 358 164 320Q91 274 121 188Z"
-                    fill="#b67fbc"
-                  />
-                  <path
-                    d="M152 183Q178 149 218 181Q244 130 280 159Q331 140 354 189Q395 278 331 301Q248 335 170 296Q118 274 152 183Z"
-                    fill="#ffe8d3"
-                  />
-                  <g class="brows" stroke-width="6" fill="none">
-                    <path
-                      d="M171 173Q192 162 211 171M278 163Q301 149 323 161"
-                    />
-                  </g>
-                  <g class="eye-group">
-                    <ellipse cx="194" cy="223" rx="30" ry="41" fill="#fff9ec" />
-                    <ellipse cx="304" cy="213" rx="30" ry="42" fill="#fff9ec" />
-                    <g class="pupils">
-                      <ellipse
-                        cx="199"
-                        cy="225"
-                        rx="18"
-                        ry="30"
-                        fill="#efa637"
-                      />
-                      <ellipse
-                        cx="308"
-                        cy="215"
-                        rx="18"
-                        ry="30"
-                        fill="#efa637"
-                      />
-                      <ellipse
-                        cx="201"
-                        cy="222"
-                        rx="8"
-                        ry="20"
-                        fill="#492b52"
-                      />
-                      <ellipse
-                        cx="310"
-                        cy="212"
-                        rx="8"
-                        ry="20"
-                        fill="#492b52"
-                      />
-                      <ellipse
-                        cx="194"
-                        cy="209"
-                        rx="7"
-                        ry="10"
-                        fill="#fff9ec"
-                        stroke="none"
-                      />
-                      <ellipse
-                        cx="303"
-                        cy="199"
-                        rx="7"
-                        ry="10"
-                        fill="#fff9ec"
-                        stroke="none"
-                      />
-                    </g>
-                  </g>
-                  <path
-                    class="mouth-smile"
-                    d="M229 277Q252 291 276 264Q268 310 244 304Z"
-                    fill="#ce6d87"
-                    stroke-width="4"
-                  />
-                  <ellipse
-                    class="mouth-o"
-                    cx="252"
-                    cy="286"
-                    rx="12"
-                    ry="17"
-                    fill="#ce6d87"
-                    stroke-width="4"
-                  />
-                  <path
-                    d="M160 270L165 279M173 270L178 278M331 258L337 266M344 255L350 264"
-                    stroke="#e18f95"
-                    stroke-width="4"
-                  />
-                </g>
-                <path
-                  d="M154 310Q248 337 350 297L341 337Q237 385 154 347Z"
-                  fill="#b8e6c7"
-                />
-                <path
-                  d="M153 346Q235 377 337 338"
-                  stroke="#609486"
-                  stroke-width="4"
-                  fill="none"
-                />
-              </g>
-            </svg>
+    </div>
+  </header>
+
+  <main id="main" class="auth-main">
+    <div class="wrap auth-grid">
+      <div>
+        <div class="protocol-kicker">
+          <span class="status-dot" aria-hidden="true"></span>
+          <span>Authentication &amp; Session Boundary</span>
+        </div>
+        <h1 class="hero-title" style="font-size:clamp(1.65rem,3vw,2.25rem)">Developer access &amp; API authentication.</h1>
+        <p class="hero-lead">
+          Server-to-server requests authenticate statelessly via Bearer tokens. Browser sessions use short-lived, single-use eight-digit email verification codes with strict CSRF binding.
+        </p>
+
+        <div class="access-cards">
+          <article class="access-card">
+            <h2>1. Stateless Bearer API Key (Recommended for SDKs &amp; CLI)</h2>
+            <p>Pass <code>Authorization: Bearer &lt;API_KEY&gt;</code> on protected endpoints, or paste your key directly into the <a href="/explorer.html" style="text-decoration:underline">API Workbench</a> without signing in.</p>
+          </article>
+          <article class="access-card">
+            <h2>2. Public Utility Routes (Zero Configuration)</h2>
+            <p>24 endpoints — including <code>/health</code>, DNS lookup, IP geolocation, GitHub/npm profiles, and BMKG telemetry — execute immediately without credentials.</p>
+          </article>
+          <article class="access-card">
+            <h2>3. Console Email Verification</h2>
+            <p>When operator SMTP sign-in is enabled, verify ownership of an enrolled developer email using an 8-digit one-time code.</p>
+          </article>
+        </div>
+      </div>
+
+      <section class="auth-panel" aria-labelledby="signin-title">
+        <h2 id="signin-title">Email Session Verification</h2>
+        <p class="status" id="auth-status" role="status" aria-live="polite" style="margin-top:10px">Checking session status…</p>
+
+        <form id="email-form" class="auth-form" novalidate>
+          <div>
+            <label class="field-label" for="email">Developer Email</label>
+            <input id="email" class="wb-input" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="dev@domain.com">
+            <p class="hint">Receives a single-use 8-digit verification code.</p>
           </div>
-          <button class="quiet motion" type="button" aria-pressed="true">
-            Reactions on
-          </button>
-          <p class="hint">
-            The <a href="/explorer.html">manual API-key playground</a> and
-            <a href="/docs">API reference</a> are always available.
-          </p>
+          <div class="auth-actions">
+            <button class="primary send" type="submit">Send verification code</button>
+            <a class="quiet" href="/explorer.html">Use API Key Workbench</a>
+          </div>
+        </form>
+
+        <form id="code-form" class="auth-form" hidden novalidate>
+          <p class="hint recipient" style="margin:0"></p>
+          <div>
+            <label class="field-label" for="code">8-Digit Verification Code</label>
+            <input id="code" class="wb-input otp-input" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{8}" maxlength="8" required placeholder="00000000">
+            <p class="hint" id="expires">Code expires in 10 minutes.</p>
+          </div>
+          <div class="auth-actions">
+            <button class="primary verify" type="submit">Verify session</button>
+            <button class="quiet resend" type="button">Resend code</button>
+            <button class="quiet change-email" type="button">Change email</button>
+          </div>
+        </form>
+
+        <div id="signed-in" class="auth-form" hidden>
+          <p class="hint" style="margin:0">Authenticated as <strong class="identity" style="color:var(--ink)"></strong>.</p>
+          <div class="auth-actions">
+            <a class="primary continue" href="/explorer.html">Continue to Workbench</a>
+            <button class="quiet reauth" type="button">Re-verify for sensitive actions</button>
+            <button class="quiet logout" type="button">Sign out</button>
+            <button class="quiet logout-all" type="button">Revoke all devices</button>
+          </div>
         </div>
-        <div class="auth-panel">
-          <form id="email-form" novalidate>
-            <h2>Sign in with email</h2>
-            <label for="email">Email address</label>
-            <input
-              id="email"
-              name="email"
-              type="email"
-              autocomplete="email"
-              maxlength="254"
-              placeholder="you@example.com"
-              required
-              aria-describedby="auth-status"
-            />
-            <p class="hint">
-              We’ll send a one-time, eight-digit code. Accounts are created only
-              after verification when registration is open.
-            </p>
-            <button class="primary send" type="submit" disabled>
-              Send code <span aria-hidden="true">↗</span>
-            </button>
-          </form>
-          <form id="code-form" novalidate hidden>
-            <h2>Check your inbox</h2>
-            <p class="recipient"></p>
-            <label for="code">Eight-digit code</label>
-            <input
-              id="code"
-              name="code"
-              type="text"
-              inputmode="numeric"
-              autocomplete="one-time-code"
-              maxlength="8"
-              pattern="[0-9]{8}"
-              required
-              aria-describedby="auth-status expires"
-            />
-            <p id="expires" class="hint"></p>
-            <button class="primary verify" type="submit">
-              Verify and sign in <span aria-hidden="true">↗</span>
-            </button>
-            <div class="auth-secondary">
-              <button class="quiet resend" type="button">Resend code</button>
-              <button class="quiet change-email" type="button">
-                Change email
-              </button>
-            </div>
-          </form>
-          <section id="signed-in" hidden>
-            <h2>You’re signed in.</h2>
-            <p class="identity"></p>
-            <p class="hint">
-              Your account session is active. Playground execution still uses a
-              manually entered API key.
-            </p>
-            <a class="primary continue" href="/explorer.html"
-              >Continue <span aria-hidden="true">↗</span>
-            </a>
-            <div class="auth-secondary">
-              <button class="quiet reauth" type="button">Verify again</button>
-              <button class="quiet logout" type="button">Sign out</button>
-              <button class="quiet logout-all" type="button">
-                Sign out everywhere
-              </button>
-            </div>
-          </section>
-          <p id="auth-status" class="status" role="status" aria-live="polite">
-            Preparing secure sign-in…
-          </p>
-          <button class="quiet retry" type="button" hidden>
-            Retry connection
-          </button>
-          <noscript>
-            <p>
-              JavaScript is needed to verify your code. The API reference
-              remains available.
-            </p>
-          </noscript>
-        </div>
+
+        <button class="quiet retry" type="button" hidden style="margin-top:12px">Retry connection</button>
       </section>
-    </main>
-    <footer class="wrap">
-      <span>KanjutGede · Serious APIs. Stupid name.</span>
-      <a href="/docs">API reference ↗</a>
-    </footer>
-  </body>
+    </div>
+  </main>
+
+  <div class="cmd-backdrop" id="cmd-backdrop" hidden>
+    <div class="cmd-dialog" role="dialog" aria-modal="true" aria-label="Jump to API endpoint">
+      <div class="cmd-input-row">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+        </svg>
+        <label class="sr-only" for="cmd-input">Search 42 endpoints</label>
+        <input id="cmd-input" type="search" autocomplete="off" spellcheck="false" placeholder="Jump to endpoint path, title, or category…">
+        <kbd class="kbd">ESC</kbd>
+      </div>
+      <div class="cmd-list" id="cmd-list" role="listbox"></div>
+      <div class="cmd-foot">
+        <span><kbd class="kbd">↑</kbd> <kbd class="kbd">↓</kbd> Navigate · <kbd class="kbd">↵</kbd> Open in Workbench</span>
+        <span>42 routes indexed</span>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/assets/signin.js"></script>
+</body>
 </html>

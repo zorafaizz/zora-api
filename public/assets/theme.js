@@ -1,11 +1,55 @@
 (() => {
-  const system=matchMedia('(prefers-color-scheme: dark)');
-  let preference='system';
-  try{preference=localStorage.getItem('kg-theme')||'system'}catch{}
-  if(!['system','light','dark'].includes(preference))preference='system';
-  function apply(){document.documentElement.dataset.theme=preference==='system'?(system.matches?'dark':'light'):preference;const select=document.querySelector('#theme');if(select)select.value=preference;window.dispatchEvent(new CustomEvent('kg-theme-change'));}
+  const system = matchMedia('(prefers-color-scheme: dark)');
+  let preference = 'dark';
+  try {
+    const saved = localStorage.getItem('kg-theme');
+    if (saved === 'light' || saved === 'dark' || saved === 'system') {
+      preference = saved;
+    }
+  } catch {}
+
+  function resolveTheme(pref) {
+    if (pref === 'system') return system.matches ? 'dark' : 'light';
+    return pref === 'light' ? 'light' : 'dark';
+  }
+
+  function apply() {
+    const active = resolveTheme(preference);
+    document.documentElement.dataset.theme = active;
+    document.documentElement.dataset.themePref = preference;
+    const meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) meta.setAttribute('content', active === 'dark' ? '#09090b' : '#fafafa');
+    const select = document.querySelector('#theme');
+    if (select && select.value !== preference) select.value = preference;
+    window.dispatchEvent(new CustomEvent('kg-theme-change', { detail: { theme: active, preference } }));
+  }
+
+  function setPreference(next) {
+    preference = ['dark', 'light', 'system'].includes(next) ? next : 'dark';
+    try {
+      localStorage.setItem('kg-theme', preference);
+    } catch {}
+    apply();
+  }
+
+  window.__kgTheme = { get: () => preference, set: setPreference };
   apply();
-  system.addEventListener('change',()=>{if(preference==='system')apply()});
-  window.addEventListener('storage',e=>{if(e.key==='kg-theme'||e.key===null){preference=['light','dark'].includes(e.newValue)?e.newValue:'system';apply()}});
-  document.addEventListener('DOMContentLoaded',()=>{apply();document.querySelector('#theme')?.addEventListener('change',e=>{preference=e.target.value;try{if(preference==='system')localStorage.removeItem('kg-theme');else localStorage.setItem('kg-theme',preference)}catch{}apply()})});
+
+  system.addEventListener('change', () => {
+    if (preference === 'system') apply();
+  });
+
+  window.addEventListener('storage', (e) => {
+    if (e.key === 'kg-theme' || e.key === null) {
+      preference = ['light', 'dark', 'system'].includes(e.newValue) ? e.newValue : 'dark';
+      apply();
+    }
+  });
+
+  document.addEventListener('DOMContentLoaded', () => {
+    apply();
+    document.querySelector('#theme')?.addEventListener('change', (e) => {
+      setPreference(e.target.value);
+    });
+  });
 })();

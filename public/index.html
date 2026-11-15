@@ -1,168 +1,278 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="theme-color" content="#20132c">
-<title>KanjutGede — Pocket Mischief</title>
-<meta name="description" content="Media downloaders, search, AI and developer tools. Explore KanjutGede REST APIs with Momo.">
-<script src="/assets/theme.js">
-</script>
-<link rel="icon" href="/assets/brand.webp">
-<link rel="stylesheet" href="/assets/site.css">
-<script type="module" src="/assets/landing.js">
-</script>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#09090b">
+  <title>KanjutGede — REST API Infrastructure for Developers</title>
+  <meta name="description" content="42 production JSON endpoints across media extraction, network diagnostics, CAPTCHA solving, AI inference, and public data feeds. Standardized envelope, multi-provider failover, OpenAPI 3.1.">
+  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+  <script src="/assets/theme.js"></script>
+  <link rel="stylesheet" href="/assets/site.css">
 </head>
-<body class="pocket">
-<a class="skip" href="#main">Skip to content</a>
-<header class="nav wrap">
-<a class="brand" href="/">
-<img src="/assets/brand.webp" width="38" height="38" alt="KG underwear logo">KanjutGede</a>
-<nav class="nav-links" aria-label="Main">
-<a href="/#catalog">Find an API</a>
-<a href="/explorer.html">Playground</a>
-<a href="/docs">Docs</a>
-<a href="/signin.html">Sign in</a>
-<label class="theme-control">
-<span class="sr-only">Theme</span>
-<select id="theme" aria-label="Theme">
-<option value="system">System theme</option>
-<option value="light">Day world</option>
-<option value="dark">Night world</option>
-</select>
-</label>
-</nav>
-</header>
-<main id="main">
-<section class="hero" aria-label="Pocket Mischief interactive character scene">
-<div class="sky-disc" aria-hidden="true">
-</div>
-<div class="horizon" aria-hidden="true">
-</div>
-<div class="kinetic" aria-hidden="true">
-<span>Small idea.</span>
-<span>Big mischief.</span>
-</div>
-<div class="character-wrap">
-<div class="character" data-state="idle">
-<svg class="momo" viewBox="0 0 500 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Momo, an original folded-ear internet familiar. KanjutGede companion.">
-<g stroke="#492b52" stroke-width="7" stroke-linejoin="round">
-<g class="scarf-tail">
-<path d="M290 320Q390 285 452 369Q405 440 340 381Z" fill="#a9dfbf"/>
-<path d="M324 336Q396 342 422 371" fill="none" stroke="#5e9682" stroke-width="4"/>
-</g>
-<g class="momo-body">
-<path d="M172 404L150 455Q178 478 218 458L230 415M275 415L284 459Q327 478 352 451L330 403" fill="#9c6aaa"/>
-<path d="M154 452L143 471Q176 487 217 471L218 458M286 460L287 475Q330 491 359 468L348 453" fill="#f5ae8d"/>
-<path d="M160 290Q123 335 157 402Q245 455 337 402Q363 350 327 291" fill="#b67fbc"/>
-<g class="arm">
-<path d="M327 329Q387 319 385 260Q396 231 410 250Q427 291 398 330Q377 361 340 373" fill="#b67fbc"/>
-</g>
-<path d="M175 329Q113 331 130 377Q143 398 168 379" fill="#b67fbc"/>
-</g>
-<g class="momo-head">
-<g class="ear-left">
-<path d="M181 145Q145 24 70 69L25 211L90 178L126 96L154 165Z" fill="#b67fbc"/>
-<path d="M25 211L90 178L69 231Z" fill="#ffe5c9"/>
-</g>
-<g class="ear-right">
-<path d="M315 145Q353 26 409 67L475 167L428 207L367 95L343 164Z" fill="#b67fbc"/>
-<path d="M428 207L475 167L470 238Z" fill="#ffe5c9"/>
-</g>
-<path d="M151 135Q171 111 224 113Q200 77 230 63Q260 46 262 74Q240 66 243 100Q264 110 283 110Q355 116 376 175Q418 275 344 318Q253 358 164 320Q91 274 121 188Z" fill="#b67fbc"/>
-<path d="M152 183Q178 149 218 181Q244 130 280 159Q331 140 354 189Q395 278 331 301Q248 335 170 296Q118 274 152 183Z" fill="#ffe8d3"/>
-<g class="brows" stroke-width="6" fill="none">
-<path d="M171 173Q192 162 211 171M278 163Q301 149 323 161"/>
-</g>
-<g class="eye-group">
-<ellipse cx="194" cy="223" rx="30" ry="41" fill="#fff9ec"/>
-<ellipse cx="304" cy="213" rx="30" ry="42" fill="#fff9ec"/>
-<g class="pupils">
-<ellipse cx="199" cy="225" rx="18" ry="30" fill="#efa637"/>
-<ellipse cx="308" cy="215" rx="18" ry="30" fill="#efa637"/>
-<ellipse cx="201" cy="222" rx="8" ry="20" fill="#492b52"/>
-<ellipse cx="310" cy="212" rx="8" ry="20" fill="#492b52"/>
-<ellipse cx="194" cy="209" rx="7" ry="10" fill="#fff9ec" stroke="none"/>
-<ellipse cx="303" cy="199" rx="7" ry="10" fill="#fff9ec" stroke="none"/>
-</g>
-</g>
-<path class="mouth-smile" d="M229 277Q252 291 276 264Q268 310 244 304Z" fill="#ce6d87" stroke-width="4"/>
-<ellipse class="mouth-o" cx="252" cy="286" rx="12" ry="17" fill="#ce6d87" stroke-width="4"/>
-<path d="M160 270L165 279M173 270L178 278M331 258L337 266M344 255L350 264" stroke="#e18f95" stroke-width="4"/>
-</g>
-<path d="M154 310Q248 337 350 297L341 337Q237 385 154 347Z" fill="#b8e6c7"/>
-<path d="M153 346Q235 377 337 338" stroke="#609486" stroke-width="4" fill="none"/>
-</g>
-</svg>
-</div>
-</div>
-<div class="hero-copy">
-<h1>A little chaos. A lot of possibility.</h1>
-<p>Media, search, AI and tools for your next “what if?” Meet Momo. Then make something unexpected.</p>
-<a class="primary" href="/explorer.html">Let’s make trouble <span aria-hidden="true">↗</span>
-</a>
-</div>
-<div class="hero-controls">
-<button type="button" class="quiet greet">Say hello to Momo</button>
-<button type="button" class="quiet play-opening">Play greeting</button>
-<button type="button" class="quiet motion" aria-pressed="true">Reactions on</button>
-</div>
-<div class="opening" aria-label="Optional opening" role="region">
-<img class="opening-poster" data-src="/assets/momo.webp" width="976" height="1000" alt="">
-<div class="opening-title">A LITTLE<br>MISCHIEF.</div>
-<button class="quiet skip-opening" type="button">Skip opening</button>
-</div>
-</section>
-<section class="section wrap" id="catalog">
-<div class="section-intro">
-<h2>Pick a rabbit hole.</h2>
-<p>Find a media downloader, discover something new, or reach for a useful tool. The API reference has the parameters and billing details.</p>
-</div>
-<div class="catalog-tools">
-<label class="search-label">Search APIs<input id="search" type="search" placeholder="Try TikTok, Wikipedia or DNS">
-</label>
-<label>Category<select id="category">
-<option value="">All categories</option>
-</select>
-</label>
-</div>
-<div class="catalog" aria-label="Endpoint results">
-</div>
-<p class="catalog-status" role="status">Loading endpoint catalog…</p>
-<noscript>
-<p>JavaScript is needed to search. <a href="/docs">Browse the API reference</a> for all endpoints.</p>
-</noscript>
-</section>
-<section class="section wrap">
-<div class="local-example">
-<div>
-<h2>A small place to start.</h2>
-<p>The public health endpoint needs no API key. Here’s a local example excerpt so you can see the shape without sending a request.</p>
-<button class="primary sample" type="button">Show local example <span aria-hidden="true">↗</span>
-</button>
-<p class="sample-status" role="status">
-</p>
-<a href="/explorer.html?endpoint=sys.health">Open this endpoint in the playground ↗</a>
-</div>
-<div class="response-panel">
-<h3>Local example · response excerpt</h3>
-<pre>curl 'https://api.itsfaiz.my.id/health'</pre>
-<pre class="sample-response" hidden>{
-  "status": true,
-  "creator": "KanjutGede"
-}</pre>
-</div>
-</div>
-</section>
-<section class="closing wrap">
-<h2>Go make something<br>ridiculous.</h2>
-<a class="primary" href="/explorer.html">Open the playground <span aria-hidden="true">↗</span>
-</a>
-</section>
-</main>
-<footer class="wrap">
-<span>KanjutGede · Serious APIs. Stupid name.</span>
-<a href="/docs">API reference ↗</a>
-</footer>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <div class="wrap nav">
+      <a class="brand" href="/">
+        <span class="brand-mark" aria-hidden="true">
+          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4.5 4v8M9.5 4L5.5 8l4 4"/>
+            <circle cx="12" cy="11.5" r="1.2" fill="currentColor" stroke="none"/>
+          </svg>
+        </span>
+        <span>KanjutGede</span>
+        <span class="version-pill">v2.0</span>
+      </a>
+
+      <nav class="nav-links" aria-label="Primary">
+        <button class="cmd-trigger" type="button" data-open-cmd aria-label="Search endpoints">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+          </svg>
+          <span class="cmd-trigger-label">Jump to endpoint…</span>
+          <kbd class="kbd">⌘K</kbd>
+        </button>
+        <a class="nav-link" href="#directory">Directory</a>
+        <a class="nav-link" href="/explorer.html">Workbench</a>
+        <a class="nav-link" href="/docs">OpenAPI</a>
+        <a class="nav-link" href="/signin.html">Auth</a>
+        <label class="sr-only" for="theme">Theme</label>
+        <select id="theme" class="theme-select" aria-label="Color theme">
+          <option value="dark">Dark</option>
+          <option value="light">Light</option>
+          <option value="system">System</option>
+        </select>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero-section">
+      <div class="wrap hero-grid">
+        <div>
+          <div class="protocol-kicker">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span>REST / JSON · OpenAPI 3.1 · Multi-Provider Failover</span>
+          </div>
+
+          <h1 class="hero-title">HTTP endpoints engineered for deterministic integration.</h1>
+          <p class="hero-lead">
+            42 production routes covering media extraction, DNS &amp; network diagnostics, developer profiles, Indonesian telemetry, AI inference, and challenge solvers — served behind a uniform JSON envelope and explicit rate-limit headers.
+          </p>
+
+          <div class="spec-kv-list" aria-label="Integration constants">
+            <div class="spec-kv">
+              <div class="spec-kv-meta">
+                <span class="spec-kv-label">Base URL</span>
+                <code class="spec-kv-code">https://api.itsfaiz.my.id</code>
+              </div>
+              <button class="quiet btn-sm copy-btn" type="button" data-copy-value="https://api.itsfaiz.my.id" aria-label="Copy Base URL">
+                <svg class="icon-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <svg class="icon-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                <span>Copy</span>
+              </button>
+            </div>
+            <div class="spec-kv">
+              <div class="spec-kv-meta">
+                <span class="spec-kv-label">Auth Header</span>
+                <code class="spec-kv-code">Authorization: Bearer &lt;API_KEY&gt;</code>
+              </div>
+              <button class="quiet btn-sm copy-btn" type="button" data-copy-value="Authorization: Bearer" aria-label="Copy Authorization header prefix">
+                <svg class="icon-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <svg class="icon-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                <span>Copy</span>
+              </button>
+            </div>
+          </div>
+
+          <div class="hero-actions">
+            <a class="primary" href="/explorer.html">
+              <span>Open API Workbench</span>
+              <svg class="btn-arrow" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <a class="quiet" href="/docs">OpenAPI Reference</a>
+            <a class="quiet" href="#directory">Browse 42 Endpoints</a>
+          </div>
+
+          <div class="telemetry-row" aria-label="Platform capabilities">
+            <div class="telemetry-cell">
+              <span class="telemetry-val" id="stat-total">42</span>
+              <span class="telemetry-lbl">Total routes</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-val" id="stat-public">24</span>
+              <span class="telemetry-lbl">Public (no key)</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-val" id="stat-protected">18</span>
+              <span class="telemetry-lbl">Bearer-protected</span>
+            </div>
+            <div class="telemetry-cell">
+              <span class="telemetry-val">3.1.0</span>
+              <span class="telemetry-lbl">OpenAPI spec</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="terminal-card" aria-label="Interactive integration preview">
+          <div class="terminal-top">
+            <div class="preset-tabs" role="tablist" aria-label="Sample endpoint">
+              <button class="tab-pill is-active" type="button" role="tab" aria-selected="true" data-preset="tool.dns">DNS Lookup</button>
+              <button class="tab-pill" type="button" role="tab" aria-selected="false" data-preset="dl.tiktok">TikTok Media</button>
+              <button class="tab-pill" type="button" role="tab" aria-selected="false" data-preset="stalk.github">GitHub Profile</button>
+              <button class="tab-pill" type="button" role="tab" aria-selected="false" data-preset="solve.turnstile">Turnstile</button>
+            </div>
+          </div>
+
+          <div class="terminal-subbar">
+            <div class="terminal-route">
+              <code id="quickstart-route">GET /api/v1/tools/dns</code>
+              <span id="quickstart-auth" class="chip chip-public">Public · 0 cr</span>
+            </div>
+            <div class="lang-tabs" aria-label="Snippet language">
+              <button class="tab-pill is-active" type="button" data-qs-lang="cURL">cURL</button>
+              <button class="tab-pill" type="button" data-qs-lang="TypeScript">TS</button>
+              <button class="tab-pill" type="button" data-qs-lang="Python">Python</button>
+              <button class="tab-pill" type="button" data-qs-lang="Go">Go</button>
+              <button class="tab-pill" type="button" data-qs-tab="response">200 OK</button>
+            </div>
+          </div>
+
+          <pre class="terminal-pre"><code id="quickstart-code">curl -sS 'https://api.itsfaiz.my.id/api/v1/tools/dns?domain=itsfaiz.my.id'</code></pre>
+
+          <div class="terminal-foot">
+            <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+              <button class="quiet btn-sm sample" type="button">Inspect 200 OK envelope</button>
+              <button class="quiet btn-sm copy-btn" id="quickstart-copy" type="button">
+                <svg class="icon-copy" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+                <svg class="icon-check" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
+                <span>Copy</span>
+              </button>
+            </div>
+            <a class="quiet btn-sm" id="quickstart-open" href="/explorer.html?endpoint=tool.dns">
+              <span>Run in Workbench</span>
+              <span class="btn-arrow" aria-hidden="true">→</span>
+            </a>
+          </div>
+          <p class="sr-only sample-status" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="spec-section" aria-label="Protocol guarantees">
+      <div class="wrap arch-strip">
+        <article class="arch-card">
+          <div class="arch-head">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+            <span>Predictable JSON Envelope</span>
+          </div>
+          <p class="arch-body">Every v1 route resolves to <code>{ status, creator, latency, result }</code> on success and structured error codes on validation or upstream faults.</p>
+        </article>
+        <article class="arch-card">
+          <div class="arch-head">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 3h5v5"/><path d="M4 20 21 3"/><path d="M21 16v5h-5"/><path d="m15 15 6 6"/><path d="M4 4l5 5"/></svg>
+            <span>Upstream Failover Chains</span>
+          </div>
+          <p class="arch-body">Media downloaders and extractors automatically cascade across backup adapters when primary providers throttle or time out.</p>
+        </article>
+        <article class="arch-card">
+          <div class="arch-head">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+            <span>Scoped Access &amp; Headers</span>
+          </div>
+          <p class="arch-body">24 utility routes run unauthenticated; 18 compute/media routes enforce Bearer keys and return <code>x-ratelimit-*</code> and <code>x-credit-remaining</code>.</p>
+        </article>
+        <article class="arch-card">
+          <div class="arch-head">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+            <span>Machine-Readable Schema</span>
+          </div>
+          <p class="arch-body">Consume <code>/api/v1/openapi.json</code> directly in SDK generators, Postman, Insomnia, or browse interactive docs at <code>/docs</code>.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="directory-section" id="directory" aria-labelledby="directory-heading">
+      <div class="wrap">
+        <div class="section-header">
+          <div>
+            <h2 class="section-title" id="directory-heading">Endpoint Specification Directory</h2>
+            <p class="section-sub">Select any route to pre-load its schema, sample parameters, and live HTTP runner in the Workbench.</p>
+          </div>
+          <a class="quiet btn-sm" href="/api/v1/openapi.json">Download openapi.json</a>
+        </div>
+
+        <div class="directory-toolbar">
+          <div class="search-box">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+            </svg>
+            <label class="sr-only" for="search">Filter endpoints</label>
+            <input id="search" type="search" autocomplete="off" spellcheck="false" placeholder="Filter by path, ID, title, or capability (e.g. /tools/dns, tiktok, gempa)…">
+            <kbd class="kbd" aria-hidden="true">/</kbd>
+          </div>
+
+          <div class="seg-group" role="group" aria-label="Authentication scope">
+            <button class="seg-btn is-active" type="button" data-scope="all" aria-pressed="true">All</button>
+            <button class="seg-btn" type="button" data-scope="public" aria-pressed="false">Public</button>
+            <button class="seg-btn" type="button" data-scope="protected" aria-pressed="false">Bearer Key</button>
+          </div>
+
+          <div>
+            <label class="sr-only" for="category">Category</label>
+            <select id="category" class="filter-select" aria-label="Filter by category">
+              <option value="">All categories</option>
+            </select>
+          </div>
+
+          <button class="quiet btn-sm" id="reset-filters" type="button">Reset</button>
+        </div>
+
+        <div class="category-pills" id="category-pills" aria-label="Quick category filter"></div>
+
+        <div class="catalog-bar">
+          <span class="catalog-status" role="status" aria-live="polite">Loading 42 endpoints…</span>
+          <span class="mono">Category · Cache · Policy</span>
+        </div>
+
+        <div class="catalog" role="list"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="wrap footer-inner">
+      <span>KanjutGede REST API · Base <code>https://api.itsfaiz.my.id</code></span>
+      <nav class="footer-links" aria-label="Footer">
+        <a href="/explorer.html">API Workbench</a>
+        <a href="/docs">OpenAPI Docs</a>
+        <a href="/api/v1/openapi.json">openapi.json</a>
+        <a href="/health">/health</a>
+        <a href="/signin.html">Developer Auth</a>
+      </nav>
+    </div>
+  </footer>
+
+  <div class="cmd-backdrop" id="cmd-backdrop" hidden>
+    <div class="cmd-dialog" role="dialog" aria-modal="true" aria-label="Jump to API endpoint">
+      <div class="cmd-input-row">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+        </svg>
+        <label class="sr-only" for="cmd-input">Search 42 endpoints</label>
+        <input id="cmd-input" type="search" autocomplete="off" spellcheck="false" placeholder="Jump to endpoint path, title, or category…">
+        <kbd class="kbd">ESC</kbd>
+      </div>
+      <div class="cmd-list" id="cmd-list" role="listbox"></div>
+      <div class="cmd-foot">
+        <span><kbd class="kbd">↑</kbd> <kbd class="kbd">↓</kbd> Navigate · <kbd class="kbd">↵</kbd> Open in Workbench</span>
+        <span>42 routes indexed</span>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/assets/landing.js"></script>
 </body>
 </html>

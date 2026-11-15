@@ -13,6 +13,8 @@ test('snippets isolate shell input and use key environment variables, never supp
  assert.match(code,/\$API_KEY/); assert.ok(code.includes("'\\''")||code.includes('%27'));
  assert.match(makeSnippet(endpoint,{},'Python'),/os.environ\["API_KEY"\]/);
  assert.match(makeSnippet(endpoint,{},'TypeScript'),/: unknown/);
+ assert.match(makeSnippet(endpoint,{},'Go'),/os\.Getenv\("API_KEY"\)/);
+ assert.ok(!makeSnippet({...endpoint,public:true},{},'Go').includes('API_KEY'));
 });
 test('response redaction removes supplied key from nested data and headers',()=>{
  assert.deepEqual(redact({message:'echo UNIT_SECRET',nested:['UNIT_SECRET'],UNIT_SECRET:'value'},'UNIT_SECRET'),{message:'echo [redacted]',nested:['[redacted]'],'[redacted]':'value'});
@@ -49,4 +51,21 @@ test('published catalog stays synchronized with actual endpoint metadata',async(
  assert.equal(catalog.length,ENDPOINT_REGISTRY.length);
  for(const endpoint of ENDPOINT_REGISTRY){const published=catalog.find(e=>e.id===endpoint.id);assert.equal(published.title,endpoint.metadata.title);assert.equal(published.public,endpoint.scopes?.includes('public')||false);assert.equal(published.credits,endpoint.billing_policy.default_credits);}
  assert.equal(catalog.find(e=>e.id==='solve.bridge').supported,false);
+});
+test('catalog filter supports query, category, and public/protected scope filters',async()=>{
+ const {readFile}=await import('node:fs/promises');
+ const {filterCatalog}=await import('../public/assets/catalog.js');
+ const catalog=JSON.parse(await readFile(new URL('../public/assets/catalog.json',import.meta.url),'utf8'));
+ assert.equal(filterCatalog(catalog,{scope:'public'}).every(e=>e.public),true);
+ assert.equal(filterCatalog(catalog,{scope:'protected'}).every(e=>!e.public),true);
+ assert.equal(filterCatalog(catalog,{scope:'public'}).length+filterCatalog(catalog,{scope:'protected'}).length,catalog.length);
+ assert.ok(filterCatalog(catalog,{search:'dns'}).some(e=>e.id==='tool.dns'));
+});
+test('frontend HTML surfaces ship zero mascot/GSAP artifacts and default to precision dark theme',async()=>{
+ const {readFile}=await import('node:fs/promises');
+ for(const file of ['index.html','explorer.html','signin.html']){
+  const html=await readFile(new URL(`../public/${file}`,import.meta.url),'utf8');
+  assert.match(html,/data-theme="dark"/);
+  assert.ok(!/momo|companion\.js|gsap\.min\.js|Pocket Mischief/i.test(html),`unexpected legacy artifact in ${file}`);
+ }
 });

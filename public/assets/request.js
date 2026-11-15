@@ -2,14 +2,18 @@ export function makeRequest(endpoint, values) {
   const path = endpoint.executionPath;
   if (!/^\/(?:health|api\/v1\/[a-z0-9/_-]+)$/.test(path)) throw new Error('Unsupported endpoint path.');
   const query = new URLSearchParams();
-  for (const [name,value] of Object.entries(values)) if (value !== '') query.set(name,String(value));
-  return {path:path+(query.size?'?'+query.toString():''), method:endpoint.method};
+  for (const [name, value] of Object.entries(values || {})) {
+    if (value !== '' && value !== undefined && value !== null) query.set(name, String(value));
+  }
+  return { path: path + (query.size ? '?' + query.toString() : ''), method: endpoint.method };
 }
 export function makeSnippet(endpoint, values, language) {
-  const request=makeRequest(endpoint,values), address='https://api.itsfaiz.my.id'+request.path, auth=!endpoint.public;
-  if(language==='cURL') return `curl '${address.replaceAll("'","'\\''")}'${auth?' \\\n  -H "Authorization: Bearer $API_KEY"':''}`;
-  if(language==='Python') return `import requests${auth?'\nimport os':''}\n\nresponse = requests.get(\n    ${JSON.stringify(address)}${auth?',\n    headers={"Authorization": "Bearer " + os.environ["API_KEY"]}':''}\n)\nresponse.raise_for_status()\nprint(response.json())`;
-  return `${auth?'// Run on your server with API_KEY set in the environment.\nconst apiKey = process.env.API_KEY;\n':''}const response = await fetch(${JSON.stringify(address)}${auth?', {\n  headers: { Authorization: `Bearer ${apiKey}` }\n}':''});\nif (!response.ok) throw new Error(\`HTTP \${response.status}\`);\nconst data${language==='TypeScript'?': unknown':''} = await response.json();\nconsole.log(data);`;
+  const request = makeRequest(endpoint, values), address = 'https://api.itsfaiz.my.id' + request.path, auth = !endpoint.public;
+  const scheme = 'Bearer';
+  if (language === 'cURL') return `curl -sS '${address.replaceAll("'", "'\\''")}'${auth ? ` \\\n  -H "Authorization: ${scheme} $API_KEY"` : ''}`;
+  if (language === 'Python') return `import requests${auth ? '\nimport os' : ''}\n\nresponse = requests.get(\n    ${JSON.stringify(address)}${auth ? `,\n    headers={"Authorization": "${scheme} " + os.environ["API_KEY"]}` : ''},\n    timeout=30\n)\nresponse.raise_for_status()\nprint(response.json())`;
+  if (language === 'Go') return `package main\n\nimport (\n\t"fmt"\n\t"io"\n\t"net/http"${auth ? '\n\t"os"' : ''}\n)\n\nfunc main() {\n\treq, _ := http.NewRequest("GET", ${JSON.stringify(address)}, nil)${auth ? `\n\treq.Header.Set("Authorization", "${scheme} "+os.Getenv("API_KEY"))` : ''}\n\tres, err := http.DefaultClient.Do(req)\n\tif err != nil {\n\t\tpanic(err)\n\t}\n\tdefer res.Body.Close()\n\tbody, _ := io.ReadAll(res.Body)\n\tfmt.Println(string(body))\n}`;
+  return `${auth ? 'const apiKey = process.env.API_KEY;\n\n' : ''}const response = await fetch(${JSON.stringify(address)}${auth ? `,\n  {\n    headers: { Authorization: \`${scheme} \${apiKey}\` }\n  }` : ''});\nif (!response.ok) throw new Error(\`HTTP \${response.status}\`);\nconst data${language === 'TypeScript' ? ': unknown' : ''} = await response.json();\nconsole.log(data);`;
 }
 export function redact(value, key) {
   if(!key)return value;

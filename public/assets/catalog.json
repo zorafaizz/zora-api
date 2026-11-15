@@ -3,30 +3,67 @@
     "id": "sys.health",
     "path": "/health",
     "executionPath": "/api/v1/health",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "System Health & Stats",
     "description": "Periksa status kesehatan server, memory, uptime, dan Node runtime",
     "category": "System",
+    "subcategory": "Monitoring",
     "policy": "no_quota",
     "credits": 0,
     "deadline": 3000,
+    "cacheTtl": 0,
+    "concurrency": 100,
+    "resourceClass": "minimal",
+    "providers": [
+      "local_process"
+    ],
     "parameters": []
   },
   {
     "id": "dl.aio",
     "path": "/api/downloader/aio",
     "executionPath": "/api/v1/downloader/aio",
+    "aliases": [
+      "/api/downloader/aiov2"
+    ],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "read:media"
+    ],
     "title": "All-In-One Downloader",
     "description": "Ekstraksi video/audio otomatis dari berbagai platform media sosial",
     "category": "Downloaders",
+    "subcategory": "Universal",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 25000,
+    "cacheTtl": 0,
+    "concurrency": 20,
+    "resourceClass": "medium",
+    "providers": [
+      "ttdl_zone",
+      "tikwm",
+      "savetube",
+      "youtube_initial_player",
+      "fdown",
+      "twimg_syndication",
+      "fxtwitter",
+      "x2twitter",
+      "spotify_embed",
+      "pinterest_html_json",
+      "soundcloud_api_v2",
+      "mediafire_cheerio",
+      "sfile_cheerio",
+      "pixeldrain_api"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -43,15 +80,31 @@
     "id": "dl.tiktok",
     "path": "/api/downloader/tiktok",
     "executionPath": "/api/v1/downloader/tiktok",
+    "aliases": [
+      "/api/downloader/tt"
+    ],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "read:media"
+    ],
     "title": "TikTok HD & Slide Downloader",
     "description": "Download video TikTok tanpa watermark, audio MP3, atau foto slide HD",
     "category": "Downloaders",
+    "subcategory": "Social",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 15000,
+    "cacheTtl": 600,
+    "concurrency": 25,
+    "resourceClass": "medium",
+    "providers": [
+      "ttdl_zone",
+      "tikwm",
+      "lovetik",
+      "yt-dlp"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -68,15 +121,34 @@
     "id": "dl.youtube",
     "path": "/api/downloader/youtube",
     "executionPath": "/api/v1/downloader/youtube",
+    "aliases": [
+      "/api/downloader/yt",
+      "/api/downloader/ytmp4",
+      "/api/downloader/ytmp3"
+    ],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "read:media"
+    ],
     "title": "YouTube MP4 & MP3 Downloader",
     "description": "Konversi dan download audio/video YouTube resolusi hingga 1080p",
     "category": "Downloaders",
+    "subcategory": "Video",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 25000,
+    "cacheTtl": 900,
+    "concurrency": 15,
+    "resourceClass": "high",
+    "providers": [
+      "savetube_vip",
+      "youtube_initial_player",
+      "invidious_nadeko",
+      "yt-dlp",
+      "noembed"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -93,15 +165,30 @@
     "id": "dl.instagram",
     "path": "/api/downloader/instagram",
     "executionPath": "/api/v1/downloader/instagram",
+    "aliases": [
+      "/api/downloader/ig",
+      "/api/downloader/reelsvideo"
+    ],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "read:media"
+    ],
     "title": "Instagram Reels & Post Downloader",
     "description": "Ekstraksi media video reels, foto postingan, dan carousel Instagram",
     "category": "Downloaders",
+    "subcategory": "Social",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 15000,
+    "cacheTtl": 900,
+    "concurrency": 20,
+    "resourceClass": "medium",
+    "providers": [
+      "reelsvideo",
+      "yt-dlp"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -118,15 +205,29 @@
     "id": "dl.facebook",
     "path": "/api/downloader/facebook",
     "executionPath": "/api/v1/downloader/facebook",
+    "aliases": [
+      "/api/downloader/fb"
+    ],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "read:media"
+    ],
     "title": "Facebook Video Downloader",
     "description": "Download video publik Facebook resolusi HD dan SD",
     "category": "Downloaders",
+    "subcategory": "Social",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 15000,
+    "cacheTtl": 900,
+    "concurrency": 20,
+    "resourceClass": "medium",
+    "providers": [
+      "fdown",
+      "yt-dlp"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -143,15 +244,32 @@
     "id": "dl.twitter",
     "path": "/api/downloader/twitter",
     "executionPath": "/api/v1/downloader/twitter",
+    "aliases": [
+      "/api/downloader/x"
+    ],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "read:media"
+    ],
     "title": "Twitter / X Media Downloader",
     "description": "Download video dan GIF dari cuitan Twitter / X",
     "category": "Downloaders",
+    "subcategory": "Social",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 15000,
+    "cacheTtl": 900,
+    "concurrency": 20,
+    "resourceClass": "medium",
+    "providers": [
+      "twimg_syndication",
+      "fxtwitter",
+      "x2twitter",
+      "yt-dlp",
+      "twitter_oembed"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -168,15 +286,31 @@
     "id": "dl.spotify",
     "path": "/api/downloader/spotify",
     "executionPath": "/api/v1/downloader/spotify",
+    "aliases": [
+      "/api/downloader/spotidownloader"
+    ],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "read:media"
+    ],
     "title": "Spotify Track Downloader",
     "description": "Metadata lagu Spotify dan ekstraksi audio stream 320kbps MP3",
     "category": "Downloaders",
+    "subcategory": "Audio",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 25000,
+    "cacheTtl": 3600,
+    "concurrency": 15,
+    "resourceClass": "medium",
+    "providers": [
+      "spotify_embed",
+      "fabdl",
+      "itunes_search",
+      "spotify_oembed"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -193,15 +327,30 @@
     "id": "dl.pinterest",
     "path": "/api/downloader/pinterest",
     "executionPath": "/api/v1/downloader/pinterest",
+    "aliases": [
+      "/api/downloader/pin"
+    ],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "read:media"
+    ],
     "title": "Pinterest Downloader",
     "description": "Download video pin dan gambar resolusi penuh dari Pinterest",
     "category": "Downloaders",
+    "subcategory": "Media",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 15000,
+    "cacheTtl": 1800,
+    "concurrency": 25,
+    "resourceClass": "low",
+    "providers": [
+      "pinterest_html_json",
+      "pinterest_oembed",
+      "yt-dlp"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -218,15 +367,28 @@
     "id": "dl.soundcloud",
     "path": "/api/downloader/soundcloud",
     "executionPath": "/api/v1/downloader/soundcloud",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "read:media"
+    ],
     "title": "SoundCloud Music & Stream",
     "description": "Pencarian track lagu SoundCloud dan metadata lengkap",
     "category": "Downloaders",
+    "subcategory": "Audio",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 15000,
+    "cacheTtl": 3600,
+    "concurrency": 20,
+    "resourceClass": "low",
+    "providers": [
+      "soundcloud_api_v2",
+      "soundcloud_mobi",
+      "soundcloud_oembed"
+    ],
     "parameters": [
       {
         "name": "q",
@@ -243,15 +405,26 @@
     "id": "dl.sfile",
     "path": "/api/downloader/sfile",
     "executionPath": "/api/v1/downloader/sfile",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "read:media"
+    ],
     "title": "Sfile.mobi Direct Downloader",
     "description": "Bypass halaman download bertingkat Sfile.mobi ke direct download link",
     "category": "Downloaders",
+    "subcategory": "File",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 20000,
+    "cacheTtl": 900,
+    "concurrency": 15,
+    "resourceClass": "low",
+    "providers": [
+      "sfile_cheerio"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -268,15 +441,26 @@
     "id": "dl.mediafire",
     "path": "/api/downloader/mediafire",
     "executionPath": "/api/v1/downloader/mediafire",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "read:media"
+    ],
     "title": "MediaFire Direct Link",
     "description": "Bypass halaman MediaFire untuk mendapatkan link unduhan langsung",
     "category": "Downloaders",
+    "subcategory": "File",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 12000,
+    "cacheTtl": 900,
+    "concurrency": 30,
+    "resourceClass": "low",
+    "providers": [
+      "mediafire_cheerio"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -293,15 +477,26 @@
     "id": "dl.pixeldrain",
     "path": "/api/downloader/pixeldrain",
     "executionPath": "/api/v1/downloader/pixeldrain",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "read:media"
+    ],
     "title": "Pixeldrain File & Album Downloader",
     "description": "Ekstraksi metadata berkas, SHA256, dan direct download link Pixeldrain",
     "category": "Downloaders",
+    "subcategory": "File",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 12000,
+    "cacheTtl": 900,
+    "concurrency": 30,
+    "resourceClass": "low",
+    "providers": [
+      "pixeldrain_api"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -318,15 +513,32 @@
     "id": "ai.chat",
     "path": "/api/ai/chat",
     "executionPath": "/api/v1/ai/chat",
+    "aliases": [
+      "/api/ai/aichat",
+      "/api/ai/chatai",
+      "/api/ai/chatcompletion"
+    ],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "ai:generate"
+    ],
     "title": "AI Multi-Model Chat Completion",
     "description": "Percakapan AI cerdas multi-provider dengan failover otomatis",
     "category": "AI & LLM",
+    "subcategory": "Text Generation",
     "policy": "free_eligible",
     "credits": 2,
     "deadline": 30000,
+    "cacheTtl": 0,
+    "concurrency": 15,
+    "resourceClass": "medium",
+    "providers": [
+      "pollinations_openai",
+      "pollinations_mistral",
+      "pollinations_qwen"
+    ],
     "parameters": [
       {
         "name": "prompt",
@@ -343,15 +555,26 @@
     "id": "media.hd",
     "path": "/api/tools/hd",
     "executionPath": "/api/v1/tools/hd",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "media:enhance"
+    ],
     "title": "Image Enhancer HD (Remini Style)",
     "description": "Penjernih detail foto menggunakan algoritma C++ CLAHE & adaptive unsharp masking",
     "category": "Image & Media",
+    "subcategory": "Enhancement",
     "policy": "paid_only",
     "credits": 2,
     "deadline": 20000,
+    "cacheTtl": 86400,
+    "concurrency": 8,
+    "resourceClass": "heavy_cpu",
+    "providers": [
+      "sharp_clahe"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -368,15 +591,26 @@
     "id": "media.uhd",
     "path": "/api/tools/uhd",
     "executionPath": "/api/v1/tools/uhd",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "media:enhance"
+    ],
     "title": "Image Super-Resolution Ultra HD",
     "description": "Upscaling resolusi gambar 2x hingga 4x dengan interpolasi Lanczos3",
     "category": "Image & Media",
+    "subcategory": "Enhancement",
     "policy": "paid_only",
     "credits": 4,
     "deadline": 30000,
+    "cacheTtl": 86400,
+    "concurrency": 4,
+    "resourceClass": "heavy_cpu",
+    "providers": [
+      "sharp_lanczos3"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -393,45 +627,83 @@
     "id": "info.gempa",
     "path": "/api/tools/gempa",
     "executionPath": "/api/v1/tools/gempa",
+    "aliases": [
+      "/api/search/bmkg"
+    ],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "BMKG Gempa Terkini Realtime",
     "description": "Data parameter gempa bumi terbaru di Indonesia dan shakemap",
     "category": "Information & Data",
+    "subcategory": "Seismic",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 8000,
+    "cacheTtl": 300,
+    "concurrency": 50,
+    "resourceClass": "minimal",
+    "providers": [
+      "bmkg_tews"
+    ],
     "parameters": []
   },
   {
     "id": "info.gempa.terkini",
     "path": "/api/tools/gempa/terkini",
     "executionPath": "/api/v1/tools/gempa/terkini",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "BMKG Daftar 15 Gempa Terbaru",
     "description": "Daftar riwayat 15 gempa bumi signifikan terbaru dari BMKG",
     "category": "Information & Data",
+    "subcategory": "Seismic",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 8000,
+    "cacheTtl": 300,
+    "concurrency": 50,
+    "resourceClass": "minimal",
+    "providers": [
+      "bmkg_tews"
+    ],
     "parameters": []
   },
   {
     "id": "info.sholat",
     "path": "/api/tools/jadwalsholat",
     "executionPath": "/api/v1/tools/jadwalsholat",
+    "aliases": [
+      "/api/search/jadwalsholat"
+    ],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "Jadwal Sholat Seluruh Indonesia",
     "description": "Jadwal waktu sholat harian per kabupaten/kota resmi Kemenag RI",
     "category": "Information & Data",
+    "subcategory": "Religion",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 8000,
+    "cacheTtl": 86400,
+    "concurrency": 50,
+    "resourceClass": "minimal",
+    "providers": [
+      "aladhan_kemenag",
+      "myquran_api"
+    ],
     "parameters": [
       {
         "name": "kota",
@@ -449,15 +721,29 @@
     "id": "util.lirik",
     "path": "/api/tools/lirik",
     "executionPath": "/api/v1/search/lirik",
+    "aliases": [
+      "/api/search/lirik"
+    ],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "Lirik Lagu Lengkap",
     "description": "Pencarian teks lirik lagu lokal dan mancanegara berdasarkan artis dan judul",
     "category": "Search & Discovery",
+    "subcategory": "Music",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 10000,
+    "cacheTtl": 604800,
+    "concurrency": 40,
+    "resourceClass": "minimal",
+    "providers": [
+      "lrclib",
+      "lyrics_ovh"
+    ],
     "parameters": [
       {
         "name": "artist",
@@ -483,15 +769,29 @@
     "id": "util.shortlink",
     "path": "/api/tools/shortlink",
     "executionPath": "/api/v1/tools/shortlink",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "URL Shortener",
     "description": "Pemendek tautan URL instan dan permanen",
     "category": "Utilities",
+    "subcategory": "URL",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 8000,
+    "cacheTtl": 2592000,
+    "concurrency": 50,
+    "resourceClass": "minimal",
+    "providers": [
+      "dagd",
+      "spoome",
+      "isgd",
+      "tinyurl"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -508,15 +808,27 @@
     "id": "search.gsmarena",
     "path": "/api/search/gsmarena",
     "executionPath": "/api/v1/search/gsmarena",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "GSMArena Phone Specs",
     "description": "Pencarian spesifikasi lengkap smartphone dan tablet dari GSMArena",
     "category": "Search & Discovery",
+    "subcategory": "Devices",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 12000,
+    "cacheTtl": 604800,
+    "concurrency": 30,
+    "resourceClass": "low",
+    "providers": [
+      "wikipedia_device_specs",
+      "gsmarena_cheerio"
+    ],
     "parameters": [
       {
         "name": "q",
@@ -533,15 +845,29 @@
     "id": "search.anime",
     "path": "/api/search/anime",
     "executionPath": "/api/v1/search/anime",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "Kusonime Anime Search",
     "description": "Pencarian anime, detail episode dan link download dari Kusonime",
     "category": "Search & Discovery",
+    "subcategory": "Anime",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 12000,
+    "cacheTtl": 86400,
+    "concurrency": 30,
+    "resourceClass": "low",
+    "providers": [
+      "anilist_graphql",
+      "kitsu_edge",
+      "kusonime_cheerio",
+      "jikan_mal"
+    ],
     "parameters": [
       {
         "name": "q",
@@ -558,30 +884,58 @@
     "id": "tool.tempmail",
     "path": "/api/tools/tempmail",
     "executionPath": "/api/v1/tools/tempmail",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "Disposable TempMail Creator",
     "description": "Buat alamat email sementara instan untuk penerimaan kode OTP",
     "category": "Utilities",
+    "subcategory": "Email",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 10000,
+    "cacheTtl": 0,
+    "concurrency": 30,
+    "resourceClass": "minimal",
+    "providers": [
+      "mail_tm",
+      "tempmail_lol",
+      "guerrillamail",
+      "tempmail_io"
+    ],
     "parameters": []
   },
   {
     "id": "tool.tempmail.inbox",
     "path": "/api/tools/tempmail/inbox",
     "executionPath": "/api/v1/tools/tempmail/inbox",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "TempMail Inbox Reader",
     "description": "Membaca daftar pesan masuk dan kode OTP pada email sementara",
     "category": "Utilities",
+    "subcategory": "Email",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 10000,
+    "cacheTtl": 0,
+    "concurrency": 30,
+    "resourceClass": "minimal",
+    "providers": [
+      "mail_tm",
+      "tempmail_lol",
+      "guerrillamail",
+      "tempmail_io"
+    ],
     "parameters": [
       {
         "name": "email",
@@ -598,15 +952,28 @@
     "id": "stalk.github",
     "path": "/api/tools/github",
     "executionPath": "/api/v1/stalker/github",
+    "aliases": [
+      "/api/stalker/stalkgithub"
+    ],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "GitHub Profile Stalker",
     "description": "Informasi profil publik GitHub, follower, repository, dan bio",
     "category": "Social & Public Profiles",
+    "subcategory": "Developer",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 8000,
+    "cacheTtl": 3600,
+    "concurrency": 30,
+    "resourceClass": "low",
+    "providers": [
+      "github_api"
+    ],
     "parameters": [
       {
         "name": "username",
@@ -623,15 +990,28 @@
     "id": "util.iplookup",
     "path": "/api/tools/iplookup",
     "executionPath": "/api/v1/tools/iplookup",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "IP Geolocation & ISP Lookup",
     "description": "Deteksi negara, kota, ISP, ASN, dan koordinat alamat IP",
     "category": "Utilities",
+    "subcategory": "Network",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 6000,
+    "cacheTtl": 86400,
+    "concurrency": 50,
+    "resourceClass": "minimal",
+    "providers": [
+      "ipwhois",
+      "ipapi_co",
+      "freeipapi"
+    ],
     "parameters": [
       {
         "name": "ip",
@@ -648,15 +1028,28 @@
     "id": "tool.presetam",
     "path": "/api/tools/presetam",
     "executionPath": "/api/v1/tools/presetam",
+    "aliases": [
+      "/api/tools/findpresetam"
+    ],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "Alight Motion Preset Finder",
     "description": "Pencarian link preset AM 5MB dan file XML dari TikTok / Shorts",
     "category": "Utilities",
+    "subcategory": "Video Editor",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 15000,
+    "cacheTtl": 3600,
+    "concurrency": 20,
+    "resourceClass": "medium",
+    "providers": [
+      "alight_finder"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -673,15 +1066,27 @@
     "id": "search.manga",
     "path": "/api/search/manga",
     "executionPath": "/api/v1/search/manga",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "Manga, Manhwa & Light Novel Search",
     "description": "Pencarian metadata komik manga, manhwa, chapter, volume, dan skor komunitas",
     "category": "Search & Discovery",
+    "subcategory": "Manga",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 15000,
+    "cacheTtl": 86400,
+    "concurrency": 30,
+    "resourceClass": "low",
+    "providers": [
+      "anilist_graphql",
+      "kitsu_edge"
+    ],
     "parameters": [
       {
         "name": "q",
@@ -698,15 +1103,27 @@
     "id": "search.wikipedia",
     "path": "/api/search/wikipedia",
     "executionPath": "/api/v1/search/wikipedia",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "Wikipedia Encyclopedia Summary",
     "description": "Ringkasan artikel ensiklopedia Wikipedia multibahasa beserta gambar dan koordinat",
     "category": "Search & Discovery",
+    "subcategory": "Encyclopedia",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 12000,
+    "cacheTtl": 86400,
+    "concurrency": 40,
+    "resourceClass": "minimal",
+    "providers": [
+      "wikipedia_rest_v1",
+      "mediawiki_extracts"
+    ],
     "parameters": [
       {
         "name": "q",
@@ -733,15 +1150,27 @@
     "id": "search.pinterest",
     "path": "/api/search/pinterest",
     "executionPath": "/api/v1/search/pinterest",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "Pinterest Visual Pin Search",
     "description": "Pencarian koleksi gambar resolusi tinggi dari katalog Pinterest",
     "category": "Search & Discovery",
+    "subcategory": "Visual",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 15000,
+    "cacheTtl": 3600,
+    "concurrency": 25,
+    "resourceClass": "low",
+    "providers": [
+      "pinterest_resource",
+      "pinterest_html_search"
+    ],
     "parameters": [
       {
         "name": "q",
@@ -758,15 +1187,27 @@
     "id": "search.applemusic",
     "path": "/api/search/applemusic",
     "executionPath": "/api/v1/search/applemusic",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "Apple Music & iTunes Track Search",
     "description": "Pencarian katalog lagu Apple Music, artwork 600px, dan preview audio M4A",
     "category": "Search & Discovery",
+    "subcategory": "Music",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 12000,
+    "cacheTtl": 3600,
+    "concurrency": 35,
+    "resourceClass": "minimal",
+    "providers": [
+      "itunes_catalog_id",
+      "itunes_catalog_us"
+    ],
     "parameters": [
       {
         "name": "q",
@@ -783,15 +1224,27 @@
     "id": "search.steam",
     "path": "/api/search/steam",
     "executionPath": "/api/v1/search/steam",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "Steam Store Game & Price Search",
     "description": "Pencarian game PC di Steam Store beserta harga Rupiah, diskon, dan Metascore",
     "category": "Search & Discovery",
+    "subcategory": "Gaming",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 15000,
+    "cacheTtl": 3600,
+    "concurrency": 30,
+    "resourceClass": "low",
+    "providers": [
+      "steam_storesearch",
+      "steam_cheapshark"
+    ],
     "parameters": [
       {
         "name": "q",
@@ -808,15 +1261,27 @@
     "id": "search.sticker",
     "path": "/api/search/sticker",
     "executionPath": "/api/v1/search/sticker",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "Sticker Pack Search (Sticker.ly & Tenor)",
     "description": "Pencarian paket stiker statis dan animasi untuk WhatsApp/Telegram",
     "category": "Search & Discovery",
+    "subcategory": "Stickers",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 15000,
+    "cacheTtl": 3600,
+    "concurrency": 25,
+    "resourceClass": "low",
+    "providers": [
+      "sticker_stickerly_v4",
+      "sticker_tenor_web"
+    ],
     "parameters": [
       {
         "name": "q",
@@ -833,15 +1298,27 @@
     "id": "search.soundboard",
     "path": "/api/search/soundboard",
     "executionPath": "/api/v1/search/soundboard",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "Meme Soundboard & SFX Search",
     "description": "Pencarian efek suara meme dan tombol audio MP3 instan",
     "category": "Search & Discovery",
+    "subcategory": "Audio",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 15000,
+    "cacheTtl": 86400,
+    "concurrency": 25,
+    "resourceClass": "low",
+    "providers": [
+      "soundboard_myinstants",
+      "soundboard_archive_org"
+    ],
     "parameters": [
       {
         "name": "q",
@@ -858,15 +1335,29 @@
     "id": "stalk.npm",
     "path": "/api/stalker/npm",
     "executionPath": "/api/v1/stalker/npm",
+    "aliases": [
+      "/api/tools/npm"
+    ],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "NPM Package Inspector & Stats",
     "description": "Inspeksi metadata package NPM, lisensi, ukuran distribusi, dan jumlah unduhan bulanan",
     "category": "Social & Public Profiles",
+    "subcategory": "Developer",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 15000,
+    "cacheTtl": 3600,
+    "concurrency": 35,
+    "resourceClass": "minimal",
+    "providers": [
+      "npm_official_registry",
+      "npm_npms_io"
+    ],
     "parameters": [
       {
         "name": "pkg",
@@ -883,15 +1374,27 @@
     "id": "tool.translate",
     "path": "/api/tools/translate",
     "executionPath": "/api/v1/tools/translate",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "Multi-Engine Language Translator",
     "description": "Penerjemah teks otomatis lintas bahasa dengan deteksi bahasa sumber",
     "category": "Utilities",
+    "subcategory": "Language",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 12000,
+    "cacheTtl": 86400,
+    "concurrency": 50,
+    "resourceClass": "minimal",
+    "providers": [
+      "translate_google_gtx",
+      "translate_mymemory"
+    ],
     "parameters": [
       {
         "name": "text",
@@ -928,15 +1431,27 @@
     "id": "tool.dns",
     "path": "/api/tools/dns",
     "executionPath": "/api/v1/tools/dns",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "DNS over HTTPS (DoH) Resolver",
     "description": "Resolusi record DNS (A, AAAA, MX, TXT, NS, CNAME, CAA) dengan validasi DNSSEC",
     "category": "Utilities",
+    "subcategory": "Network",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 10000,
+    "cacheTtl": 600,
+    "concurrency": 50,
+    "resourceClass": "minimal",
+    "providers": [
+      "dns_cloudflare_doh",
+      "dns_google_doh"
+    ],
     "parameters": [
       {
         "name": "domain",
@@ -963,15 +1478,27 @@
     "id": "tool.ssweb",
     "path": "/api/tools/ssweb",
     "executionPath": "/api/v1/tools/ssweb",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": true,
+    "scopes": [
+      "public"
+    ],
     "title": "Web Page Screenshot Capture (SSRF Protected)",
     "description": "Tangkapan layar halaman web resolusi desktop 1280x800 dengan proteksi SSRF penuh",
     "category": "Utilities",
+    "subcategory": "Web Capture",
     "policy": "free_eligible",
     "credits": 1,
     "deadline": 16000,
+    "cacheTtl": 1800,
+    "concurrency": 20,
+    "resourceClass": "medium",
+    "providers": [
+      "ssweb_thumio",
+      "ssweb_wp_mshots"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -988,15 +1515,26 @@
     "id": "solve.waf",
     "path": "/api/solver/waf",
     "executionPath": "/api/v1/solver/waf",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "solver:waf"
+    ],
     "title": "Cloudflare WAF Clearance Solver",
     "description": "Bypass proteksi Cloudflare WAF JS challenge & dapatkan cookie cf_clearance",
     "category": "Solvers",
+    "subcategory": "Cloudflare",
     "policy": "paid_only",
     "credits": 5,
     "deadline": 60000,
+    "cacheTtl": 0,
+    "concurrency": 5,
+    "resourceClass": "heavy_io",
+    "providers": [
+      "flaresolverr_local"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -1013,15 +1551,26 @@
     "id": "solve.turnstile",
     "path": "/api/solver/turnstile",
     "executionPath": "/api/v1/solver/turnstile",
+    "aliases": [],
     "method": "GET",
     "supported": true,
     "public": false,
+    "scopes": [
+      "solver:turnstile"
+    ],
     "title": "Cloudflare Turnstile Token Solver",
     "description": "Selesaikan Cloudflare Turnstile CAPTCHA dan hasilkan response token",
     "category": "Solvers",
+    "subcategory": "Cloudflare",
     "policy": "paid_only",
     "credits": 5,
     "deadline": 60000,
+    "cacheTtl": 0,
+    "concurrency": 5,
+    "resourceClass": "heavy_io",
+    "providers": [
+      "flaresolverr_local"
+    ],
     "parameters": [
       {
         "name": "url",
@@ -1047,15 +1596,28 @@
     "id": "solve.bridge",
     "path": "/v1",
     "executionPath": "/v1",
+    "aliases": [
+      "/api/solver/flaresolverr"
+    ],
     "method": "GET",
     "supported": false,
     "public": false,
+    "scopes": [
+      "solver:bridge"
+    ],
     "title": "FlareSolverr Native Bridge Protocol",
     "description": "Protokol reverse kompatibel FlareSolverr v1 untuk scraping engine otomatis",
     "category": "Solvers",
+    "subcategory": "Bridge",
     "policy": "paid_only",
     "credits": 5,
     "deadline": 60000,
+    "cacheTtl": 0,
+    "concurrency": 5,
+    "resourceClass": "heavy_io",
+    "providers": [
+      "flaresolverr_local"
+    ],
     "parameters": []
   }
 ]
