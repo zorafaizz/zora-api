@@ -1,144 +1,56 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#09090b">
-  <title>Developer Auth — KanjutGede</title>
-  <meta name="description" content="Passwordless eight-digit email session verification and Bearer API key authentication guidelines for KanjutGede.">
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <script src="/assets/theme.js"></script>
-  <link rel="stylesheet" href="/assets/site.css">
-</head>
-<body>
-  <a class="skip" href="#main">Skip to content</a>
-
-  <header class="topbar">
-    <div class="wrap nav">
-      <a class="brand" href="/">
-        <span class="brand-mark" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4.5 4v8M9.5 4L5.5 8l4 4"/>
-            <circle cx="12" cy="11.5" r="1.2" fill="currentColor" stroke="none"/>
-          </svg>
-        </span>
-        <span>KanjutGede</span>
-        <span class="version-pill">Auth</span>
-      </a>
-
-      <nav class="nav-links" aria-label="Primary">
-        <button class="cmd-trigger" type="button" data-open-cmd aria-label="Search endpoints">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
-          </svg>
-          <span class="cmd-trigger-label">Jump to endpoint…</span>
-          <kbd class="kbd">⌘K</kbd>
-        </button>
-        <a class="nav-link" href="/">Overview</a>
-        <a class="nav-link" href="/explorer.html">Workbench</a>
-        <a class="nav-link" href="/docs">OpenAPI</a>
-        <a class="nav-link" href="/signin.html" aria-current="page">Auth</a>
-        <label class="sr-only" for="theme">Theme</label>
-        <select id="theme" class="theme-select" aria-label="Color theme">
-          <option value="dark">Dark</option>
-          <option value="light">Light</option>
-          <option value="system">System</option>
-        </select>
-      </nav>
-    </div>
-  </header>
-
-  <main id="main" class="auth-main">
-    <div class="wrap auth-grid">
-      <div>
-        <div class="protocol-kicker">
-          <span class="status-dot" aria-hidden="true"></span>
-          <span>Authentication &amp; Session Boundary</span>
-        </div>
-        <h1 class="hero-title" style="font-size:clamp(1.65rem,3vw,2.25rem)">Developer access &amp; API authentication.</h1>
-        <p class="hero-lead">
-          Server-to-server requests authenticate statelessly via Bearer tokens. Browser sessions use short-lived, single-use eight-digit email verification codes with strict CSRF binding.
-        </p>
-
-        <div class="access-cards">
-          <article class="access-card">
-            <h2>1. Stateless Bearer API Key (Recommended for SDKs &amp; CLI)</h2>
-            <p>Pass <code>Authorization: Bearer &lt;API_KEY&gt;</code> on protected endpoints, or paste your key directly into the <a href="/explorer.html" style="text-decoration:underline">API Workbench</a> without signing in.</p>
-          </article>
-          <article class="access-card">
-            <h2>2. Public Utility Routes (Zero Configuration)</h2>
-            <p>24 endpoints — including <code>/health</code>, DNS lookup, IP geolocation, GitHub/npm profiles, and BMKG telemetry — execute immediately without credentials.</p>
-          </article>
-          <article class="access-card">
-            <h2>3. Console Email Verification</h2>
-            <p>When operator SMTP sign-in is enabled, verify ownership of an enrolled developer email using an 8-digit one-time code.</p>
-          </article>
-        </div>
-      </div>
-
-      <section class="auth-panel" aria-labelledby="signin-title">
-        <h2 id="signin-title">Email Session Verification</h2>
-        <p class="status" id="auth-status" role="status" aria-live="polite" style="margin-top:10px">Checking session status…</p>
-
-        <form id="email-form" class="auth-form" novalidate>
-          <div>
-            <label class="field-label" for="email">Developer Email</label>
-            <input id="email" class="wb-input" name="email" type="email" autocomplete="email" inputmode="email" required placeholder="dev@domain.com">
-            <p class="hint">Receives a single-use 8-digit verification code.</p>
-          </div>
-          <div class="auth-actions">
-            <button class="primary send" type="submit">Send verification code</button>
-            <a class="quiet" href="/explorer.html">Use API Key Workbench</a>
-          </div>
-        </form>
-
-        <form id="code-form" class="auth-form" hidden novalidate>
-          <p class="hint recipient" style="margin:0"></p>
-          <div>
-            <label class="field-label" for="code">8-Digit Verification Code</label>
-            <input id="code" class="wb-input otp-input" name="code" type="text" inputmode="numeric" autocomplete="one-time-code" pattern="[0-9]{8}" maxlength="8" required placeholder="00000000">
-            <p class="hint" id="expires">Code expires in 10 minutes.</p>
-          </div>
-          <div class="auth-actions">
-            <button class="primary verify" type="submit">Verify session</button>
-            <button class="quiet resend" type="button">Resend code</button>
-            <button class="quiet change-email" type="button">Change email</button>
-          </div>
-        </form>
-
-        <div id="signed-in" class="auth-form" hidden>
-          <p class="hint" style="margin:0">Authenticated as <strong class="identity" style="color:var(--ink)"></strong>.</p>
-          <div class="auth-actions">
-            <a class="primary continue" href="/explorer.html">Continue to Workbench</a>
-            <button class="quiet reauth" type="button">Re-verify for sensitive actions</button>
-            <button class="quiet logout" type="button">Sign out</button>
-            <button class="quiet logout-all" type="button">Revoke all devices</button>
-          </div>
-        </div>
-
-        <button class="quiet retry" type="button" hidden style="margin-top:12px">Retry connection</button>
-      </section>
-    </div>
-  </main>
-
-  <div class="cmd-backdrop" id="cmd-backdrop" hidden>
-    <div class="cmd-dialog" role="dialog" aria-modal="true" aria-label="Jump to API endpoint">
-      <div class="cmd-input-row">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
-        </svg>
-        <label class="sr-only" for="cmd-input">Search 42 endpoints</label>
-        <input id="cmd-input" type="search" autocomplete="off" spellcheck="false" placeholder="Jump to endpoint path, title, or category…">
-        <kbd class="kbd">ESC</kbd>
-      </div>
-      <div class="cmd-list" id="cmd-list" role="listbox"></div>
-      <div class="cmd-foot">
-        <span><kbd class="kbd">↑</kbd> <kbd class="kbd">↓</kbd> Navigate · <kbd class="kbd">↵</kbd> Open in Workbench</span>
-        <span>42 routes indexed</span>
-      </div>
-    </div>
-  </div>
-
-  <script type="module" src="/assets/signin.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Developer Session Gate — KanjutGede API</title>
+    <meta
+      name="description"
+      content="Passwordless eight-digit email verification and session control for KanjutGede REST API developers."
+    />
+    <meta name="theme-color" content="#101827" />
+    <link rel="icon" type="image/png" href="/icon.png" />
+    <link rel="apple-touch-icon" href="/assets/icon-192.png" />
+    <link
+      rel="preload"
+      href="/assets/fonts/space-grotesk-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/plus-jakarta-sans-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/jetbrains-mono-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('kg-celestial-theme');
+          if (saved === 'light' || saved === 'dark') {
+            document.documentElement.setAttribute('data-theme', saved);
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/celestial/signin-Dx1wXyre.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/celestial/celestial-rive-twDXDono.js">
+    <link rel="modulepreload" crossorigin href="/assets/celestial/celestial-3d-DCLpg4SE.js">
+    <link rel="modulepreload" crossorigin href="/assets/celestial/celestial-motion-lPsKFjdh.js">
+    <link rel="modulepreload" crossorigin href="/assets/celestial/AnimeOperator-IvtXIYXK.js">
+    <link rel="modulepreload" crossorigin href="/assets/celestial/arrow-right-CeA951vc.js">
+    <link rel="stylesheet" crossorigin href="/assets/celestial/AnimeOperator-Dzb2avS-.css">
+  </head>
+  <body class="celestial-body selection:bg-celestial-sky/30 selection:text-celestial-starlight">
+    <div id="root"></div>
+  </body>
 </html>

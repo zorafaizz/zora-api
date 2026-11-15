@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>KanjutGede API — Celestial Blue Developer Platform</title>
+    <meta
+      name="description"
+      content="Cinematic REST API platform engineered for media extraction, developer utilities, anime discovery, and deterministic JSON delivery."
+    />
+    <meta name="theme-color" content="#101827" />
+    <link rel="icon" type="image/png" href="/icon.png" />
+    <link rel="apple-touch-icon" href="/assets/icon-192.png" />
+    <link
+      rel="preload"
+      href="/assets/fonts/space-grotesk-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/plus-jakarta-sans-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/jetbrains-mono-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link rel="preload" href="/assets/media/intro-poster.webp" as="image" type="image/webp" />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('kg-celestial-theme');
+          if (saved === 'light' || saved === 'dark') {
+            document.documentElement.setAttribute('data-theme', saved);
+          }
+        } catch (e) {}
+      })();
+    </script>
+  </head>
+  <body class="celestial-body selection:bg-celestial-sky/30 selection:text-celestial-starlight">
+    <div id="root"></div>
+    <script type="module" src="/src/entries/landing.tsx"></script>
+  </body>
+</html>

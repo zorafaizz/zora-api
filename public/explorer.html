@@ -1,219 +1,56 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#09090b">
-  <title>API Workbench — KanjutGede</title>
-  <meta name="description" content="Interactive HTTP request composer, parameter validator, Bearer key inspector, and bounded JSON response viewer for all 42 KanjutGede REST API endpoints.">
-  <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
-  <script src="/assets/theme.js"></script>
-  <link rel="stylesheet" href="/assets/site.css">
-</head>
-<body>
-  <a class="skip" href="#main">Skip to content</a>
-
-  <header class="topbar">
-    <div class="wrap nav">
-      <a class="brand" href="/">
-        <span class="brand-mark" aria-hidden="true">
-          <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4.5 4v8M9.5 4L5.5 8l4 4"/>
-            <circle cx="12" cy="11.5" r="1.2" fill="currentColor" stroke="none"/>
-          </svg>
-        </span>
-        <span>KanjutGede</span>
-        <span class="version-pill">Workbench</span>
-      </a>
-
-      <nav class="nav-links" aria-label="Primary">
-        <button class="cmd-trigger" type="button" data-open-cmd aria-label="Search endpoints">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-            <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
-          </svg>
-          <span class="cmd-trigger-label">Switch route…</span>
-          <kbd class="kbd">⌘K</kbd>
-        </button>
-        <a class="nav-link" href="/">Overview</a>
-        <a class="nav-link" href="/explorer.html" aria-current="page">Workbench</a>
-        <a class="nav-link" href="/docs">OpenAPI</a>
-        <a class="nav-link" href="/signin.html">Auth</a>
-        <label class="sr-only" for="theme">Theme</label>
-        <select id="theme" class="theme-select" aria-label="Color theme">
-          <option value="dark">Dark</option>
-          <option value="light">Light</option>
-          <option value="system">System</option>
-        </select>
-      </nav>
-    </div>
-  </header>
-
-  <main id="main" class="workbench-main">
-    <div class="wrap">
-      <h1 class="sr-only">REST API Request Workbench</h1>
-
-      <div class="workbench-shell">
-        <aside class="endpoint-rail" aria-label="Endpoint navigator">
-          <div class="rail-search-wrap">
-            <label class="sr-only" for="sidebar-filter">Filter endpoint rail</label>
-            <input id="sidebar-filter" type="search" autocomplete="off" spellcheck="false" placeholder="Filter 42 routes…">
-          </div>
-          <div class="rail-list" id="endpoint-rail-list"></div>
-        </aside>
-
-        <section class="wb-panel composer-panel" aria-labelledby="composer-heading">
-          <div class="wb-panel-head">
-            <h2 class="wb-panel-title" id="composer-heading">Request Composer</h2>
-            <span class="mono" style="font-size:0.74rem;color:var(--ink-muted)">Explicit execution only</span>
-          </div>
-
-          <form novalidate>
-            <div class="wb-section">
-              <label class="field-label" for="endpoint">Target Endpoint</label>
-              <select id="endpoint" class="wb-select"></select>
-
-              <div class="url-bar" aria-label="Live request target">
-                <span id="active-method" class="method">GET</span>
-                <code class="request-line">/api/v1/download/tiktok</code>
-                <button class="quiet btn-sm copy-btn" id="copy-url" type="button" aria-label="Copy full request URL">
-                  <svg class="icon-copy" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                  <svg class="icon-check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-                  <span>URL</span>
-                </button>
-              </div>
-            </div>
-
-            <div class="wb-section">
-              <h3 class="ep-summary-title" id="endpoint-title">Endpoint</h3>
-              <p class="endpoint-description"></p>
-              <div class="spec-chips" id="spec-chips"></div>
-              <p class="meta-note" id="provider-chain" hidden></p>
-              <p class="meta-note" id="alias-line" hidden></p>
-              <p class="hint billing"></p>
-            </div>
-
-            <div class="wb-section key-field">
-              <label class="field-label" for="api-key">Bearer API Key</label>
-              <div class="key-row">
-                <input id="api-key" type="password" autocomplete="off" spellcheck="false" placeholder="Paste Bearer key (memory-only)">
-                <button class="quiet btn-sm" id="toggle-key-vis" type="button">Reveal</button>
-                <button class="quiet btn-sm" id="check-quota" type="button">Check Quota</button>
-                <button class="quiet btn-sm clear-key" type="button">Clear</button>
-              </div>
-              <p class="hint">Sent via <code>Authorization: Bearer &lt;key&gt;</code>. Automatically redacted from code snippets and displayed output.</p>
-              <p class="quota-readout" id="quota-readout" hidden></p>
-            </div>
-
-            <div class="wb-section">
-              <div class="params-header">
-                <span class="field-label" style="margin:0">Query Parameters</span>
-                <button class="quiet btn-sm" id="fill-sample" type="button">Fill sample</button>
-              </div>
-              <div class="parameters"></div>
-
-              <div class="exec-bar">
-                <div class="exec-btns">
-                  <button class="primary execute" type="submit">
-                    <span class="exec-label">Execute</span>
-                    <kbd class="kbd exec-shortcut" style="background:transparent;color:inherit;border-color:currentColor;opacity:0.65">⌘↵</kbd>
-                  </button>
-                  <button class="quiet cancel" type="button" disabled>Cancel</button>
-                </div>
-              </div>
-            </div>
-          </form>
-
-          <div class="wb-section">
-            <div class="wb-panel-head" style="padding:0;background:transparent;border:0;margin-bottom:8px">
-              <label class="field-label" for="language" style="margin:0">Integration Snippet</label>
-              <div style="display:flex;gap:6px;align-items:center">
-                <select id="language" class="theme-select" aria-label="Snippet language">
-                  <option>cURL</option>
-                  <option>TypeScript</option>
-                  <option>JavaScript</option>
-                  <option>Python</option>
-                  <option>Go</option>
-                </select>
-                <button class="quiet btn-sm copy-btn copy-code" type="button">
-                  <svg class="icon-copy" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                  <svg class="icon-check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-                  <span>Copy code</span>
-                </button>
-              </div>
-            </div>
-            <pre class="code-pre"><code class="snippet"></code></pre>
-          </div>
-        </section>
-
-        <section class="wb-panel response-panel" data-loading="false" aria-labelledby="response-heading">
-          <div class="progress-rail" aria-hidden="true"><div class="progress-bar"></div></div>
-
-          <div class="wb-panel-head">
-            <div style="display:flex;align-items:center;gap:8px">
-              <h2 class="wb-panel-title" id="response-heading">Response Inspector</h2>
-              <span id="http-badge" class="http-badge http-idle">IDLE</span>
-            </div>
-            <div style="display:flex;gap:6px;align-items:center">
-              <label class="sr-only" for="response-view">Response view</label>
-              <select id="response-view" class="theme-select" aria-label="Response format">
-                <option value="formatted">Formatted JSON</option>
-                <option value="tree">Collapsible Tree</option>
-              </select>
-              <button class="quiet btn-sm copy-btn copy-response" type="button" disabled>
-                <svg class="icon-copy" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-                <svg class="icon-check" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>
-                <span>Copy JSON</span>
-              </button>
-            </div>
-          </div>
-
-          <div class="wb-section">
-            <p class="status" role="status" aria-live="polite">Ready. No request has been sent.</p>
-            <p class="response-meta" hidden>No request sent.</p>
-            <p class="sr-only copy-status" role="status" aria-live="polite"></p>
-
-            <pre class="code-pre response">Ready. Configure parameters and click Execute (or press Ctrl/Cmd + Enter).</pre>
-            <div class="response-tree" hidden></div>
-          </div>
-
-          <details class="inspector-details">
-            <summary>
-              <span>Response Headers</span>
-              <span class="chip chip-mono" id="header-count">0</span>
-            </summary>
-            <pre class="code-pre headers">No response headers captured yet.</pre>
-          </details>
-
-          <details class="inspector-details">
-            <summary>
-              <span>Envelope Contract</span>
-              <span class="chip chip-mono">JSON</span>
-            </summary>
-            <p class="hint field-help" style="margin-top:8px"></p>
-          </details>
-        </section>
-      </div>
-    </div>
-  </main>
-
-  <div class="cmd-backdrop" id="cmd-backdrop" hidden>
-    <div class="cmd-dialog" role="dialog" aria-modal="true" aria-label="Jump to API endpoint">
-      <div class="cmd-input-row">
-        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
-        </svg>
-        <label class="sr-only" for="cmd-input">Search 42 endpoints</label>
-        <input id="cmd-input" type="search" autocomplete="off" spellcheck="false" placeholder="Switch active endpoint by path, title, or category…">
-        <kbd class="kbd">ESC</kbd>
-      </div>
-      <div class="cmd-list" id="cmd-list" role="listbox"></div>
-      <div class="cmd-foot">
-        <span><kbd class="kbd">↑</kbd> <kbd class="kbd">↓</kbd> Navigate · <kbd class="kbd">↵</kbd> Load route</span>
-        <span>42 routes indexed</span>
-      </div>
-    </div>
-  </div>
-
-  <script type="module" src="/assets/explorer.js"></script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>API Explorer &amp; Playground — KanjutGede Celestial Workbench</title>
+    <meta
+      name="description"
+      content="Execute live HTTP requests against KanjutGede REST API endpoints, inspect structured JSON responses, and copy production-safe snippets."
+    />
+    <meta name="theme-color" content="#101827" />
+    <link rel="icon" type="image/png" href="/icon.png" />
+    <link rel="apple-touch-icon" href="/assets/icon-192.png" />
+    <link
+      rel="preload"
+      href="/assets/fonts/space-grotesk-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/plus-jakarta-sans-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <link
+      rel="preload"
+      href="/assets/fonts/jetbrains-mono-latin.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin
+    />
+    <script>
+      (function () {
+        try {
+          var saved = localStorage.getItem('kg-celestial-theme');
+          if (saved === 'light' || saved === 'dark') {
+            document.documentElement.setAttribute('data-theme', saved);
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/celestial/explorer-DdD__o2r.js"></script>
+    <link rel="modulepreload" crossorigin href="/assets/celestial/celestial-rive-twDXDono.js">
+    <link rel="modulepreload" crossorigin href="/assets/celestial/celestial-3d-DCLpg4SE.js">
+    <link rel="modulepreload" crossorigin href="/assets/celestial/celestial-motion-lPsKFjdh.js">
+    <link rel="modulepreload" crossorigin href="/assets/celestial/AnimeOperator-IvtXIYXK.js">
+    <link rel="modulepreload" crossorigin href="/assets/celestial/JsonViewer-BjfsQLIw.js">
+    <link rel="stylesheet" crossorigin href="/assets/celestial/AnimeOperator-Dzb2avS-.css">
+  </head>
+  <body class="celestial-body selection:bg-celestial-sky/30 selection:text-celestial-starlight">
+    <div id="root"></div>
+  </body>
 </html>
