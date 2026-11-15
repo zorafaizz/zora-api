@@ -1,5 +1,6 @@
 import type React from 'react';
-import { ArrowRight, ArrowUpRight, Pause, Play, Volume2, VolumeX } from 'lucide-react';
+import { LandingAction } from './LandingAction';
+import { Pause, Play, Volume2, VolumeX } from 'lucide-react';
 
 interface LandingHeroProps {
   endpointCount: number;
@@ -9,6 +10,7 @@ interface LandingHeroProps {
   videoPaused: boolean;
   onToggleAudio: () => void;
   onToggleVideo: () => void;
+  onPlaybackChange: (paused: boolean) => void;
 }
 
 export function LandingHero({
@@ -19,6 +21,7 @@ export function LandingHero({
   videoPaused,
   onToggleAudio,
   onToggleVideo,
+  onPlaybackChange,
 }: LandingHeroProps) {
   return (
     <section className="hero-cinematic relative isolate min-h-[100svh] overflow-hidden">
@@ -32,6 +35,8 @@ export function LandingHero({
           preload="metadata"
           poster="/assets/media/intro-poster.webp"
           aria-hidden="true"
+          onPlay={() => onPlaybackChange(false)}
+          onPause={() => onPlaybackChange(true)}
         >
           <source src="/assets/media/intro.webm" type="video/webm" />
           <source src="/assets/media/intro.mp4" type="video/mp4" />
@@ -41,7 +46,7 @@ export function LandingHero({
 
       <div className="hero-editorial-grid hero-copy mx-auto flex min-h-[100svh] max-w-[1480px] flex-col justify-end px-5 pb-6 pt-28 sm:px-8 sm:pb-10 lg:px-12 lg:pb-12">
         <div className="max-w-6xl">
-          <p className="hero-reveal hero-eyebrow">REST API infrastructure</p>
+          <p className="hero-reveal hero-eyebrow"><span className="hero-eyebrow-line" />KanjutGede API <span className="hero-eyebrow-separator">/</span> REST infrastructure</p>
           <h1 className="hero-title">
             <span className="hero-mask-word"><span>The web,</span></span>
             <span className="hero-mask-word hero-title-accent"><span>ready to</span></span>
@@ -53,14 +58,8 @@ export function LandingHero({
               Search, extract, discover, and automate through one focused API contract. No dashboard theatre. No request fires without you.
             </p>
             <div className="flex flex-col gap-2.5 sm:flex-row sm:justify-end">
-              <a href="/explorer" className="btn-celestial-primary animated-button group inline-flex min-h-12 items-center justify-center gap-3 px-5 text-sm font-semibold">
-                Open Workbench
-                <ArrowRight aria-hidden="true" className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </a>
-              <a href="/docs" className="btn-glass animated-button inline-flex min-h-12 items-center justify-center gap-2 px-5 text-sm font-semibold">
-                Read API Docs
-                <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-              </a>
+              <LandingAction href="/explorer">Open Workbench</LandingAction>
+              <LandingAction href="/docs" secondary>Read API Docs</LandingAction>
             </div>
           </div>
         </div>

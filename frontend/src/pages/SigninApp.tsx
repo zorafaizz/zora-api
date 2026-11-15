@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { motion } from 'motion/react';
+import { motion, useReducedMotion } from 'motion/react';
 import {
   ArrowRight,
   CheckCircle2,
@@ -28,6 +28,7 @@ function resolveSafeReturnTo(): string {
 type GateStage = 'loading' | 'email' | 'otp' | 'signed_in' | 'reauth_otp';
 
 export const SigninApp: React.FC = () => {
+  const reducedMotion = useReducedMotion();
   const [endpoints, setEndpoints] = useState<EndpointSpec[]>([]);
   const [commandOpen, setCommandOpen] = useState(false);
 
@@ -64,7 +65,7 @@ export const SigninApp: React.FC = () => {
 
   const syncSession = useCallback(async () => {
     setApiState('loading');
-    setOperatorNote('Checking active session token via GET /api/v1/auth/session ...');
+    setOperatorNote('Checking your session…');
     try {
       const res = await fetch('/api/v1/auth/session', {
         method: 'GET',
@@ -84,12 +85,12 @@ export const SigninApp: React.FC = () => {
       } else {
         setStage('email');
         setApiState('idle');
-        setOperatorNote('Session gate ready. Enter your developer email for an 8-digit code.');
+        setOperatorNote('Enter your email to receive an 8-digit verification code.');
       }
     } catch {
       setStage('email');
       setApiState('error');
-      setOperatorNote('Could not reach /api/v1/auth/session.');
+      setOperatorNote('Unable to check your session. Please try again.');
     }
   }, []);
 
@@ -215,7 +216,7 @@ export const SigninApp: React.FC = () => {
       );
       setApiState('success');
       setBurstSignal((n) => n + 1);
-      setOperatorNote('Session authenticated! Welcome aboard Celestial Relay.');
+      setOperatorNote('Signed in to KanjutGede API.');
     } catch (err: any) {
       setErrorMsg(err?.message || 'Network error during code verification.');
       setApiState('error');
@@ -287,6 +288,7 @@ export const SigninApp: React.FC = () => {
 
   return (
     <div className="celestial-atmosphere relative min-h-screen overflow-x-clip pb-16">
+      <a href="#main-content" className="skip-link">Skip to content</a>
       <CelestialNavbar
         activeRoute="signin"
         onOpenCommand={() => setCommandOpen(true)}
@@ -299,19 +301,19 @@ export const SigninApp: React.FC = () => {
         endpoints={endpoints}
       />
 
-      <main className="relative z-10 mx-auto max-w-6xl px-5 pt-32 sm:px-8 sm:pt-40">
+      <main id="main-content" tabIndex={-1} className="signin-shell relative z-10 mx-auto max-w-6xl px-5 pt-32 sm:px-8 sm:pt-40">
         <div className="grid items-stretch gap-6 lg:grid-cols-12">
-          <div className="celestial-card space-y-7 p-6 sm:p-9 lg:col-span-7 lg:p-12">
+          <div className="signin-form celestial-card space-y-7 p-6 sm:p-9 lg:col-span-7 lg:p-12">
             <div className="space-y-3">
               <div className="section-kicker inline-flex items-center gap-2">
                 <Sparkles className="h-3.5 w-3.5" strokeWidth={1.5} />
                 <span>SECURE DEVELOPER ACCESS</span>
               </div>
-              <h1 className="font-display text-4xl font-semibold tracking-[-0.055em] text-celestial-primary sm:text-6xl">
-                Sign in. Stay in flow.
+              <h1 className="signin-title font-display text-4xl font-semibold tracking-[-0.055em] text-celestial-primary sm:text-6xl">
+                Sign in.<br /><span>Stay in flow.</span>
               </h1>
               <p className="max-w-xl text-sm leading-7 text-celestial-secondary">
-                One email, one 8-digit code, no password to remember. Your session remains protected by CSRF-bound cookies.
+                Access your KanjutGede API account with an email verification code. No password to remember.
               </p>
             </div>
 
@@ -326,7 +328,7 @@ export const SigninApp: React.FC = () => {
             )}
 
             {infoMsg && (
-              <div className="flex items-start gap-2.5 rounded-xl border border-celestial-sky/45 bg-celestial-sky/10 p-3.5 text-xs text-celestial-primary">
+              <div role="status" className="flex items-start gap-2.5 rounded-xl border border-celestial-sky/45 bg-celestial-sky/10 p-3.5 text-xs text-celestial-primary">
                 <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-celestial-sky" strokeWidth={1.5} />
                 <span>{infoMsg}</span>
               </div>
@@ -334,7 +336,7 @@ export const SigninApp: React.FC = () => {
 
             {stage === 'loading' && (
               <div className="py-10 text-center font-mono text-xs text-celestial-muted">
-                Synchronizing CSRF handshake &amp; session state...
+                Checking your session…
               </div>
             )}
 
@@ -351,6 +353,7 @@ export const SigninApp: React.FC = () => {
                     />
                     <input
                       type="email"
+                      autoComplete="email"
                       required
                       value={email}
                       onFocus={() => setApiState('focus')}
@@ -363,11 +366,11 @@ export const SigninApp: React.FC = () => {
                 </label>
 
                 <motion.button
-                  whileTap={{ scale: 0.98 }}
+                  whileTap={reducedMotion ? undefined : { scale: 0.98 }}
                   type="submit"
                   className="btn-celestial-primary inline-flex min-h-[46px] w-full items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold"
                 >
-                  <span>Send 8-Digit Verification Code</span>
+                  <span>Send verification code</span>
                   <ArrowRight className="h-4 w-4" strokeWidth={1.75} />
                 </motion.button>
               </form>
@@ -384,6 +387,7 @@ export const SigninApp: React.FC = () => {
                   </span>
                   <input
                     type="text"
+                    autoComplete="one-time-code"
                     inputMode="numeric"
                     pattern="\d{8}"
                     maxLength={8}
@@ -398,7 +402,7 @@ export const SigninApp: React.FC = () => {
 
                 <div className="flex flex-wrap gap-2.5">
                   <motion.button
-                    whileTap={{ scale: 0.98 }}
+                    whileTap={reducedMotion ? undefined : { scale: 0.98 }}
                     type="submit"
                     className="btn-celestial-primary inline-flex min-h-[44px] flex-1 items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold"
                   >
@@ -488,8 +492,8 @@ export const SigninApp: React.FC = () => {
               <div className="flex h-12 w-12 items-center justify-center rounded-2xl border border-celestial-sky/35 bg-celestial-sky/10 text-celestial-sky">
                 <ShieldCheck className="h-5 w-5" />
               </div>
-              <h2 className="mt-8 font-display text-2xl font-semibold tracking-[-0.04em] text-celestial-primary">A quiet security layer.</h2>
-              <p className="mt-3 text-sm leading-7 text-celestial-secondary">No social login maze and no password reset loop. Authentication stays focused on the job: getting you back to the API.</p>
+              <h2 className="mt-8 font-display text-2xl font-semibold tracking-[-0.04em] text-celestial-primary">Your next request starts here.</h2>
+              <p className="mt-3 text-sm leading-7 text-celestial-secondary">Explore the documentation, test an endpoint, and return to your work. Your API key stays separate from this account session.</p>
 
               <div className="mt-8 space-y-3">
                 {[['01', 'Browser-bound verification'], ['02', 'Opaque secure session'], ['03', 'Explicit device revocation']].map(([index, label]) => (

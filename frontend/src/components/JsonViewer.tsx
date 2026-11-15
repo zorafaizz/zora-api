@@ -118,6 +118,7 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
 }) => {
   const [tab, setTab] = useState<'tree' | 'raw' | 'headers'>('tree');
   const [copied, setCopied] = useState(false);
+  const [copyMessage, setCopyMessage] = useState('');
 
   const hasStructuredJson = useMemo(
     () => parsedValue !== null && parsedValue !== undefined && typeof parsedValue === 'object',
@@ -127,10 +128,12 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(formattedText || '');
+      setCopyMessage('Response copied.');
       setCopied(true);
       setTimeout(() => setCopied(false), 1600);
     } catch {
-      // Clipboard fallback ignored cleanly
+      setCopied(false);
+      setCopyMessage('Could not copy the response. Select and copy it manually.');
     }
   };
 
@@ -152,6 +155,7 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
             type="button"
             onClick={() => setTab('tree')}
             disabled={!hasStructuredJson}
+            aria-pressed={tab === 'tree' && hasStructuredJson}
             className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 font-mono text-[11px] transition-colors ${
               tab === 'tree' && hasStructuredJson
                 ? 'bg-celestial-sky/20 text-celestial-primary'
@@ -164,8 +168,9 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
           <button
             type="button"
             onClick={() => setTab('raw')}
+            aria-pressed={tab === 'raw' || (!hasStructuredJson && tab !== 'headers')}
             className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 font-mono text-[11px] transition-colors ${
-              tab === 'raw' || !hasStructuredJson
+              tab === 'raw' || (!hasStructuredJson && tab !== 'headers')
                 ? 'bg-celestial-sky/20 text-celestial-primary'
                 : 'text-celestial-muted hover:text-celestial-primary'
             }`}
@@ -176,6 +181,7 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
           <button
             type="button"
             onClick={() => setTab('headers')}
+            aria-pressed={tab === 'headers'}
             className={`inline-flex items-center gap-1.5 rounded-md px-2.5 py-1 font-mono text-[11px] transition-colors ${
               tab === 'headers'
                 ? 'bg-celestial-sky/20 text-celestial-primary'
@@ -222,6 +228,8 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
         </div>
       </div>
 
+      <p role="status" className={copyMessage ? 'px-4 pt-2 text-xs text-celestial-secondary' : 'sr-only'}>{copyMessage}</p>
+
       {truncated && (
         <div className="border-b border-celestial-border bg-celestial-elevated px-3.5 py-1.5 font-mono text-[11px] text-celestial-secondary">
           Stream shield capped output at 1.00 MB to keep browser memory responsive.
@@ -256,7 +264,7 @@ export const JsonViewer: React.FC<JsonViewerProps> = ({
         ) : tab === 'tree' && hasStructuredJson ? (
           <JsonTreeNode value={parsedValue} depth={0} />
         ) : (
-          <pre className="whitespace-pre-wrap break-words font-mono text-xs leading-relaxed text-celestial-primary">
+          <pre tabIndex={0} className="whitespace-pre-wrap break-words font-mono text-xs leading-relaxed text-celestial-primary">
             {formattedText}
           </pre>
         )}

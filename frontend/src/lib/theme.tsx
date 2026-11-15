@@ -26,11 +26,15 @@ function readInitialTheme(): CelestialTheme {
 
 export const CelestialThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setTheme] = useState<CelestialTheme>(readInitialTheme);
-  const [reducedMotion, setReducedMotion] = useState<boolean>(false);
+  const [reducedMotion, setReducedMotion] = useState<boolean>(() =>
+    typeof window !== 'undefined' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+  );
   const curtainRef = useRef<SVGSVGElement | null>(null);
   const circleRef = useRef<SVGCircleElement | null>(null);
   const ringRef = useRef<SVGCircleElement | null>(null);
   const animatingRef = useRef(false);
+  const timelineRef = useRef<gsap.core.Timeline | null>(null);
+  useEffect(() => () => { timelineRef.current?.kill(); }, []);
 
   useEffect(() => {
     const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -84,6 +88,7 @@ export const CelestialThemeProvider: React.FC<{ children: React.ReactNode }> = (
       ring.setAttribute('cy', String(cy));
       ring.setAttribute('stroke', strokeHex);
 
+      timelineRef.current?.kill();
       const tl = gsap.timeline({
         onComplete: () => {
           svg.style.display = 'none';
@@ -92,6 +97,7 @@ export const CelestialThemeProvider: React.FC<{ children: React.ReactNode }> = (
         },
       });
 
+      timelineRef.current = tl;
       tl.fromTo(
         circle,
         { attr: { r: 0 }, opacity: 0.94 },

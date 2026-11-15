@@ -1,0 +1,124 @@
+{
+  "reflow": [
+    {
+      "path": "/",
+      "width": 320,
+      "overflow": false
+    },
+    {
+      "path": "/explorer",
+      "width": 320,
+      "overflow": false
+    },
+    {
+      "path": "/signin",
+      "width": 320,
+      "overflow": false
+    },
+    {
+      "path": "/docs",
+      "width": 320,
+      "overflow": false
+    },
+    {
+      "path": "/",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "path": "/explorer",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "path": "/signin",
+      "width": 768,
+      "overflow": false
+    },
+    {
+      "path": "/docs",
+      "width": 768,
+      "overflow": false
+    }
+  ],
+  "themePersistence": true,
+  "crossRouteTheme": true,
+  "authError": true,
+  "assets": [
+    {
+      "name": "/assets/fonts/space-grotesk-latin.woff2",
+      "bytes": 22588,
+      "duration": 17.5
+    },
+    {
+      "name": "/assets/fonts/plus-jakarta-sans-latin.woff2",
+      "bytes": 27648,
+      "duration": 23.800000190734863
+    },
+    {
+      "name": "/assets/celestial/signin-BbC0B1_J.js",
+      "bytes": 16281,
+      "duration": 27.700000762939453
+    },
+    {
+      "name": "/assets/fonts/jetbrains-mono-latin.woff2",
+      "bytes": 40704,
+      "duration": 27
+    },
+    {
+      "name": "/assets/celestial/sparkles-0Oj6l2cw.js",
+      "bytes": 984,
+      "duration": 30.399999618530273
+    },
+    {
+      "name": "/assets/celestial/celestial-motion-lPsKFjdh.js",
+      "bytes": 135726,
+      "duration": 31.5
+    },
+    {
+      "name": "/assets/celestial/CommandModal-BD2pDJfY.js",
+      "bytes": 288650,
+      "duration": 32
+    },
+    {
+      "name": "/assets/celestial/CommandModal-DCsozOf8.css",
+      "bytes": 58007,
+      "duration": 25
+    },
+    {
+      "name": "/assets/celestial/arrow-right-B4e1H4g0.js",
+      "bytes": 640,
+      "duration": 31
+    },
+    {
+      "name": "/icon.png",
+      "bytes": 1361467,
+      "duration": 54.59999942779541
+    },
+    {
+      "name": "/assets/media/anime-operator-blue.png",
+      "bytes": 2037652,
+      "duration": 24.399999618530273
+    },
+    {
+      "name": "/assets/catalog.json",
+      "bytes": 38546,
+      "duration": 31.800000190734863
+    },
+    {
+      "name": "/api/v1/auth/session",
+      "bytes": 365,
+      "duration": 26.800000190734863
+    },
+    {
+      "name": "/icon.png",
+      "bytes": 1361467,
+      "duration": 56.10000038146973
+    },
+    {
+      "name": "/api/v1/auth/email/start",
+      "bytes": 366,
+      "duration": 6.699999809265137
+    }
+  ]
+}

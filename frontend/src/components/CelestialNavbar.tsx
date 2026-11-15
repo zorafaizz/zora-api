@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { motion } from 'motion/react';
 import { ArrowUpRight, Command, FileCode2, FlaskConical, Home, KeyRound, Menu, Moon, Sun, Volume2, VolumeX, X } from 'lucide-react';
 import { useCelestialTheme } from '../lib/theme';
@@ -28,9 +28,10 @@ export const CelestialNavbar: React.FC<CelestialNavbarProps> = ({
   onToggleAmvAudio,
   endpointCount = 0,
 }) => {
-  const { theme, toggleTheme } = useCelestialTheme();
+  const { theme, toggleTheme, reducedMotion } = useCelestialTheme();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const mobileTriggerRef = useRef<HTMLButtonElement | null>(null);
 
   useEffect(() => {
     const update = () => setScrolled(window.scrollY > 18);
@@ -45,27 +46,30 @@ export const CelestialNavbar: React.FC<CelestialNavbarProps> = ({
         event.preventDefault();
         onOpenCommand();
       }
-      if (event.key === 'Escape') setMobileOpen(false);
+      if (event.key === 'Escape' && mobileOpen) {
+        setMobileOpen(false);
+        mobileTriggerRef.current?.focus();
+      }
     };
     window.addEventListener('keydown', onKeyDown);
     return () => window.removeEventListener('keydown', onKeyDown);
-  }, [onOpenCommand]);
+  }, [onOpenCommand, mobileOpen]);
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:px-6 sm:pt-4">
-      <nav aria-label="Primary navigation" className={`celestial-dock-glass mx-auto flex max-w-[1480px] items-center justify-between gap-3 rounded-2xl px-3 transition-all sm:px-4 ${scrolled ? 'py-2 shadow-xl' : 'py-2.5'}`}>
-        <a href="/" className="flex min-w-0 items-center gap-3 rounded-xl">
+      <nav aria-label="Primary navigation" className={`celestial-dock-glass site-navigation mx-auto flex max-w-[1480px] items-center justify-between gap-3 px-3 transition-all sm:px-4 ${scrolled ? 'is-scrolled py-2' : 'py-2.5'}`}>
+        <a href="/" className="site-brand flex min-w-0 items-center gap-3">
           <span className="kg-metallic-emblem h-9 w-9 shrink-0"><img src="/icon.png" alt="" width={36} height={36} className="grayscale" /></span>
           <span className="min-w-0">
-            <span className="block truncate text-sm font-semibold tracking-[-0.02em] text-celestial-primary">KanjutGede</span>
+            <span className="block truncate text-sm font-semibold tracking-[-0.02em] text-celestial-primary">KanjutGede API</span>
             <span className="hidden font-mono text-[9px] uppercase tracking-[0.16em] text-celestial-muted sm:block">API infrastructure · {endpointCount || '—'} routes</span>
           </span>
         </a>
 
-        <div className="hidden items-center rounded-xl border border-celestial-border/60 bg-celestial-canvas/50 p-1 md:flex">
+        <div className="site-navigation-links hidden items-center md:flex">
           {NAV_ITEMS.map(({ id, label, href }) => (
-            <a key={id} href={href} className={`relative rounded-lg px-3.5 py-2 text-xs font-medium transition-colors ${activeRoute === id ? 'text-celestial-primary' : 'text-celestial-muted hover:text-celestial-primary'}`}>
-              {activeRoute === id && <motion.span layoutId="active-nav" className="absolute inset-0 rounded-lg bg-celestial-elevated shadow-sm" transition={{ type: 'spring', stiffness: 420, damping: 34 }} />}
+            <a key={id} href={href} aria-current={activeRoute === id ? 'page' : undefined} className={`site-nav-link relative px-3.5 py-3 text-xs font-medium transition-colors ${activeRoute === id ? 'text-celestial-primary' : 'text-celestial-muted hover:text-celestial-primary'}`}>
+              {activeRoute === id && <motion.span layoutId="active-nav" className="site-nav-indicator" transition={reducedMotion ? { duration: 0 } : { type: 'spring', stiffness: 420, damping: 34 }} />}
               <span className="relative z-10">{label}</span>
             </a>
           ))}
@@ -84,12 +88,12 @@ export const CelestialNavbar: React.FC<CelestialNavbarProps> = ({
             {theme === 'dark' ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
           </button>
           {activeRoute !== 'explorer' && <a href="/explorer" className="btn-celestial-primary hidden h-9 items-center gap-2 rounded-xl px-4 text-xs font-semibold lg:flex">Try API<ArrowUpRight className="h-3.5 w-3.5" /></a>}
-          <button type="button" onClick={() => setMobileOpen((value) => !value)} aria-expanded={mobileOpen} aria-label="Toggle navigation" className="flex h-9 w-9 items-center justify-center rounded-xl border border-celestial-border/60 bg-celestial-canvas/50 md:hidden">{mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}</button>
+          <button ref={mobileTriggerRef} type="button" onClick={() => setMobileOpen((value) => !value)} aria-expanded={mobileOpen} aria-controls="mobile-navigation" aria-label="Toggle navigation" className="flex h-11 w-11 items-center justify-center rounded-xl border border-celestial-border/60 bg-celestial-canvas/50 md:hidden">{mobileOpen ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}</button>
         </div>
       </nav>
 
       {mobileOpen && (
-        <motion.div initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="celestial-dock-glass mx-auto mt-2 max-w-[1480px] rounded-2xl p-2 md:hidden">
+        <motion.div id="mobile-navigation" initial={reducedMotion ? false : { opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }} className="celestial-dock-glass mx-auto mt-2 max-w-[1480px] rounded-2xl p-2 md:hidden">
           {[...NAV_ITEMS, { id: 'docs' as const, label: 'Documentation', href: '/docs', icon: FileCode2 }].map(({ id, label, href, icon: Icon }) => (
             <a key={id} href={href} className={`flex min-h-12 items-center justify-between rounded-xl px-3.5 text-sm font-medium ${activeRoute === id ? 'bg-celestial-elevated text-celestial-primary' : 'text-celestial-secondary'}`}><span className="flex items-center gap-3"><Icon className="h-4 w-4 text-celestial-sky" />{label}</span><ArrowUpRight className="h-4 w-4" /></a>
           ))}

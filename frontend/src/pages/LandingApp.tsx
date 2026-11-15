@@ -62,7 +62,7 @@ export const LandingApp: React.FC = () => {
   const [responseBytes, setResponseBytes] = useState<number | null>(null);
   const [responseTruncated, setResponseTruncated] = useState(false);
   const [videoMuted, setVideoMuted] = useState(true);
-  const [videoPaused, setVideoPaused] = useState(false);
+  const [videoPaused, setVideoPaused] = useState(true);
 
   useEffect(() => {
     let active = true;
@@ -75,7 +75,9 @@ export const LandingApp: React.FC = () => {
       });
     return () => {
       active = false;
-      abortRef.current?.abort();
+      const pending = abortRef.current;
+      abortRef.current = null;
+      pending?.abort();
     };
   }, []);
 
@@ -93,6 +95,16 @@ export const LandingApp: React.FC = () => {
 
   useEffect(() => {
     if (!activeEndpoint) return;
+    const previous = abortRef.current;
+    abortRef.current = null;
+    previous?.abort('endpoint_changed');
+    setResponseText('');
+    setResponseValue(null);
+    setResponseHeaders([]);
+    setResponseStatus(null);
+    setResponseDuration(null);
+    setResponseBytes(null);
+    setResponseTruncated(false);
     setSelectedId(activeEndpoint.id);
     const next: Record<string, string> = {};
     const samples = SAMPLE_PARAMS[activeEndpoint.id] || {};
@@ -123,6 +135,7 @@ export const LandingApp: React.FC = () => {
         { yPercent: 0, rotate: 0, duration: 1.15, stagger: 0.1, ease: 'power4.out', delay: 0.08 }
       );
       gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((section) => {
+        if (section.classList.contains('system-section')) return;
         gsap.fromTo(
           section,
           { y: 42, opacity: 0 },
@@ -134,6 +147,14 @@ export const LandingApp: React.FC = () => {
             scrollTrigger: { trigger: section, start: 'top 84%', once: true },
           }
         );
+      });
+      gsap.fromTo('.system-copy > *', { y: 35, opacity: 0 }, {
+        y: 0, opacity: 1, duration: .8, stagger: .11, ease: 'power3.out',
+        scrollTrigger: { trigger: '.system-section', start: 'top 76%', once: true },
+      });
+      gsap.fromTo('.system-art img', { scale: 1.1 }, {
+        scale: 1, ease: 'none',
+        scrollTrigger: { trigger: '.system-section', start: 'top bottom', end: 'bottom top', scrub: .8 },
       });
       gsap.to('.hero-background-media', {
         yPercent: 10,
@@ -164,8 +185,8 @@ export const LandingApp: React.FC = () => {
         cache: 'no-store',
         headers: { Accept: 'application/json' },
       });
-      window.clearTimeout(timer);
       const raw = await readBounded(response, 1_048_576);
+      if (abortRef.current !== controller || controller.signal.aborted) return;
       const formatted = formatResponse(raw, '');
       const duration = Math.max(1, Math.round(performance.now() - started));
       const bytes = new TextEncoder().encode(raw).byteLength;
@@ -181,10 +202,14 @@ export const LandingApp: React.FC = () => {
       setApiState(response.ok ? 'success' : 'error');
       setStatusText(`HTTP ${response.status} · ${duration} ms · ${(bytes / 1024).toFixed(1)} KB`);
     } catch (error: any) {
-      window.clearTimeout(timer);
+      if (abortRef.current !== controller) return;
       const cancelled = controller.signal.aborted;
-      setApiState(cancelled ? 'cancelled' : 'error');
-      setStatusText(cancelled ? 'Request cancelled. The stream was closed cleanly.' : error?.message || 'Request failed.');
+      const timedOut = cancelled && controller.signal.reason === 'timeout';
+      setApiState(timedOut ? 'error' : cancelled ? 'cancelled' : 'error');
+      setStatusText(timedOut ? 'Request timed out. Check the parameters and try again.' : cancelled ? 'Request cancelled. The stream was closed cleanly.' : error?.message || 'Request failed.');
+    } finally {
+      window.clearTimeout(timer);
+      if (abortRef.current === controller) abortRef.current = null;
     }
   }, [activeEndpoint, paramValues]);
 
@@ -213,10 +238,8 @@ export const LandingApp: React.FC = () => {
     if (!video) return;
     if (video.paused) {
       video.play().catch(() => {});
-      setVideoPaused(false);
     } else {
       video.pause();
-      setVideoPaused(true);
     }
   };
 
@@ -227,12 +250,11 @@ export const LandingApp: React.FC = () => {
     setVideoMuted(!videoMuted);
     if (video.paused) {
       video.play().catch(() => {});
-      setVideoPaused(false);
     }
   };
 
   return (
-    <div ref={rootRef} className="celestial-atmosphere min-h-screen overflow-x-clip">
+    <div ref={rootRef} className="landing-polished celestial-atmosphere min-h-screen overflow-x-clip">
       <a href="#main-content" className="skip-link">Skip to Content</a>
       <CelestialNavbar
         activeRoute="landing"
@@ -253,6 +275,7 @@ export const LandingApp: React.FC = () => {
           videoPaused={videoPaused}
           onToggleAudio={toggleAudio}
           onToggleVideo={toggleVideo}
+          onPlaybackChange={setVideoPaused}
         />
         <CapabilityRail />
 
@@ -319,7 +342,7 @@ export const LandingApp: React.FC = () => {
                       <div className="font-mono text-xs text-celestial-muted" aria-live="polite">{statusText}</div>
                       <div className="flex gap-2">
                         {apiState === 'loading' && <button type="button" onClick={cancelRequest} className="btn-danger"><CircleStop className="h-4 w-4" />Cancel</button>}
-                        <motion.button whileTap={{ scale: 0.98 }} type="button" onClick={runRequest} disabled={apiState === 'loading'} className="btn-celestial-primary inline-flex min-h-11 items-center gap-2 rounded-xl px-5 text-sm font-semibold disabled:opacity-55">
+                        <motion.button whileTap={reducedMotion ? undefined : { scale: 0.98 }} type="button" onClick={runRequest} disabled={apiState === 'loading'} className="btn-celestial-primary inline-flex min-h-11 items-center gap-2 rounded-xl px-5 text-sm font-semibold disabled:opacity-55">
                           <Zap className="h-4 w-4" />{apiState === 'loading' ? 'Running…' : 'Execute request'}
                         </motion.button>
                       </div>
@@ -334,10 +357,20 @@ export const LandingApp: React.FC = () => {
                         </div>
                         <button type="button" onClick={copySnippet} className="copy-button">{copied ? <Check className="h-3.5 w-3.5" /> : <Copy className="h-3.5 w-3.5" />}{copied ? 'Copied' : 'Copy'}</button>
                       </div>
-                      <pre className="h-[360px] overflow-auto p-5 font-mono text-xs leading-6 text-celestial-secondary"><code>{snippet}</code></pre>
+                      <pre tabIndex={0} className="landing-snippet overflow-auto p-5 font-mono text-xs leading-6 text-celestial-secondary"><code>{snippet}</code></pre>
                     </div>
-                    <div className="min-w-0">
-                      <JsonViewer formattedText={responseText} parsedValue={responseValue} headers={responseHeaders} status={responseStatus} durationMs={responseDuration} byteLength={responseBytes} truncated={responseTruncated} maxHeightClass="max-h-[360px]" />
+                    <div className="landing-response min-w-0">
+                      {!responseText ? (
+                        <div className="landing-response-empty">
+                          <div className="landing-response-heading"><span>Response</span><span>{apiState === 'loading' ? 'Request in progress' : 'No response yet'}</span></div>
+                          <div className="landing-response-prompt">
+                            <ArrowUpRight aria-hidden="true" />
+                            <h3>{apiState === 'loading' ? 'Waiting for the endpoint…' : 'Your request. The real result.'}</h3>
+                            <p>{apiState === 'loading' ? 'The response will appear here when the request completes.' : 'Choose a route and press Execute request. Inspect the response body, status, timing and headers here.'}</p>
+                          </div>
+                          <p className="landing-response-footnote">{apiState === 'loading' ? 'You can cancel the request above.' : 'Nothing runs until you execute.'}</p>
+                        </div>
+                      ) : <JsonViewer formattedText={responseText} parsedValue={responseValue} headers={responseHeaders} status={responseStatus} durationMs={responseDuration} byteLength={responseBytes} truncated={responseTruncated} maxHeightClass="max-h-[360px]" />}
                     </div>
                   </div>
                 </>

@@ -26,9 +26,12 @@ test(
         .set("Cookie", "__Host-kg_session=fixture-cookie");
       assert.equal(account.status, 401);
       assert.equal(account.body.status, false);
-      const page = await request(app).get("/signin.html");
+      const legacy = await request(app).get("/signin.html");
+      assert.equal(legacy.status, 308);
+      assert.equal(legacy.headers.location, "/signin");
+      const page = await request(app).get("/signin");
       assert.equal(page.status, 200);
-      assert.match(page.text, /Eight-digit code/);
+      assert.match(page.text, /eight-digit email verification/);
     } finally {
       await closeRedis();
       await closeDb();

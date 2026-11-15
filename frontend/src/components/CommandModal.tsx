@@ -46,13 +46,19 @@ export const CommandModal: React.FC<CommandModalProps> = ({
   const [query, setQuery] = useState('');
   const [activeIndex, setActiveIndex] = useState(0);
   const inputRef = useRef<HTMLInputElement | null>(null);
+  const dialogRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
-    if (open) {
-      setQuery('');
-      setActiveIndex(0);
-      setTimeout(() => inputRef.current?.focus(), 20);
-    }
+    if (!open) return;
+    const previousFocus = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setQuery('');
+    setActiveIndex(0);
+    const focusTimer = window.setTimeout(() => inputRef.current?.focus(), 20);
+    return () => {
+      window.clearTimeout(focusTimer);
+      if (previousFocus?.isConnected) previousFocus.focus();
+      else document.querySelector<HTMLButtonElement>('[aria-label="Toggle navigation"]')?.focus();
+    };
   }, [open]);
 
   const items = useMemo<CommandItem[]>(() => {
@@ -168,13 +174,27 @@ export const CommandModal: React.FC<CommandModalProps> = ({
       if (e.key === 'Escape') {
         e.preventDefault();
         onClose();
+      } else if (e.key === 'Tab') {
+        const focusable = Array.from(dialogRef.current?.querySelectorAll<HTMLElement>(
+          'button:not([disabled]), input:not([disabled]), a[href], [tabindex]:not([tabindex="-1"])'
+        ) ?? []).filter((element) => element.getClientRects().length > 0);
+        if (!focusable.length) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey && (document.activeElement === first || !dialogRef.current?.contains(document.activeElement))) {
+          e.preventDefault();
+          last.focus();
+        } else if (!e.shiftKey && (document.activeElement === last || !dialogRef.current?.contains(document.activeElement))) {
+          e.preventDefault();
+          first.focus();
+        }
       } else if (e.key === 'ArrowDown') {
         e.preventDefault();
         setActiveIndex((prev) => (items.length ? (prev + 1) % items.length : 0));
       } else if (e.key === 'ArrowUp') {
         e.preventDefault();
         setActiveIndex((prev) => (items.length ? (prev - 1 + items.length) % items.length : 0));
-      } else if (e.key === 'Enter' && items[activeIndex]) {
+      } else if (e.key === 'Enter' && document.activeElement === inputRef.current && items[activeIndex]) {
         e.preventDefault();
         items[activeIndex].action();
       }
@@ -187,6 +207,7 @@ export const CommandModal: React.FC<CommandModalProps> = ({
     <AnimatePresence>
       {open && (
         <div
+          ref={dialogRef}
           className="fixed inset-0 z-[100] flex items-start justify-center px-4 pt-[11vh]"
           role="dialog"
           aria-modal="true"
@@ -213,6 +234,7 @@ export const CommandModal: React.FC<CommandModalProps> = ({
               <input
                 ref={inputRef}
                 type="text"
+                aria-label="Search commands and endpoints"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Jump to endpoint, switch day/night sky, or open workbench..."

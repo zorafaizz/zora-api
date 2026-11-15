@@ -1,3 +1,4 @@
+import { LandingAction } from './LandingAction';
 import { ArrowRight, ArrowUpRight, Braces, FileJson2, Gauge, ShieldCheck } from 'lucide-react';
 
 const VALUE_BLOCKS = [
@@ -23,7 +24,7 @@ const VALUE_BLOCKS = [
 
 export function CapabilityRail() {
   return (
-    <div className="capability-rail" aria-label="API capabilities">
+    <div tabIndex={0} role="region" className="capability-rail" aria-label="API capabilities">
       {['Search', 'Extract', 'Discover', 'Automate', 'Inspect'].map((word) => (
         <span key={word}>{word}</span>
       ))}
@@ -35,24 +36,25 @@ export function SystemSection({ endpointCount }: { endpointCount: number }) {
   return (
     <section data-reveal className="system-section border-y border-celestial-border/60">
       <div className="mx-auto max-w-[1480px] px-5 py-20 sm:px-8 lg:px-12 lg:py-28">
-        <div className="system-intro grid gap-8 border-b border-celestial-border/70 pb-10 lg:grid-cols-12 lg:items-end">
-          <div className="lg:col-span-8">
-            <p className="section-kicker">The interface gets out of the way</p>
-            <h2 className="section-title">Less decoration.<br />More signal.</h2>
+        <div className="system-intro system-composition">
+          <div className="system-copy">
+            <p className="section-kicker">Built for the work behind the screen</p>
+            <h2 className="section-title">A clearer path<br /><span>from idea to API.</span></h2>
+            <p className="system-description">Explore actual routes, shape a request, and see what comes back. The details stay close at hand while you build.</p>
+            <a href="/explorer" className="system-link">Explore the workbench <ArrowUpRight aria-hidden="true" /></a>
           </div>
-          <div className="lg:col-span-4 lg:justify-self-end">
-            <strong className="system-count">{endpointCount || '—'}</strong>
-            <p className="mt-3 max-w-sm text-sm leading-7 text-celestial-secondary">Real routes generated from the source contract—not invented dashboard metrics.</p>
+          <div className="system-art" aria-hidden="true">
+            <img src="/assets/media/anime-operator-blue.png" alt="" loading="lazy" />
+            <div className="system-art-caption"><strong>{endpointCount || '—'}</strong><span>routes in the<br />API catalog</span></div>
           </div>
         </div>
 
-        <div className="system-list">
+        <div className="system-list system-features">
           {VALUE_BLOCKS.map(({ icon: Icon, index, title, copy }) => (
             <article key={index} className="value-row group">
               <span className="value-index">{index}</span>
               <Icon aria-hidden="true" className="h-5 w-5 text-celestial-sky" strokeWidth={1.5} />
               <div><h3>{title}</h3><p>{copy}</p></div>
-              <ArrowUpRight aria-hidden="true" className="h-5 w-5 text-celestial-muted transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
             </article>
           ))}
         </div>
@@ -77,7 +79,7 @@ export function DocsSection() {
             <div className="flex items-center gap-2"><span className="method-pill">GET</span><code>/api/v1/search/anime</code></div>
             <h3>Search anime</h3>
             <p>Discover titles and metadata through the unified response envelope.</p>
-            <div className="docs-code"><span>curl</span> https://api.itsfaiz.my.id/api/v1/search/anime?q=frieren</div>
+            <div tabIndex={0} role="region" aria-label="Example request" className="docs-code"><span>curl</span> https://api.itsfaiz.my.id/api/v1/search/anime?q=frieren</div>
             <div className="docs-response"><FileJson2 aria-hidden="true" className="h-4 w-4" /><span>200 · application/json</span></div>
           </div>
         </div>
@@ -88,13 +90,15 @@ export function DocsSection() {
 
 export function LandingCta() {
   return (
-    <section data-reveal className="mx-auto max-w-[1480px] px-5 pb-20 sm:px-8 lg:px-12 lg:pb-28">
-      <div className="cta-panel">
-        <div>
-          <p className="section-kicker">Ready when you are</p>
-          <h2 className="mt-3 font-display text-4xl font-semibold tracking-[-0.055em] text-celestial-primary sm:text-6xl">Make your first request.</h2>
+    <section data-reveal className="landing-closing" aria-labelledby="closing-title">
+      <div className="landing-closing-art" aria-hidden="true" />
+      <div className="landing-closing-content mx-auto max-w-[1480px] px-5 sm:px-8 lg:px-12">
+        <p className="section-kicker">Ready when you are</p>
+        <h2 id="closing-title">Make your<br /><span>first request.</span></h2>
+        <div className="landing-closing-bottom">
+          <p>Choose a route. Shape the request.<br />See what comes back.</p>
+          <LandingAction href="/explorer">Launch Workbench</LandingAction>
         </div>
-        <a href="/explorer" className="btn-celestial-primary inline-flex min-h-13 shrink-0 items-center justify-center gap-3 px-6 text-sm font-semibold">Launch Workbench <ArrowUpRight aria-hidden="true" className="h-4 w-4" /></a>
       </div>
     </section>
   );
