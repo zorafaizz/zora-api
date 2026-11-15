@@ -138,8 +138,13 @@ export const LandingApp: React.FC = () => {
     const context = gsap.context(() => {
       gsap.fromTo(
         '.hero-reveal',
-        { y: 34, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.85, stagger: 0.08, ease: 'power3.out' }
+        { y: 28, opacity: 0 },
+        { y: 0, opacity: 1, duration: 0.9, stagger: 0.09, ease: 'power3.out' }
+      );
+      gsap.fromTo(
+        '.hero-mask-word > span',
+        { yPercent: 118, rotate: 2 },
+        { yPercent: 0, rotate: 0, duration: 1.15, stagger: 0.1, ease: 'power4.out', delay: 0.08 }
       );
       gsap.utils.toArray<HTMLElement>('[data-reveal]').forEach((section) => {
         gsap.fromTo(
@@ -154,10 +159,16 @@ export const LandingApp: React.FC = () => {
           }
         );
       });
-      gsap.to('.hero-media-shell', {
-        yPercent: 7,
+      gsap.to('.hero-background-media', {
+        yPercent: 10,
+        scale: 1.06,
         ease: 'none',
-        scrollTrigger: { trigger: '.hero-grid', start: 'top top', end: 'bottom top', scrub: 0.6 },
+        scrollTrigger: { trigger: '.hero-cinematic', start: 'top top', end: 'bottom top', scrub: 0.7 },
+      });
+      gsap.to('.anime-parallax-image', {
+        yPercent: -12,
+        ease: 'none',
+        scrollTrigger: { trigger: '.bento-image-card', start: 'top bottom', end: 'bottom top', scrub: 0.8 },
       });
     }, rootRef);
     return () => context.revert();
@@ -264,78 +275,69 @@ export const LandingApp: React.FC = () => {
       <CommandModal open={commandOpen} onClose={() => setCommandOpen(false)} endpoints={endpoints} />
 
       <main>
-        <section className="hero-grid mx-auto grid min-h-screen max-w-[1480px] items-center gap-12 px-5 pb-20 pt-32 sm:px-8 lg:grid-cols-[0.82fr_1.18fr] lg:px-12 lg:pt-28">
-          <div className="relative z-10 max-w-2xl">
-            <div className="hero-reveal mb-7 inline-flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.16em] text-celestial-secondary">
-              <span className="status-dot" />
-              REST infrastructure for people who ship
-            </div>
-            <h1 className="hero-reveal font-display text-[clamp(3.5rem,7vw,7.6rem)] font-semibold leading-[0.83] tracking-[-0.075em] text-celestial-primary">
-              Make the web
-              <span className="block text-celestial-sky">programmable.</span>
-            </h1>
-            <p className="hero-reveal mt-8 max-w-xl text-base leading-7 text-celestial-secondary sm:text-lg">
-              Search, media extraction, developer utilities, and discovery APIs—one clean contract,
-              one focused workbench, zero dashboard theatre.
-            </p>
-            <div className="hero-reveal mt-9 flex flex-col gap-3 sm:flex-row">
-              <motion.a
-                whileHover={{ y: -2 }}
-                whileTap={{ scale: 0.98 }}
-                href="/explorer.html"
-                className="btn-celestial-primary group inline-flex min-h-13 items-center justify-center gap-3 rounded-2xl px-6 py-3.5 text-sm font-semibold"
-              >
-                Open the workbench
-                <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
-              </motion.a>
-              <a
-                href="/docs"
-                className="btn-secondary inline-flex min-h-13 items-center justify-center gap-2 rounded-2xl px-6 py-3.5 text-sm font-semibold"
-              >
-                Read API docs
-                <ArrowUpRight className="h-4 w-4" />
-              </a>
-            </div>
-            <div className="hero-reveal mt-10 grid grid-cols-3 gap-3 border-t border-celestial-border/60 pt-5">
-              <div><strong className="metric-value">{endpoints.length || '—'}</strong><span className="metric-label">real routes</span></div>
-              <div><strong className="metric-value">OpenAPI</strong><span className="metric-label">3.1 contract</span></div>
-              <div><strong className="metric-value">1 MB</strong><span className="metric-label">stream guard</span></div>
-            </div>
+        <section className="hero-cinematic relative isolate min-h-[100svh] overflow-hidden border-b border-celestial-border/60">
+          <div className="hero-background-media absolute inset-0 -z-20">
+            <video
+              ref={videoRef}
+              autoPlay={!reducedMotion}
+              loop
+              muted
+              playsInline
+              preload="metadata"
+              poster="/assets/media/intro-poster.webp"
+              className={`h-full w-full object-cover ${isDark ? 'brightness-[0.72]' : 'brightness-[0.8]'}`}
+            >
+              <source src="/assets/media/intro.webm" type="video/webm" />
+              <source src="/assets/media/intro.mp4" type="video/mp4" />
+            </video>
           </div>
-
-          <div className="hero-reveal hero-media-shell relative lg:pl-4">
-            <div className="media-ruler" aria-hidden="true"><span>00</span><span>16:9</span><span>100</span></div>
-            <div className="video-frame">
-              <video
-                ref={videoRef}
-                autoPlay={!reducedMotion}
-                loop
-                muted
-                playsInline
-                preload="metadata"
-                poster="/assets/media/intro-poster.webp"
-                className={`aspect-video h-auto w-full bg-black object-contain ${isDark ? 'brightness-[0.82]' : 'brightness-[0.96]'}`}
-              >
-                <source src="/assets/media/intro.webm" type="video/webm" />
-                <source src="/assets/media/intro.mp4" type="video/mp4" />
-              </video>
-              <div className="video-vignette" aria-hidden="true" />
-              <div className="absolute inset-x-0 bottom-0 flex items-end justify-between gap-3 p-4 sm:p-5">
-                <div className="rounded-xl border border-white/15 bg-black/55 px-3 py-2 text-white backdrop-blur-md">
-                  <div className="font-mono text-[10px] uppercase tracking-[0.18em] text-white/55">Visual signal</div>
-                  <div className="mt-0.5 text-xs font-medium sm:text-sm">Original 16:9 frame · uncropped</div>
-                </div>
-                <div className="flex gap-2">
-                  <button type="button" onClick={toggleVideo} aria-label={videoPaused ? 'Play hero video' : 'Pause hero video'} className="media-control">
-                    {videoPaused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
-                  </button>
-                  <button type="button" onClick={toggleAudio} aria-label={videoMuted ? 'Unmute hero video' : 'Mute hero video'} className="media-control">
-                    {videoMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
-                  </button>
+          <div className="hero-film-overlay absolute inset-0 -z-10" aria-hidden="true" />
+          <div className="hero-editorial-grid mx-auto grid min-h-[100svh] max-w-[1480px] grid-cols-12 content-end px-5 pb-10 pt-32 sm:px-8 sm:pb-14 lg:px-12 lg:pb-16">
+            <div className="col-span-12 lg:col-span-9">
+              <div className="hero-reveal mb-5 flex items-center gap-3 font-mono text-[10px] font-medium uppercase tracking-[0.2em] text-white/68 sm:text-xs">
+                <span className="status-dot" />
+                REST infrastructure for people who ship
+              </div>
+              <h1 className="hero-title text-white">
+                <span className="hero-mask-word"><span>Build beyond</span></span>
+                <span className="hero-mask-word hero-title-accent"><span>the obvious.</span></span>
+              </h1>
+              <div className="hero-reveal mt-7 grid gap-7 border-t border-white/20 pt-6 sm:grid-cols-[minmax(0,34rem)_1fr] sm:items-end lg:max-w-5xl">
+                <p className="max-w-xl text-pretty text-sm leading-7 text-white/72 sm:text-base">
+                  Search, media extraction, developer utilities, and discovery APIs—one clean contract, one focused workbench, zero dashboard theatre.
+                </p>
+                <div className="flex flex-col gap-3 sm:flex-row sm:justify-end">
+                  <motion.a
+                    whileTap={{ scale: 0.98 }}
+                    href="/explorer.html"
+                    className="btn-celestial-primary animated-button group inline-flex min-h-13 items-center justify-center gap-3 rounded-full px-6 py-3.5 text-sm font-semibold"
+                  >
+                    <span>Open Workbench</span>
+                    <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
+                  </motion.a>
+                  <a href="/docs" className="btn-glass animated-button inline-flex min-h-13 items-center justify-center gap-2 rounded-full px-6 py-3.5 text-sm font-semibold">
+                    Read API Docs
+                    <ArrowUpRight className="h-4 w-4" />
+                  </a>
                 </div>
               </div>
             </div>
-            <div className="media-caption"><span>KG / SIGNAL FILM 01</span><span>1920 × 1080 DISPLAY</span></div>
+
+            <div className="hero-reveal col-span-12 mt-8 flex flex-wrap items-end justify-between gap-5 border-t border-white/15 pt-5 text-white lg:mt-12">
+              <div className="grid grid-cols-3 gap-6 sm:gap-12">
+                <div><strong className="hero-metric">{endpoints.length || '—'}</strong><span className="hero-metric-label">real routes</span></div>
+                <div><strong className="hero-metric">3.1</strong><span className="hero-metric-label">OpenAPI</span></div>
+                <div><strong className="hero-metric">1 MB</strong><span className="hero-metric-label">stream guard</span></div>
+              </div>
+              <div className="flex items-center gap-2">
+                <button type="button" onClick={toggleVideo} aria-label={videoPaused ? 'Play hero video' : 'Pause hero video'} className="media-control">
+                  {videoPaused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+                </button>
+                <button type="button" onClick={toggleAudio} aria-label={videoMuted ? 'Unmute hero video' : 'Mute hero video'} className="media-control">
+                  {videoMuted ? <VolumeX className="h-4 w-4" /> : <Volume2 className="h-4 w-4" />}
+                </button>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -437,24 +439,40 @@ export const LandingApp: React.FC = () => {
           </div>
         </section>
 
-        <section data-reveal className="border-y border-celestial-border/60 bg-celestial-surface/45">
-          <div className="mx-auto max-w-[1480px] px-5 sm:px-8 lg:px-12">
-            <div className="grid lg:grid-cols-[0.72fr_1.28fr]">
-              <div className="py-20 pr-0 lg:border-r lg:border-celestial-border/60 lg:py-28 lg:pr-16">
-                <p className="section-kicker">THE DIFFERENCE IS RESTRAINT</p>
-                <h2 className="section-title">Less spectacle.<br />More signal.</h2>
-                <p className="mt-6 text-sm leading-7 text-celestial-secondary">Every interaction is designed to shorten the distance between an idea and a working request.</p>
+        <section data-reveal className="bento-section border-y border-celestial-border/60">
+          <div className="mx-auto max-w-[1480px] px-5 py-24 sm:px-8 lg:px-12 lg:py-32">
+            <div className="mb-12 grid gap-6 lg:grid-cols-12 lg:items-end">
+              <div className="lg:col-span-8">
+                <p className="section-kicker">SYSTEM, RECOMPOSED</p>
+                <h2 className="section-title">A sharper interface for a faster thought.</h2>
               </div>
-              <div className="divide-y divide-celestial-border/60 lg:pl-16">
-                {VALUE_BLOCKS.map(({ icon: Icon, index, title, copy }) => (
-                  <article key={index} className="value-row group">
-                    <span className="value-index">{index}</span>
-                    <Icon className="h-5 w-5 text-celestial-sky" />
-                    <div><h3>{title}</h3><p>{copy}</p></div>
-                    <ArrowUpRight className="ml-auto h-4 w-4 text-celestial-muted transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
-                  </article>
-                ))}
-              </div>
+              <p className="max-w-md text-pretty text-sm leading-7 text-celestial-secondary lg:col-span-4">Swiss discipline in the grid. Cinematic tension in the composition. The API stays direct, readable, and deliberately alive.</p>
+            </div>
+
+            <div className="cinematic-bento">
+              <article className="bento-image-card group">
+                <img src="/assets/media/anime-operator-blue.png" alt="Original anime API operator in a cobalt-lit server corridor" width="1672" height="941" loading="lazy" className="anime-parallax-image" />
+                <div className="bento-image-shade" />
+                <div className="absolute inset-x-0 bottom-0 z-10 flex items-end justify-between gap-4 p-6 sm:p-8">
+                  <div><span className="bento-index">01 / VISUAL SYSTEM</span><h3 className="bento-title text-white">Cool focus.<br />Zero noise.</h3></div>
+                  <ArrowUpRight className="h-5 w-5 text-white/70 transition-transform group-hover:-translate-y-1 group-hover:translate-x-1" />
+                </div>
+              </article>
+
+              <article className="bento-stat-card">
+                <span className="bento-index">LIVE CATALOG</span>
+                <strong className="bento-stat">{endpoints.length || '—'}</strong>
+                <p>Real routes generated from the source contract—not decorative dashboard data.</p>
+                <div className="bento-orbit" aria-hidden="true" />
+              </article>
+
+              {VALUE_BLOCKS.map(({ icon: Icon, index, title, copy }) => (
+                <article key={index} className="bento-value-card group">
+                  <div className="flex items-center justify-between"><span className="bento-index">{index}</span><Icon className="h-5 w-5 text-celestial-sky" /></div>
+                  <div><h3>{title}</h3><p>{copy}</p></div>
+                  <span className="bento-line" aria-hidden="true" />
+                </article>
+              ))}
             </div>
           </div>
         </section>

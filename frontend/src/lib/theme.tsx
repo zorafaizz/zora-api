@@ -72,8 +72,8 @@ export const CelestialThemeProvider: React.FC<{ children: React.ReactNode }> = (
       const circle = circleRef.current;
       const ring = ringRef.current;
 
-      const fillHex = next === 'light' ? '#f4f2ee' : '#0c0c0e';
-      const strokeHex = next === 'light' ? '#cd3932' : '#ff746a';
+      const fillHex = next === 'light' ? '#f4f2ee' : '#090909';
+      const strokeHex = next === 'light' ? '#2945e8' : '#7186ff';
 
       svg.style.display = 'block';
       circle.setAttribute('cx', String(cx));
