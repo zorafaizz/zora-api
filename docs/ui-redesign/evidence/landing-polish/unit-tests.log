@@ -1,0 +1,107 @@
+TAP version 13
+# Subtest: request uses versioned same-origin path and encodes input as one parameter
+ok 1 - request uses versioned same-origin path and encodes input as one parameter
+  ---
+  duration_ms: 1.719812
+  type: 'test'
+  ...
+# Subtest: snippets isolate shell input and use key environment variables, never supplied key
+ok 2 - snippets isolate shell input and use key environment variables, never supplied key
+  ---
+  duration_ms: 1.630938
+  type: 'test'
+  ...
+# Subtest: response redaction removes supplied key from nested data and headers
+ok 3 - response redaction removes supplied key from nested data and headers
+  ---
+  duration_ms: 1.097864
+  type: 'test'
+  ...
+# Subtest: bounded reader stops oversized payload instead of buffering all data
+ok 4 - bounded reader stops oversized payload instead of buffering all data
+  ---
+  duration_ms: 28.001451
+  type: 'test'
+  ...
+# Subtest: bounded reader preserves valid JSON text
+ok 5 - bounded reader preserves valid JSON text
+  ---
+  duration_ms: 0.805239
+  type: 'test'
+  ...
+# Subtest: nested JSON stays compact instead of amplifying indentation without bounds
+ok 6 - nested JSON stays compact instead of amplifying indentation without bounds
+  ---
+  duration_ms: 0.555996
+  type: 'test'
+  ...
+# Subtest: JSON Unicode escaping cannot reveal an entered key after parsing or copying
+ok 7 - JSON Unicode escaping cannot reveal an entered key after parsing or copying
+  ---
+  duration_ms: 0.320488
+  type: 'test'
+  ...
+# Subtest: unrecognized paths cannot become arbitrary proxy requests
+ok 8 - unrecognized paths cannot become arbitrary proxy requests
+  ---
+  duration_ms: 0.240919
+  type: 'test'
+  ...
+# Subtest: published catalog stays synchronized with actual endpoint metadata
+ok 9 - published catalog stays synchronized with actual endpoint metadata
+  ---
+  duration_ms: 12.70314
+  type: 'test'
+  ...
+# Subtest: catalog filter supports query, category, and public/protected scope filters
+ok 10 - catalog filter supports query, category, and public/protected scope filters
+  ---
+  duration_ms: 4.307723
+  type: 'test'
+  ...
+# Subtest: frontend HTML surfaces ship zero mascot/GSAP artifacts and default to precision dark theme
+ok 11 - frontend HTML surfaces ship zero mascot/GSAP artifacts and default to precision dark theme
+  ---
+  duration_ms: 1.841641
+  type: 'test'
+  ...
+# Subtest: Endpoint Registry Integrity Validation
+    # Subtest: registry should contain active endpoints
+    ok 1 - registry should contain active endpoints
+      ---
+      duration_ms: 2.354677
+      type: 'test'
+      ...
+    # Subtest: all endpoint IDs and paths must be unique
+    ok 2 - all endpoint IDs and paths must be unique
+      ---
+      duration_ms: 0.562567
+      type: 'test'
+      ...
+    # Subtest: all endpoints must have mandatory metadata and policies
+    ok 3 - all endpoints must have mandatory metadata and policies
+      ---
+      duration_ms: 0.453676
+      type: 'test'
+      ...
+    # Subtest: findEndpointByPath resolves canonical and alias paths
+    ok 4 - findEndpointByPath resolves canonical and alias paths
+      ---
+      duration_ms: 0.385928
+      type: 'test'
+      ...
+    1..4
+ok 12 - Endpoint Registry Integrity Validation
+  ---
+  duration_ms: 5.692542
+  type: 'test'
+  ...
+1..12
+# tests 16
+# suites 0
+# pass 16
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 123.662668

@@ -46,6 +46,8 @@ export const ExplorerApp: React.FC = () => {
   const [endpoints, setEndpoints] = useState<EndpointSpec[]>([]);
   const [loadingCatalog, setLoadingCatalog] = useState(true);
   const [commandOpen, setCommandOpen] = useState(false);
+  const [directoryOpen, setDirectoryOpen] = useState(false);
+  const directoryTriggerRef = useRef<HTMLButtonElement | null>(null);
 
   // Filter & Selection State
   const [searchQuery, setSearchQuery] = useState('');
@@ -63,10 +65,12 @@ export const ExplorerApp: React.FC = () => {
 
   // Execution & Companion State
   const [apiState, setApiState] = useState<OperatorApiState>('idle');
+  const [mobileWorkspace, setMobileWorkspace] = useState<'request' | 'response'>('request');
   const [operatorNote, setOperatorNote] = useState('');
   const [, setBurstSignal] = useState(0);
   const [snippetLang, setSnippetLang] = useState<SnippetLang>('cURL');
   const [snippetCopied, setSnippetCopied] = useState(false);
+  const [snippetCopyMessage, setSnippetCopyMessage] = useState('');
 
   const [respText, setRespText] = useState('');
   const [respValue, setRespValue] = useState<unknown>(null);
@@ -82,12 +86,16 @@ export const ExplorerApp: React.FC = () => {
   useEffect(() => {
     const purgeSecrets = () => {
       setApiKey('');
-      abortRef.current?.abort();
+      const pending = abortRef.current;
+      abortRef.current = null;
+      pending?.abort();
     };
     window.addEventListener('pagehide', purgeSecrets);
     return () => {
       window.removeEventListener('pagehide', purgeSecrets);
-      abortRef.current?.abort();
+      const pending = abortRef.current;
+      abortRef.current = null;
+      pending?.abort();
     };
   }, []);
 
@@ -157,6 +165,19 @@ export const ExplorerApp: React.FC = () => {
 
   useEffect(() => {
     if (!activeEndpoint) return;
+    const previous = abortRef.current;
+    abortRef.current = null;
+    previous?.abort('endpoint_changed');
+    setApiState('idle');
+    setMobileWorkspace('request');
+    setOperatorNote('');
+    setRespText('');
+    setRespValue(null);
+    setRespHeaders([]);
+    setRespStatus(null);
+    setRespDuration(null);
+    setRespBytes(null);
+    setRespTruncated(false);
     populateSampleValues(activeEndpoint);
 
     const url = new URL(window.location.href);
@@ -250,9 +271,8 @@ export const ExplorerApp: React.FC = () => {
         credentials: 'omit',
         cache: 'no-store',
       });
-      clearTimeout(timer);
-
       const rawText = await readBounded(res, 1_048_576);
+      if (abortRef.current !== controller || controller.signal.aborted) return;
       const byteLen = new TextEncoder().encode(rawText).byteLength;
       const wasTruncated = rawText.includes('truncated at');
       const elapsed = Math.max(1, Math.round(performance.now() - t0));
@@ -270,6 +290,7 @@ export const ExplorerApp: React.FC = () => {
       setRespDuration(elapsed);
       setRespBytes(byteLen);
       setRespTruncated(wasTruncated);
+      setMobileWorkspace('response');
 
       if (res.ok) {
         setApiState('success');
@@ -284,14 +305,20 @@ export const ExplorerApp: React.FC = () => {
         );
       }
     } catch (err: any) {
-      clearTimeout(timer);
-      if (controller.signal.aborted) {
+      if (abortRef.current !== controller) return;
+      if (controller.signal.aborted && controller.signal.reason === 'timeout') {
+        setApiState('error');
+        setOperatorNote('Request timed out. Check the parameters and try again.');
+      } else if (controller.signal.aborted) {
         setApiState('cancelled');
         setOperatorNote('Request cancelled via AbortController.');
       } else {
         setApiState('error');
         setOperatorNote(`Transport error: ${err?.message || 'Request failed'}`);
       }
+    } finally {
+      clearTimeout(timer);
+      if (abortRef.current === controller) abortRef.current = null;
     }
   }, [activeEndpoint, apiKey, paramValues]);
 
@@ -315,13 +342,18 @@ export const ExplorerApp: React.FC = () => {
   const handleCopySnippet = async () => {
     try {
       await navigator.clipboard.writeText(codeSnippet);
+      setSnippetCopyMessage('Code copied.');
       setSnippetCopied(true);
       setTimeout(() => setSnippetCopied(false), 1600);
-    } catch {}
+    } catch {
+      setSnippetCopied(false);
+      setSnippetCopyMessage('Could not copy the code. Select and copy it manually.');
+    }
   };
 
   return (
     <div className="celestial-atmosphere relative min-h-screen overflow-x-clip pb-16">
+      <a href="#main-content" className="skip-link">Skip to content</a>
       <CelestialNavbar
         activeRoute="explorer"
         onOpenCommand={() => setCommandOpen(true)}
@@ -335,7 +367,7 @@ export const ExplorerApp: React.FC = () => {
         onSelectEndpoint={(ep) => setActiveId(ep.id)}
       />
 
-      <main className="relative z-10 mx-auto max-w-[1480px] px-4 pt-28 sm:px-6 sm:pt-32 lg:px-10">
+      <main id="main-content" tabIndex={-1} className="relative z-10 mx-auto max-w-[1480px] px-4 pt-28 sm:px-6 sm:pt-32 lg:px-10">
         <div className="mb-8 grid items-end gap-6 lg:grid-cols-12">
           <div className="space-y-2 lg:col-span-5">
             <div className="section-kicker inline-flex items-center gap-2">
@@ -358,7 +390,7 @@ export const ExplorerApp: React.FC = () => {
                 <span>IN-MEMORY BEARER KEY (ZERO STORAGE PERSISTENCE)</span>
               </span>
               <a
-                href="/signin.html?returnTo=%2Fexplorer.html"
+                href="/signin?returnTo=%2Fexplorer"
                 className="font-mono text-[11px] text-celestial-sky hover:underline"
               >
                 Need Session Auth? Sign In →
@@ -369,6 +401,7 @@ export const ExplorerApp: React.FC = () => {
               <div className="relative flex-1">
                 <input
                   type={showKey ? 'text' : 'password'}
+                  aria-label="Bearer API key"
                   value={apiKey}
                   autoComplete="off"
                   spellCheck={false}
@@ -402,14 +435,14 @@ export const ExplorerApp: React.FC = () => {
             </div>
 
             {quotaError && (
-              <div className="flex items-center gap-2 font-mono text-[11px] text-rose-400">
+              <div className="flex items-center gap-2 font-mono text-[11px] text-celestial-primary">
                 <ShieldAlert className="h-3.5 w-3.5 shrink-0" strokeWidth={1.5} />
                 <span>{quotaError}</span>
               </div>
             )}
 
             {quotaInfo && (
-              <div className="flex flex-wrap items-center gap-3 rounded-lg border border-emerald-400/35 bg-emerald-400/10 px-3 py-1.5 font-mono text-[11px] text-emerald-300">
+              <div className="flex flex-wrap items-center gap-3 rounded-lg border border-celestial-border bg-celestial-elevated px-3 py-1.5 font-mono text-[11px] text-celestial-primary">
                 <span>Account: {quotaInfo.email}</span>
                 {quotaInfo.balance !== undefined && <span>· Credits: {quotaInfo.balance}</span>}
                 {quotaInfo.plan && <span>· Tier: {quotaInfo.plan}</span>}
@@ -419,9 +452,13 @@ export const ExplorerApp: React.FC = () => {
         </div>
 
         {/* 3-Column Workbench Layout */}
-        <div className="grid items-start gap-5 lg:grid-cols-12">
+        <div className="explorer-grid grid items-start gap-5 lg:grid-cols-12">
           {/* LEFT SIDEBAR: Searchable Route Directory (3 Cols) */}
-          <aside className="celestial-card flex flex-col overflow-hidden lg:col-span-3">
+          <button ref={directoryTriggerRef} type="button" className="endpoint-picker lg:hidden" aria-expanded={directoryOpen} aria-controls="endpoint-directory" onClick={() => setDirectoryOpen((value) => !value)}>
+            <span><span className="endpoint-picker-label">Selected endpoint</span><strong>{activeEndpoint?.title || 'Choose an endpoint'}</strong></span>
+            <span aria-hidden="true">{directoryOpen ? '−' : '+'}</span>
+          </button>
+          <aside id="endpoint-directory" aria-label="Endpoint directory" className={`endpoint-directory celestial-card flex-col overflow-hidden lg:col-span-3 lg:flex ${directoryOpen ? 'flex' : 'hidden'}`}>
             <div className="space-y-3 border-b border-celestial-border/40 p-3.5">
               <div className="relative">
                 <Search
@@ -430,6 +467,7 @@ export const ExplorerApp: React.FC = () => {
                 />
                 <input
                   type="text"
+                  aria-label="Filter endpoints"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
                   placeholder={`Filter ${endpoints.length || 42} endpoints...`}
@@ -473,7 +511,8 @@ export const ExplorerApp: React.FC = () => {
               </div>
             </div>
 
-            <div className="max-h-[420px] divide-y divide-celestial-border/25 overflow-y-auto lg:max-h-[680px]">
+            <div className="directory-count" aria-live="polite">{filteredEndpoints.length} endpoints <span>Scroll to browse ↓</span></div>
+            <div className="max-h-[420px] divide-y divide-celestial-border/25 overflow-y-auto lg:max-h-[680px]" tabIndex={0} aria-label="Scrollable endpoint list">
               {loadingCatalog ? (
                 <div className="p-6 text-center font-mono text-xs text-celestial-muted">
                   Loading Celestial Route Catalog...
@@ -489,8 +528,9 @@ export const ExplorerApp: React.FC = () => {
                     <button
                       key={ep.id}
                       type="button"
-                      onClick={() => setActiveId(ep.id)}
-                      className={`flex w-full flex-col gap-1 px-3.5 py-3 text-left transition-colors ${
+                      onClick={() => { setActiveId(ep.id); if (directoryOpen) { setDirectoryOpen(false); directoryTriggerRef.current?.focus(); } }}
+                      aria-pressed={selected}
+                      className={`directory-item flex w-full flex-col gap-1 px-3.5 py-3 text-left transition-colors ${
                         selected
                           ? 'bg-celestial-sky/15'
                           : 'hover:bg-celestial-elevated/45'
@@ -500,7 +540,7 @@ export const ExplorerApp: React.FC = () => {
                         <span className="rounded bg-celestial-sky/15 px-1.5 py-0.5 font-semibold text-celestial-sky">
                           {ep.method}
                         </span>
-                        <span className={ep.public ? 'font-medium text-emerald-600 dark:text-emerald-400' : 'font-medium text-celestial-lilac'}>
+                        <span className={ep.public ? 'font-medium text-celestial-primary' : 'font-medium text-celestial-secondary'}>
                           {ep.public ? 'PUBLIC' : `${ep.credits} CR`}
                         </span>
                       </div>
@@ -518,10 +558,14 @@ export const ExplorerApp: React.FC = () => {
           </aside>
 
           {/* CENTER WORKSPACE: Request Builder + Live JSON Viewer + SDK Snippets (6 Cols) */}
-          <section className="space-y-4 lg:col-span-6">
+          <section className="workspace-body lg:col-span-9">
             {activeEndpoint ? (
               <>
-                <div className="celestial-card space-y-4 p-5">
+                <div className="workspace-switch lg:hidden" aria-label="Workspace view">
+                  <button type="button" aria-pressed={mobileWorkspace === 'request'} onClick={() => setMobileWorkspace('request')}>Request</button>
+                  <button type="button" aria-pressed={mobileWorkspace === 'response'} onClick={() => setMobileWorkspace('response')}>Response {respStatus !== null && <span>{respStatus}</span>}</button>
+                </div>
+                <div className={`celestial-card workspace-request space-y-4 p-5 ${mobileWorkspace !== 'request' ? 'workspace-mobile-hidden' : ''}`}>
                   <div className="flex flex-wrap items-start justify-between gap-3">
                     <div>
                       <div className="flex flex-wrap items-center gap-2 font-mono text-[11px]">
@@ -589,7 +633,7 @@ export const ExplorerApp: React.FC = () => {
                               <span className="font-medium text-celestial-primary">
                                 {param.name}
                                 {param.required && (
-                                  <span className="ml-1 text-rose-400">*</span>
+                                  <span className="ml-1 text-celestial-primary">*</span>
                                 )}
                               </span>
                               <span className="text-celestial-muted">
@@ -664,7 +708,7 @@ export const ExplorerApp: React.FC = () => {
                       <button
                         type="button"
                         onClick={cancelExecution}
-                        className="inline-flex min-h-[42px] items-center gap-1.5 rounded-xl border border-rose-400/55 bg-rose-400/15 px-3.5 py-2 font-mono text-xs text-rose-300 transition-colors hover:bg-rose-400/25"
+                        className="inline-flex min-h-[42px] items-center gap-1.5 rounded-xl border border-celestial-border bg-celestial-elevated px-3.5 py-2 font-mono text-xs text-celestial-secondary transition-colors hover:border-celestial-primary hover:text-celestial-primary"
                       >
                         <Square className="h-3.5 w-3.5" strokeWidth={1.5} />
                         <span>Cancel Stream</span>
@@ -674,7 +718,7 @@ export const ExplorerApp: React.FC = () => {
                 </div>
 
                 {/* Structured JSON Viewer */}
-                <JsonViewer
+                <div className={`workspace-response ${mobileWorkspace !== 'response' ? 'workspace-mobile-hidden' : ''}`}><JsonViewer
                   formattedText={respText}
                   parsedValue={respValue}
                   headers={respHeaders}
@@ -683,10 +727,10 @@ export const ExplorerApp: React.FC = () => {
                   byteLength={respBytes}
                   truncated={respTruncated}
                   maxHeightClass="max-h-[420px]"
-                />
+                /></div>
 
                 {/* Copyable Multi-Language Code Snippets */}
-                <div className="celestial-card overflow-hidden">
+                <div className="workspace-snippets celestial-card overflow-hidden">
                   <div className="flex flex-wrap items-center justify-between gap-2 border-b border-celestial-border/40 bg-celestial-canvas/55 px-3.5 py-2.5">
                     <div className="flex flex-wrap items-center gap-1">
                       {SNIPPET_LANGUAGES.map((lang) => (
@@ -712,7 +756,7 @@ export const ExplorerApp: React.FC = () => {
                     >
                       {snippetCopied ? (
                         <>
-                          <Check className="h-3.5 w-3.5 text-emerald-400" strokeWidth={1.5} />
+                          <Check className="h-3.5 w-3.5 text-celestial-primary" strokeWidth={1.5} />
                           <span>Copied</span>
                         </>
                       ) : (
@@ -723,22 +767,21 @@ export const ExplorerApp: React.FC = () => {
                       )}
                     </button>
                   </div>
-                  <pre className="max-h-64 overflow-auto p-4 font-mono text-xs leading-relaxed text-celestial-secondary">
+                  <p role="status" className={snippetCopyMessage ? 'px-4 pt-2 text-xs text-celestial-secondary' : 'sr-only'}>{snippetCopyMessage}</p>
+                  <pre tabIndex={0} className="max-h-64 overflow-auto p-4 font-mono text-xs leading-relaxed text-celestial-secondary">
                     {codeSnippet}
                   </pre>
                 </div>
               </>
             ) : null}
-          </section>
-
-          <aside className="space-y-4 lg:sticky lg:top-28 lg:col-span-3">
+          <aside className="workspace-inspector space-y-4">
             <div className="celestial-card overflow-hidden">
               <div className="border-b border-celestial-border/50 bg-celestial-deep/40 px-4 py-3">
                 <div className="section-kicker">REQUEST STATUS</div>
               </div>
               <div className="p-4">
                 <div className="flex items-center gap-2">
-                  <span className={`h-2.5 w-2.5 rounded-full ${apiState === 'success' ? 'bg-emerald-400' : apiState === 'error' ? 'bg-rose-400' : apiState === 'loading' ? 'animate-pulse bg-celestial-sky' : 'bg-celestial-muted'}`} />
+                  <span className={`h-2.5 w-2.5 rounded-full ${apiState === 'loading' ? 'animate-pulse bg-celestial-primary' : apiState === 'idle' ? 'bg-celestial-muted' : 'bg-celestial-primary'}`} />
                   <strong className="text-sm capitalize text-celestial-primary">{apiState}</strong>
                 </div>
                 <p className="mt-3 text-xs leading-5 text-celestial-secondary" aria-live="polite">{operatorNote || 'No request has been executed in this session.'}</p>
@@ -760,6 +803,7 @@ export const ExplorerApp: React.FC = () => {
               <span>Read the full contract</span><ArrowUpRight className="h-4 w-4 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
           </aside>
+          </section>
         </div>
       </main>
     </div>

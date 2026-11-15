@@ -1,0 +1,22 @@
+[
+  {
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "productCalls": 1,
+    "focusAndMock": "PASS"
+  },
+  {
+    "viewport": {
+      "width": 390,
+      "height": 844
+    },
+    "productCalls": 1,
+    "focusAndMock": "PASS"
+  }
+]
+PASS: endpoint switch invalidates the pending response
+PASS: landing playground invalidates the pending response
+PASS: reduced-motion video control reflects the paused state
+PASS: timeout covers a stalled response body (shortened fixture deadline)

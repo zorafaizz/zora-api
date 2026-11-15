@@ -1,0 +1,58 @@
+[
+  {
+    "width": 390,
+    "theme": "dark",
+    "violations": [],
+    "errors": [],
+    "mountCalls": 0,
+    "explicitMockRequests": 4,
+    "focus": true,
+    "reducedMotion": true,
+    "stale": true,
+    "cancel": true,
+    "success": true,
+    "error": true
+  },
+  {
+    "width": 390,
+    "theme": "light",
+    "violations": [],
+    "errors": [],
+    "mountCalls": 0,
+    "explicitMockRequests": 4,
+    "focus": true,
+    "reducedMotion": true,
+    "stale": true,
+    "cancel": true,
+    "success": true,
+    "error": true
+  },
+  {
+    "width": 1440,
+    "theme": "dark",
+    "violations": [],
+    "errors": [],
+    "mountCalls": 0,
+    "explicitMockRequests": 4,
+    "focus": true,
+    "reducedMotion": true,
+    "stale": true,
+    "cancel": true,
+    "success": true,
+    "error": true
+  },
+  {
+    "width": 1440,
+    "theme": "light",
+    "violations": [],
+    "errors": [],
+    "mountCalls": 0,
+    "explicitMockRequests": 4,
+    "focus": true,
+    "reducedMotion": true,
+    "stale": true,
+    "cancel": true,
+    "success": true,
+    "error": true
+  }
+]

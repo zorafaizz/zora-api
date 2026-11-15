@@ -73,6 +73,19 @@ app.use('/api/v1/auth', configuredEmailAuth(pool).router);
 app.use(cors());
 app.use(express.json({ limit: '20mb' }));
 app.use(express.urlencoded({ extended: true, limit: '20mb' }));
+
+app.get('/explorer', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'explorer.html'));
+});
+app.get('/signin', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'signin.html'));
+});
+app.get('/explorer.html', (req, res) => {
+  res.redirect(308, '/explorer');
+});
+app.get('/signin.html', (req, res) => {
+  res.redirect(308, '/signin');
+});
 app.use(express.static(path.join(__dirname, 'public')));
 
 // 1. Injeksi Request ID & Legacy Envelope Wrapper
