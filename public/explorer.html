@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API Explorer &amp; Playground — KanjutGede Celestial Workbench</title>
+    <title>API Workbench — KanjutGede</title>
     <meta
       name="description"
       content="Execute live HTTP requests against KanjutGede REST API endpoints, inspect structured JSON responses, and copy production-safe snippets."
     />
-    <meta name="theme-color" content="#101827" />
+    <meta name="theme-color" content="#0c0c0e" />
     <link rel="icon" type="image/png" href="/icon.png" />
     <link rel="apple-touch-icon" href="/assets/icon-192.png" />
     <link
@@ -36,19 +36,19 @@
       (function () {
         try {
           var saved = localStorage.getItem('kg-celestial-theme');
-          if (saved === 'light' || saved === 'dark') {
-            document.documentElement.setAttribute('data-theme', saved);
-          }
+          var next = saved === 'light' || saved === 'dark'
+            ? saved
+            : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+          document.documentElement.setAttribute('data-theme', next);
         } catch (e) {}
       })();
     </script>
-    <script type="module" crossorigin src="/assets/celestial/explorer-DdD__o2r.js"></script>
-    <link rel="modulepreload" crossorigin href="/assets/celestial/celestial-rive-twDXDono.js">
-    <link rel="modulepreload" crossorigin href="/assets/celestial/celestial-3d-DCLpg4SE.js">
+    <script type="module" crossorigin src="/assets/celestial/explorer-CZI5DfdD.js"></script>
     <link rel="modulepreload" crossorigin href="/assets/celestial/celestial-motion-lPsKFjdh.js">
-    <link rel="modulepreload" crossorigin href="/assets/celestial/AnimeOperator-IvtXIYXK.js">
-    <link rel="modulepreload" crossorigin href="/assets/celestial/JsonViewer-BjfsQLIw.js">
-    <link rel="stylesheet" crossorigin href="/assets/celestial/AnimeOperator-Dzb2avS-.css">
+    <link rel="modulepreload" crossorigin href="/assets/celestial/CommandModal-C_r-LhK5.js">
+    <link rel="modulepreload" crossorigin href="/assets/celestial/JsonViewer-BqsW2Mzr.js">
+    <link rel="modulepreload" crossorigin href="/assets/celestial/sparkles-DNKqvR4u.js">
+    <link rel="stylesheet" crossorigin href="/assets/celestial/CommandModal-CD6U6eeF.css">
   </head>
   <body class="celestial-body selection:bg-celestial-sky/30 selection:text-celestial-starlight">
     <div id="root"></div>

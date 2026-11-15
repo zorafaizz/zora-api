@@ -284,23 +284,53 @@ export function generateOpenAPISpec() {
 
 export function renderScalarHtml(specUrl = '/api/v1/openapi.json') {
   return `<!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>KanjutGede API Documentation</title>
+  <title>KanjutGede API Docs — Build Without Guesswork</title>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%233b82f6'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+  <meta name="description" content="Searchable API contracts, authentication rules, request examples, and response schemas for KanjutGede API." />
+  <meta name="theme-color" content="#0c0c0e" />
+  <link rel="icon" type="image/png" href="/icon.png" />
   <style>
-    body { margin: 0; background-color: #09090b; }
+    :root {
+      --scalar-font: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --scalar-font-code: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      --scalar-color-1: #f7f5f2;
+      --scalar-color-2: #b5b0ab;
+      --scalar-color-3: #7b7674;
+      --scalar-color-accent: #ff746a;
+      --scalar-background-1: #0c0c0e;
+      --scalar-background-2: #141417;
+      --scalar-background-3: #1c1b1f;
+      --scalar-background-accent: rgba(255, 116, 106, 0.12);
+      --scalar-border-color: #3a373a;
+      --scalar-border-width: 1px;
+      --scalar-radius: 12px;
+    }
+    * { box-sizing: border-box; }
+    body { margin: 0; background: #0c0c0e; }
+    .light-mode {
+      --scalar-color-1: #171618;
+      --scalar-color-2: #534f50;
+      --scalar-color-3: #7a7472;
+      --scalar-color-accent: #cd3932;
+      --scalar-background-1: #f4f2ee;
+      --scalar-background-2: #fdfcf9;
+      --scalar-background-3: #e8e4de;
+      --scalar-background-accent: rgba(205, 57, 50, 0.1);
+      --scalar-border-color: #cdc7c2;
+    }
+    .scalar-app { min-height: 100vh; }
+    .sidebar { border-right-color: var(--scalar-border-color) !important; }
+    .references-layout { background-image: linear-gradient(to right, color-mix(in srgb, var(--scalar-border-color) 18%, transparent) 1px, transparent 1px); background-size: 72px 72px; }
+    .section-header { letter-spacing: -0.025em; }
+    button, input, .sidebar-item { transition: color 160ms ease, background-color 160ms ease, border-color 160ms ease, transform 160ms ease !important; }
+    button:active { transform: scale(.985); }
   </style>
 </head>
 <body>
-  <script
-    id="api-reference"
-    data-url="${specUrl}"
-    data-theme="deepSpace"
-    data-layout="modern"
-  ></script>
+  <script id="api-reference" data-url="${specUrl}" data-theme="none" data-layout="modern" data-default-http-client="js,fetch" data-hide-client-button="false"></script>
   <script src="https://cdn.jsdelivr.net/npm/@scalar/api-reference"></script>
 </body>
 </html>`;

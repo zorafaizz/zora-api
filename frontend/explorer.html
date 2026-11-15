@@ -3,12 +3,12 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API Explorer &amp; Playground — KanjutGede Celestial Workbench</title>
+    <title>API Workbench — KanjutGede</title>
     <meta
       name="description"
       content="Execute live HTTP requests against KanjutGede REST API endpoints, inspect structured JSON responses, and copy production-safe snippets."
     />
-    <meta name="theme-color" content="#101827" />
+    <meta name="theme-color" content="#0c0c0e" />
     <link rel="icon" type="image/png" href="/icon.png" />
     <link rel="apple-touch-icon" href="/assets/icon-192.png" />
     <link
@@ -36,9 +36,10 @@
       (function () {
         try {
           var saved = localStorage.getItem('kg-celestial-theme');
-          if (saved === 'light' || saved === 'dark') {
-            document.documentElement.setAttribute('data-theme', saved);
-          }
+          var next = saved === 'light' || saved === 'dark'
+            ? saved
+            : (window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+          document.documentElement.setAttribute('data-theme', next);
         } catch (e) {}
       })();
     </script>

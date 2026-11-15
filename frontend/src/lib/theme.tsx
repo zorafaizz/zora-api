@@ -21,7 +21,7 @@ function readInitialTheme(): CelestialTheme {
   if (typeof document === 'undefined') return 'dark';
   const attr = document.documentElement.getAttribute('data-theme');
   if (attr === 'light' || attr === 'dark') return attr;
-  return 'dark';
+  return window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
 }
 
 export const CelestialThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
@@ -44,7 +44,7 @@ export const CelestialThemeProvider: React.FC<{ children: React.ReactNode }> = (
     document.documentElement.setAttribute('data-theme', next);
     const meta = document.querySelector('meta[name="theme-color"]');
     if (meta) {
-      meta.setAttribute('content', next === 'dark' ? '#101827' : '#EAF4FF');
+      meta.setAttribute('content', next === 'dark' ? '#0c0c0e' : '#f4f2ee');
     }
     try {
       localStorage.setItem('kg-celestial-theme', next);
@@ -72,8 +72,8 @@ export const CelestialThemeProvider: React.FC<{ children: React.ReactNode }> = (
       const circle = circleRef.current;
       const ring = ringRef.current;
 
-      const fillHex = next === 'light' ? '#DCEBFF' : '#101827';
-      const strokeHex = next === 'light' ? '#83B9FF' : '#B9A7FF';
+      const fillHex = next === 'light' ? '#f4f2ee' : '#0c0c0e';
+      const strokeHex = next === 'light' ? '#cd3932' : '#ff746a';
 
       svg.style.display = 'block';
       circle.setAttribute('cx', String(cx));
