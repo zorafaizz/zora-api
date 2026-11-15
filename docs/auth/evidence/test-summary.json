@@ -1,0 +1,17 @@
+{
+  "command": "node scripts/test-auth-isolated.mjs",
+  "tests": 78,
+  "passed": 78,
+  "failed": 0,
+  "skipped": 0,
+  "migration": "Isolated UP/DOWN/UP: every original table snapshot unchanged",
+  "database": "Disposable Postgres16 and Redis on temporary loopback ports; no production connection",
+  "excluded": "Live HTTP-provider and multi-engine suites; require upstream fixtures",
+  "review_fixes": [
+    "Pre-approval proof acceptance: immutable issuance approval marker",
+    "Mail rejection lockout: revoked flow can restart",
+    "Rolling rate limit across time boundary",
+    "Historical case-variant identity preservation",
+    "Invalid CLI input sanitized"
+  ]
+}

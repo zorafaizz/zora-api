@@ -1,0 +1,160 @@
+{
+  "environment": "Chrome 157 headless, loopback static server, intercepted API fixtures; no live backend requests",
+  "layouts": [
+    {
+      "route": "/",
+      "theme": "light",
+      "width": 320,
+      "scroll": 320,
+      "images": true
+    },
+    {
+      "route": "/",
+      "theme": "light",
+      "width": 390,
+      "scroll": 390,
+      "images": true
+    },
+    {
+      "route": "/",
+      "theme": "light",
+      "width": 768,
+      "scroll": 768,
+      "images": true
+    },
+    {
+      "route": "/",
+      "theme": "light",
+      "width": 1280,
+      "scroll": 1280,
+      "images": true
+    },
+    {
+      "route": "/",
+      "theme": "light",
+      "width": 1440,
+      "scroll": 1440,
+      "images": true
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "width": 320,
+      "scroll": 320,
+      "images": true
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "width": 390,
+      "scroll": 390,
+      "images": true
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "width": 768,
+      "scroll": 768,
+      "images": true
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "width": 1280,
+      "scroll": 1280,
+      "images": true
+    },
+    {
+      "route": "/",
+      "theme": "dark",
+      "width": 1440,
+      "scroll": 1440,
+      "images": true
+    },
+    {
+      "route": "/explorer.html?endpoint=dl.tiktok",
+      "theme": "light",
+      "width": 320,
+      "scroll": 320,
+      "images": true
+    },
+    {
+      "route": "/explorer.html?endpoint=dl.tiktok",
+      "theme": "light",
+      "width": 390,
+      "scroll": 390,
+      "images": true
+    },
+    {
+      "route": "/explorer.html?endpoint=dl.tiktok",
+      "theme": "light",
+      "width": 768,
+      "scroll": 768,
+      "images": true
+    },
+    {
+      "route": "/explorer.html?endpoint=dl.tiktok",
+      "theme": "light",
+      "width": 1280,
+      "scroll": 1280,
+      "images": true
+    },
+    {
+      "route": "/explorer.html?endpoint=dl.tiktok",
+      "theme": "light",
+      "width": 1440,
+      "scroll": 1440,
+      "images": true
+    },
+    {
+      "route": "/explorer.html?endpoint=dl.tiktok",
+      "theme": "dark",
+      "width": 320,
+      "scroll": 320,
+      "images": true
+    },
+    {
+      "route": "/explorer.html?endpoint=dl.tiktok",
+      "theme": "dark",
+      "width": 390,
+      "scroll": 390,
+      "images": true
+    },
+    {
+      "route": "/explorer.html?endpoint=dl.tiktok",
+      "theme": "dark",
+      "width": 768,
+      "scroll": 768,
+      "images": true
+    },
+    {
+      "route": "/explorer.html?endpoint=dl.tiktok",
+      "theme": "dark",
+      "width": 1280,
+      "scroll": 1280,
+      "images": true
+    },
+    {
+      "route": "/explorer.html?endpoint=dl.tiktok",
+      "theme": "dark",
+      "width": 1440,
+      "scroll": 1440,
+      "images": true
+    }
+  ],
+  "flows": [
+    "no API requests without Execute",
+    "lazy intro, Skip/Escape, reduced motion",
+    "search and endpoint deep link",
+    "empty URL and required-key validation",
+    "native bridge docs-only; versioned request/Bearer auth fixture",
+    "redaction and header allowlist",
+    "bounded dense JSON rendering and hidden raw cleanup; clipboard success/failure",
+    "401/403/429/500/non-JSON/oversize",
+    "timeout and cancel ignore late responses",
+    "clear key/response and no secret persistence",
+    "theme system/persistence",
+    "keyboard skip, 200% zoom, offscreen pause and mobile greeting"
+  ],
+  "errors": []
+}

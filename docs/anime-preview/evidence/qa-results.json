@@ -1,0 +1,246 @@
+{
+  "browser": "157.0.8103.78",
+  "environment": "Local unthrottled Chromium, static fixtures, no production network, emulated mobile",
+  "layouts": [
+    {
+      "scene": "after-hours",
+      "theme": "light",
+      "width": 320,
+      "scroll": 320,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "after-hours",
+      "theme": "light",
+      "width": 390,
+      "scroll": 390,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "after-hours",
+      "theme": "light",
+      "width": 768,
+      "scroll": 768,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "after-hours",
+      "theme": "light",
+      "width": 1280,
+      "scroll": 1280,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "after-hours",
+      "theme": "light",
+      "width": 1440,
+      "scroll": 1440,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "after-hours",
+      "theme": "dark",
+      "width": 320,
+      "scroll": 320,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "after-hours",
+      "theme": "dark",
+      "width": 390,
+      "scroll": 390,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "after-hours",
+      "theme": "dark",
+      "width": 768,
+      "scroll": 768,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "after-hours",
+      "theme": "dark",
+      "width": 1280,
+      "scroll": 1280,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "after-hours",
+      "theme": "dark",
+      "width": 1440,
+      "scroll": 1440,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "pocket",
+      "theme": "light",
+      "width": 320,
+      "scroll": 320,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "pocket",
+      "theme": "light",
+      "width": 390,
+      "scroll": 390,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "pocket",
+      "theme": "light",
+      "width": 768,
+      "scroll": 768,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "pocket",
+      "theme": "light",
+      "width": 1280,
+      "scroll": 1280,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "pocket",
+      "theme": "light",
+      "width": 1440,
+      "scroll": 1440,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "pocket",
+      "theme": "dark",
+      "width": 320,
+      "scroll": 320,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "pocket",
+      "theme": "dark",
+      "width": 390,
+      "scroll": 390,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "pocket",
+      "theme": "dark",
+      "width": 768,
+      "scroll": 768,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "pocket",
+      "theme": "dark",
+      "width": 1280,
+      "scroll": 1280,
+      "images": true,
+      "controlsOverlap": false
+    },
+    {
+      "scene": "pocket",
+      "theme": "dark",
+      "width": 1440,
+      "scroll": 1440,
+      "images": true,
+      "controlsOverlap": false
+    }
+  ],
+  "interactions": [
+    {
+      "scene": "after-hours",
+      "themeSystemAndPersistence": true,
+      "pointerTracking": true,
+      "openingAutoCompleteAndSkipAndEscape": true,
+      "searchAndEmpty": true,
+      "parameterValidation": true,
+      "cancel": true,
+      "fixtureStates": [
+        "401",
+        "429",
+        "500",
+        "success"
+      ],
+      "clipboard": "success/failure stubbed",
+      "reducedMotion": true,
+      "keyboardSkip": true
+    },
+    {
+      "scene": "pocket",
+      "themeSystemAndPersistence": true,
+      "pointerTracking": true,
+      "openingAutoCompleteAndSkipAndEscape": true,
+      "searchAndEmpty": true,
+      "parameterValidation": true,
+      "cancel": true,
+      "fixtureStates": [
+        "401",
+        "429",
+        "500",
+        "success"
+      ],
+      "clipboard": "success/failure stubbed",
+      "reducedMotion": true,
+      "keyboardSkip": true
+    }
+  ],
+  "performance": [
+    {
+      "scene": "after-hours",
+      "frames": 69,
+      "maxFrameMs": 66.59999999999991,
+      "framesOver33ms": 44,
+      "lcpMs": 164,
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 164
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 164
+        }
+      ],
+      "longTasks": [],
+      "jsHeapBytes": 13408819
+    },
+    {
+      "scene": "pocket",
+      "frames": 92,
+      "maxFrameMs": 50,
+      "framesOver33ms": 26,
+      "lcpMs": 80,
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 80
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 80
+        }
+      ],
+      "longTasks": [],
+      "jsHeapBytes": 8975780
+    }
+  ],
+  "touch": "Both greeting controls tapped in mobile emulation",
+  "errors": []
+}

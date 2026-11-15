@@ -1,0 +1,37 @@
+{
+  "environment": "Chrome 157 headless, 1440x1000, local unthrottled static server, no tracing, no real user data. Not production Web Vitals.",
+  "scenes": [
+    {
+      "scene": "after-hours",
+      "idle": {
+        "frames": 120,
+        "maxFrameMs": 33.5,
+        "framesOver33ms": 8,
+        "heapBytes": 1811714
+      },
+      "opening": {
+        "frames": 88,
+        "maxFrameMs": 66.70000000000027,
+        "framesOver33ms": 27,
+        "heapBytes": 2217116
+      },
+      "greetingSynchronousHandlerMs": 0.5
+    },
+    {
+      "scene": "pocket",
+      "idle": {
+        "frames": 127,
+        "maxFrameMs": 16.800000000000182,
+        "framesOver33ms": 0,
+        "heapBytes": 2613163
+      },
+      "opening": {
+        "frames": 121,
+        "maxFrameMs": 66.69999999999982,
+        "framesOver33ms": 5,
+        "heapBytes": 2860961
+      },
+      "greetingSynchronousHandlerMs": 0.2999992370605469
+    }
+  ]
+}

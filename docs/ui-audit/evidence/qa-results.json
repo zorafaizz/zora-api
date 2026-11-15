@@ -1,0 +1,237 @@
+{
+  "browser": "157.0.8103.78",
+  "baseline": [
+    {
+      "width": 1440,
+      "systemTheme": "light",
+      "background": "rgb(9, 9, 11)",
+      "health": "Static harness 404; no backend or upstream execution. External fonts blocked."
+    },
+    {
+      "width": 1440,
+      "systemTheme": "dark",
+      "background": "rgb(9, 9, 11)",
+      "health": "Static harness 404; no backend or upstream execution. External fonts blocked."
+    },
+    {
+      "width": 390,
+      "systemTheme": "light",
+      "background": "rgb(9, 9, 11)",
+      "health": "Static harness 404; no backend or upstream execution. External fonts blocked."
+    },
+    {
+      "width": 390,
+      "systemTheme": "dark",
+      "background": "rgb(9, 9, 11)",
+      "health": "Static harness 404; no backend or upstream execution. External fonts blocked."
+    }
+  ],
+  "previews": [
+    {
+      "direction": "artwork",
+      "theme": "light",
+      "width": 320,
+      "scroll": 320,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "artwork",
+      "theme": "light",
+      "width": 390,
+      "scroll": 390,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "artwork",
+      "theme": "light",
+      "width": 768,
+      "scroll": 768,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "artwork",
+      "theme": "light",
+      "width": 1280,
+      "scroll": 1280,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "artwork",
+      "theme": "light",
+      "width": 1440,
+      "scroll": 1440,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "artwork",
+      "theme": "dark",
+      "width": 320,
+      "scroll": 320,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "artwork",
+      "theme": "dark",
+      "width": 390,
+      "scroll": 390,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "artwork",
+      "theme": "dark",
+      "width": 768,
+      "scroll": 768,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "artwork",
+      "theme": "dark",
+      "width": 1280,
+      "scroll": 1280,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "artwork",
+      "theme": "dark",
+      "width": 1440,
+      "scroll": 1440,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "typography",
+      "theme": "light",
+      "width": 320,
+      "scroll": 320,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "typography",
+      "theme": "light",
+      "width": 390,
+      "scroll": 390,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "typography",
+      "theme": "light",
+      "width": 768,
+      "scroll": 768,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "typography",
+      "theme": "light",
+      "width": 1280,
+      "scroll": 1280,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "typography",
+      "theme": "light",
+      "width": 1440,
+      "scroll": 1440,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "typography",
+      "theme": "dark",
+      "width": 320,
+      "scroll": 320,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "typography",
+      "theme": "dark",
+      "width": 390,
+      "scroll": 390,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "typography",
+      "theme": "dark",
+      "width": 768,
+      "scroll": 768,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "typography",
+      "theme": "dark",
+      "width": 1280,
+      "scroll": 1280,
+      "main": true,
+      "images": true
+    },
+    {
+      "direction": "typography",
+      "theme": "dark",
+      "width": 1440,
+      "scroll": 1440,
+      "main": true,
+      "images": true
+    }
+  ],
+  "interactions": [
+    {
+      "direction": "artwork",
+      "systemTheme": true,
+      "persistence": true,
+      "explicitLocalSample": true,
+      "zeroSampleRequests": true,
+      "clipboardSuccess": "stubbed",
+      "clipboardFailure": "stubbed",
+      "keyboardSkip": true,
+      "tabSequence": [
+        "Explore APIs ↗",
+        "See an example",
+        "Show local example →",
+        "Copy request",
+        "DownloadersTikTok · YouTube · Instagram ↗"
+      ],
+      "reducedMotion": true,
+      "storage": [
+        "kg-preview-theme"
+      ]
+    },
+    {
+      "direction": "typography",
+      "systemTheme": true,
+      "persistence": true,
+      "explicitLocalSample": true,
+      "zeroSampleRequests": true,
+      "clipboardSuccess": "stubbed",
+      "clipboardFailure": "stubbed",
+      "keyboardSkip": true,
+      "tabSequence": [
+        "Explore APIs ↗",
+        "See an example",
+        "DownloadersTikTok · YouTube · Instagram ↗",
+        "Search & discoveryWikipedia · Pinterest · Steam ↗",
+        "AI & LLMChat ↗"
+      ],
+      "reducedMotion": true,
+      "storage": [
+        "kg-preview-theme"
+      ]
+    }
+  ],
+  "pageErrors": [],
+  "touch": "Typography local sample tap passed (Chromium emulation)"
+}

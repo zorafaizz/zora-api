@@ -1,0 +1,58 @@
+{
+  "environment": "Chrome157 headless; actual local auth router and isolated Postgres; in-memory mail only; no real messages",
+  "layouts": [
+    {
+      "theme": "light",
+      "width": 320
+    },
+    {
+      "theme": "light",
+      "width": 390
+    },
+    {
+      "theme": "light",
+      "width": 768
+    },
+    {
+      "theme": "light",
+      "width": 1280
+    },
+    {
+      "theme": "light",
+      "width": 1440
+    },
+    {
+      "theme": "dark",
+      "width": 320
+    },
+    {
+      "theme": "dark",
+      "width": 390
+    },
+    {
+      "theme": "dark",
+      "width": 768
+    },
+    {
+      "theme": "dark",
+      "width": 1280
+    },
+    {
+      "theme": "dark",
+      "width": 1440
+    }
+  ],
+  "flows": [
+    "network failure and throttled UI recovery",
+    "actual email/code verification and session cookies",
+    "invalid code recovery and cleared input",
+    "safe intended destination",
+    "manual playground remains separate",
+    "fresh proof and sign-out-all",
+    "resend cooldown/change email",
+    "expired proof/restart",
+    "keyboard/reduced motion/no credential storage",
+    "mobile touch full sign-in/logout"
+  ],
+  "errors": []
+}

@@ -6,7 +6,8 @@ import { fileURLToPath } from 'url';
 
 // Core & Middlewares
 import { logger } from './src/core/logger.js';
-import { closeDb } from './src/core/db.js';
+import { closeDb, pool } from './src/core/db.js';
+import { configuredEmailAuth } from './src/modules/email-auth/index.js';
 import { closeRedis } from './src/core/redis.js';
 import { getOrSetCache } from './src/core/cache.js';
 import { getProviderHealthSnapshot } from './src/core/resilience.js';
@@ -66,6 +67,8 @@ const __dirname = path.dirname(__filename);
 const app = express();
 const PORT = process.env.PORT || 3095;
 const CREATOR = 'KanjutGede';
+
+app.use('/api/v1/auth', configuredEmailAuth(pool).router);
 
 app.use(cors());
 app.use(express.json({ limit: '20mb' }));

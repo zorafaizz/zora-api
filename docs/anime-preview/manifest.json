@@ -1,0 +1,91 @@
+{
+  "date": "2026-11-15",
+  "prompt_source": "prompts.json",
+  "assets": [
+    {
+      "id": "approved-logo",
+      "file": "assets/brand.webp",
+      "source": "../../icon.png via approved optimized derivative",
+      "creator": "Project owner",
+      "license_or_permission": "Project-owned approved brand",
+      "intended_usage": "Navigation and favicon",
+      "optimization": "Retained original or code-native asset",
+      "bytes": 13550,
+      "sha256": "46d15e93c730fa3800e1e00e452d7b6586e4b7ed2f049a2f2a1c8493d2512b88",
+      "production_approval": "Brand approved; derivative preserved"
+    },
+    {
+      "id": "nami-master",
+      "file": "assets/nami-concept.png",
+      "source": "/root/.codex/generated_images/01a1dcfa-1ceb-7d71-b80e-baf47086c9d5/exec-098206ee-75de-4655-b947-434a9e1dd16c.png",
+      "creator": "Built-in image_gen, operator-directed original concept",
+      "license_or_permission": "Original generated/authored exploration; operator commercial/art/usage approval pending; no third-party anime samples",
+      "intended_usage": "Concept master and layered-art brief",
+      "optimization": "Retained original or code-native asset",
+      "bytes": 1532103,
+      "sha256": "ecc17ed1c2b2da94c0113ef14832ee55a72347d9ab2c7935190ac7ffefea7718",
+      "production_approval": "Concept only; production approval pending"
+    },
+    {
+      "id": "nami-web",
+      "file": "assets/nami.webp",
+      "source": "assets/nami-concept.png",
+      "creator": "Derived with sharp from generated master",
+      "license_or_permission": "Original generated/authored exploration; operator commercial/art/usage approval pending; no third-party anime samples",
+      "intended_usage": "A hero and static opening poster",
+      "optimization": "WebP derivative 1000px high, quality85",
+      "bytes": 136308,
+      "sha256": "92c3d97578cfd58796b2d8ba0c132c608bd8194ae2201d77cd4c0cd1189dfdce",
+      "production_approval": "Concept only; production approval pending"
+    },
+    {
+      "id": "momo-master",
+      "file": "assets/momo-concept.png",
+      "source": "/root/.codex/generated_images/01a1dcfa-1ceb-7d71-b80e-baf47086c9d5/exec-e4ab780d-f32e-4055-a3b2-7e08a1274f51.png",
+      "creator": "Built-in image_gen, operator-directed original concept",
+      "license_or_permission": "Original generated/authored exploration; operator commercial/art/usage approval pending; no third-party anime samples",
+      "intended_usage": "Character finish reference",
+      "optimization": "Retained original or code-native asset",
+      "bytes": 1419703,
+      "sha256": "645431aa2fb0854cbad00f6745a65188f5b5e63b6e07eb342638a635ec10c8f9",
+      "production_approval": "Concept only; production approval pending"
+    },
+    {
+      "id": "momo-web",
+      "file": "assets/momo.webp",
+      "source": "assets/momo-concept.png",
+      "creator": "Derived with sharp from generated master",
+      "license_or_permission": "Original generated/authored exploration; operator commercial/art/usage approval pending; no third-party anime samples",
+      "intended_usage": "B optional opening poster",
+      "optimization": "WebP derivative 1000px high, quality85",
+      "bytes": 137534,
+      "sha256": "33ee78c180c95b4254b6ff5dcf7e330d6a1768d3965d72284655d6bb29ed1c16",
+      "production_approval": "Concept only; production approval pending"
+    },
+    {
+      "id": "momo-svg",
+      "file": "pocket.html",
+      "source": "Inline .momo SVG; informed by original concept brief",
+      "creator": "Codex hand-authored original SVG",
+      "license_or_permission": "Original generated/authored exploration; operator commercial/art/usage approval pending; no third-party anime samples",
+      "intended_usage": "Temporary layered procedural character",
+      "optimization": "Retained original or code-native asset",
+      "bytes": 7726,
+      "sha256": "51205b804f1deb687f0743c137a7e31348fc567d4b084c81b21f006e00e211bb",
+      "production_approval": "Prototype rig only; art approval pending"
+    },
+    {
+      "id": "gsap",
+      "file": "assets/gsap.min.js",
+      "source": "Existing node_modules/gsap/dist/gsap.min.js, 3.15.1",
+      "creator": "GreenSock",
+      "license_or_permission": "GSAP standard license; distribution header retained",
+      "intended_usage": "Finite opening/reaction choreography",
+      "optimization": "Retained original or code-native asset",
+      "bytes": 73357,
+      "sha256": "3d1bea374ab1b703cc5c4105358eec63c4465efdc573931dc116e34a0a190c1b",
+      "production_approval": "Dependency already installed; shipping terms review pending"
+    }
+  ],
+  "external_reference_assets_used": []
+}

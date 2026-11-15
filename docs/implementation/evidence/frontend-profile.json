@@ -1,0 +1,166 @@
+{
+  "environment": "Chrome157 headless1440x1000; local static server; unthrottled; no tracing; synthetic interactions, not real-user INP or production Web Vitals",
+  "pages": [
+    {
+      "path": "/",
+      "startup": {
+        "lcp": 164,
+        "cls": 0,
+        "longTasks": [],
+        "paint": [
+          {
+            "name": "first-paint",
+            "ms": 164
+          },
+          {
+            "name": "first-contentful-paint",
+            "ms": 164
+          }
+        ],
+        "heapBytes": 1476659,
+        "resources": [
+          {
+            "name": "/assets/theme.js",
+            "bytes": 1034
+          },
+          {
+            "name": "/assets/site.css",
+            "bytes": 16477
+          },
+          {
+            "name": "/assets/landing.js",
+            "bytes": 1137
+          },
+          {
+            "name": "/assets/brand.webp",
+            "bytes": 13550
+          },
+          {
+            "name": "/assets/companion.js",
+            "bytes": 5060
+          },
+          {
+            "name": "/assets/catalog.js",
+            "bytes": 1082
+          },
+          {
+            "name": "/assets/catalog.json",
+            "bytes": 27197
+          },
+          {
+            "name": "/assets/brand.webp",
+            "bytes": 13550
+          }
+        ]
+      },
+      "contrast": [
+        {
+          "theme": "light",
+          "bodyColor": "rgb(52, 33, 63)",
+          "bodyBackground": "rgb(230, 244, 223)",
+          "labelColor": "rgb(52, 33, 63)",
+          "bodyContrastRatio": 12.798724173192017
+        },
+        {
+          "theme": "dark",
+          "bodyColor": "rgb(246, 230, 255)",
+          "bodyBackground": "rgb(32, 19, 44)",
+          "labelColor": "rgb(246, 230, 255)",
+          "bodyContrastRatio": 14.846575768338745
+        }
+      ],
+      "idleFrames": {
+        "frames": 128,
+        "maxGapMs": 16.800000000000182,
+        "over33ms": 0
+      },
+      "opening": {
+        "frames": 121,
+        "maxGapMs": 66.69999999999982,
+        "over33ms": 6
+      }
+    },
+    {
+      "path": "/explorer.html",
+      "startup": {
+        "lcp": 84,
+        "cls": 0.04226036407093943,
+        "longTasks": [],
+        "paint": [
+          {
+            "name": "first-paint",
+            "ms": 84
+          },
+          {
+            "name": "first-contentful-paint",
+            "ms": 84
+          }
+        ],
+        "heapBytes": 3664304,
+        "resources": [
+          {
+            "name": "/assets/theme.js",
+            "bytes": 1034
+          },
+          {
+            "name": "/assets/site.css",
+            "bytes": 16477
+          },
+          {
+            "name": "/assets/explorer.js",
+            "bytes": 10597
+          },
+          {
+            "name": "/assets/brand.webp",
+            "bytes": 13550
+          },
+          {
+            "name": "/assets/companion.js",
+            "bytes": 5060
+          },
+          {
+            "name": "/assets/catalog.js",
+            "bytes": 1082
+          },
+          {
+            "name": "/assets/request.js",
+            "bytes": 3288
+          },
+          {
+            "name": "/assets/catalog.json",
+            "bytes": 27197
+          },
+          {
+            "name": "/assets/brand.webp",
+            "bytes": 13550
+          },
+          {
+            "name": "/assets/brand.webp",
+            "bytes": 13550
+          }
+        ]
+      },
+      "contrast": [
+        {
+          "theme": "light",
+          "bodyColor": "rgb(52, 33, 63)",
+          "bodyBackground": "rgb(230, 244, 223)",
+          "labelColor": "rgb(52, 33, 63)",
+          "bodyContrastRatio": 12.798724173192017
+        },
+        {
+          "theme": "dark",
+          "bodyColor": "rgb(246, 230, 255)",
+          "bodyBackground": "rgb(32, 19, 44)",
+          "labelColor": "rgb(246, 230, 255)",
+          "bodyContrastRatio": 14.846575768338745
+        }
+      ],
+      "idleFrames": {
+        "frames": 128,
+        "maxGapMs": 16.800000000000182,
+        "over33ms": 0
+      }
+    }
+  ]
+}

@@ -1,646 +1,168 @@
-<!DOCTYPE html>
-<html lang="id">
+<!doctype html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>KanjutGede API — High Speed Media Scraper &amp; Bot Tools</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --bg: #09090b;
-      --card: #121215;
-      --card-hover: #18181c;
-      --border: #27272a;
-      --text: #f4f4f5;
-      --text-muted: #a1a1aa;
-      --accent: #3b82f6;
-      --green: #10b981;
-      --font: 'Plus Jakarta Sans', sans-serif;
-      --mono: 'JetBrains Mono', monospace;
-    }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: var(--font);
-      line-height: 1.5;
-      padding: 30px 20px;
-    }
-    .container { max-width: 1040px; margin: 0 auto; }
-    header {
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 24px;
-      margin-bottom: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 16px;
-    }
-    .brand h1 { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.5px; }
-    .brand p { color: var(--text-muted); font-size: 0.88rem; margin-top: 4px; }
-    .status-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 6px 14px;
-      border-radius: 999px;
-      background: rgba(16, 185, 129, 0.1);
-      border: 1px solid rgba(16, 185, 129, 0.25);
-      color: var(--green);
-      font-size: 0.8rem;
-      font-weight: 600;
-    }
-    .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); }
-    .btn-docs {
-      background: #18181b;
-      border: 1px solid var(--border);
-      color: var(--text);
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-weight: 600;
-      text-decoration: none;
-      font-size: 0.85rem;
-      transition: all 0.15s;
-    }
-    .btn-docs:hover { background: #27272a; border-color: #3f3f46; }
-
-    .grid-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
-      margin-bottom: 24px;
-    }
-    .stat-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px 20px;
-    }
-    .stat-label { font-size: 0.8rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
-    .stat-val { font-size: 1.35rem; font-weight: 700; margin-top: 6px; font-family: var(--mono); }
-
-    .info-box {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px 20px;
-      margin-bottom: 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-    .info-box code { font-family: var(--mono); color: #60a5fa; font-size: 0.9rem; }
-    
-    .nav-filters {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-    .filter-btn {
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: var(--text-muted);
-      font-family: var(--font);
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 6px 14px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-    .filter-btn:hover { color: var(--text); border-color: #3f3f46; }
-    .filter-btn.active { background: #27272a; color: #fff; border-color: #52525b; }
-    
-    .search-box {
-      width: 100%;
-      background: var(--card);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-family: var(--font);
-      font-size: 0.88rem;
-      padding: 10px 16px;
-      border-radius: 8px;
-      margin-bottom: 24px;
-    }
-    .search-box:focus { outline: none; border-color: var(--accent); }
-
-    .category-title {
-      font-size: 1.1rem;
-      font-weight: 600;
-      margin: 28px 0 14px;
-      letter-spacing: -0.3px;
-      color: var(--text);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-    .ep-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 18px 20px;
-      margin-bottom: 14px;
-      transition: border-color 0.15s ease;
-    }
-    .ep-card:hover { border-color: #3f3f46; }
-    .ep-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 10px;
-    }
-    .ep-route {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-family: var(--mono);
-      font-size: 0.92rem;
-    }
-    .method-get {
-      background: rgba(59, 130, 246, 0.15);
-      color: #60a5fa;
-      border: 1px solid rgba(59, 130, 246, 0.3);
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 0.75rem;
-      font-weight: 700;
-    }
-    .badge-engine {
-      background: rgba(168, 85, 247, 0.12);
-      color: #c084fc;
-      border: 1px solid rgba(168, 85, 247, 0.25);
-      padding: 2px 8px;
-      border-radius: 4px;
-      font-size: 0.72rem;
-      font-weight: 600;
-    }
-    .ep-desc { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 14px; }
-    .test-box {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 12px;
-      flex-wrap: wrap;
-    }
-    .test-input {
-      flex: 1;
-      min-width: 200px;
-      background: #09090b;
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-family: var(--mono);
-      font-size: 0.82rem;
-      padding: 8px 12px;
-      border-radius: 6px;
-    }
-    .test-input:focus { outline: none; border-color: var(--accent); }
-    .btn {
-      background: #27272a;
-      border: 1px solid #3f3f46;
-      color: var(--text);
-      font-family: var(--font);
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 8px 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-    .btn:hover { background: #3f3f46; }
-    .btn-primary { background: #2563eb; border-color: #3b82f6; }
-    .btn-primary:hover { background: #1d4ed8; }
-    .res-box {
-      background: #09090b;
-      border: 1px solid var(--border);
-      border-radius: 6px;
-      padding: 12px;
-      font-family: var(--mono);
-      font-size: 0.8rem;
-      max-height: 250px;
-      overflow-y: auto;
-      white-space: pre-wrap;
-      word-break: break-all;
-      display: none;
-      color: #e4e4e7;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#20132c">
+<title>KanjutGede — Pocket Mischief</title>
+<meta name="description" content="Media downloaders, search, AI and developer tools. Explore KanjutGede REST APIs with Momo.">
+<script src="/assets/theme.js">
+</script>
+<link rel="icon" href="/assets/brand.webp">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="module" src="/assets/landing.js">
+</script>
 </head>
-<body>
-  <div class="container">
-    <header>
-      <div class="brand">
-        <h1>KanjutGede API</h1>
-        <p>Enterprise Media Scraper &amp; Bot Tools — Engine, Quota &amp; Billing Infrastructure</p>
-      </div>
-      <div style="display:flex; gap:10px; align-items:center;">
-        <div class="status-badge">
-          <span class="dot"></span>
-          <span>CLUSTER ONLINE &bull; ASIA/JAKARTA</span>
-        </div>
-        <a href="/docs" class="btn-docs">OpenAPI / Scalar Docs</a>
-      </div>
-    </header>
-
-    <div class="grid-stats">
-      <div class="stat-card">
-        <div class="stat-label">Host Infrastructure</div>
-        <div class="stat-val">12 Cores &bull; 31GB</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">System Uptime</div>
-        <div class="stat-val" id="stat-uptime">Loading...</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Daily Free Quota</div>
-        <div class="stat-val" style="color: var(--green);">20 Req / Hari</div>
-      </div>
-      <div class="stat-card">
-        <div class="stat-label">Lifetime Test Quota</div>
-        <div class="stat-val" style="color: var(--accent);">50 Requests</div>
-      </div>
-    </div>
-
-    <div class="info-box">
-      <div>
-        <span style="color:var(--text-muted);font-size:0.85rem">Base URL API:</span>
-        <br>
-        <code id="baseUrlDisplay">https://api.itsfaiz.my.id</code>
-      </div>
-      <div>
-        <button class="btn" onclick="navigator.clipboard.writeText('https://api.itsfaiz.my.id');alert('Base URL berhasil disalin!')">Salin Base URL</button>
-      </div>
-    </div>
-
-    <!-- PENCARIAN -->
-    <input type="text" class="search-box" id="searchFilter" placeholder="Ketik untuk mencari endpoint (contoh: aio, tiktok, instagram, youtube, hd, gempa, soundcloud, sfile)..." oninput="filterEndpoints()">
-
-    <!-- FILTER KATEGORI -->
-    <div class="nav-filters">
-      <button class="filter-btn active" onclick="setCategory('all', this)">Semua</button>
-      <button class="filter-btn" onclick="setCategory('downloader', this)">Downloader</button>
-      <button class="filter-btn" onclick="setCategory('ai', this)">AI</button>
-      <button class="filter-btn" onclick="setCategory('tools', this)">Tools &amp; Scrapers</button>
-    </div>
-
-    <!-- ==================== DOWNLOADER ==================== -->
-    <div class="section-group" data-group="downloader">
-      <div class="category-title">Media Downloader</div>
-
-      <!-- AIO AUTO DETECTOR -->
-      <div class="ep-card" data-name="aio all in one downloader universal">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/downloader/aio</span>
-            <span class="badge-engine">Universal Auto-Detect</span>
-          </div>
-        </div>
-        <p class="ep-desc">Downloader universal otomatis (TikTok, YouTube, IG, FB, Twitter, Spotify, Pinterest, MediaFire).</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-aio" placeholder="Tempel URL apapun..." value="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-          <button class="btn btn-primary" onclick="testApi('/api/downloader/aio?url=', 'in-aio', 'res-aio')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-aio"></pre>
-      </div>
-
-      <!-- TIKTOK -->
-      <div class="ep-card" data-name="tiktok tt">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/downloader/tiktok</span>
-            <span class="badge-engine">TikWM + yt-dlp</span>
-          </div>
-        </div>
-        <p class="ep-desc">Download video TikTok tanpa watermark, audio MP3, avatar author, dan foto slide.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-tiktok" placeholder="https://www.tiktok.com/@.../video/..." value="https://vt.tiktok.com/">
-          <button class="btn btn-primary" onclick="testApi('/api/downloader/tiktok?url=', 'in-tiktok', 'res-tiktok')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-tiktok"></pre>
-      </div>
-
-      <!-- YOUTUBE -->
-      <div class="ep-card" data-name="youtube yt ytdl ytmp3 ytmp4">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/downloader/youtube</span>
-            <span class="badge-engine">Savetube VIP CDN + yt-dlp</span>
-          </div>
-        </div>
-        <p class="ep-desc">Ambil metadata video, direct link MP4 1080p/720p, dan audio MP3 YouTube via Savetube CDN Decryption.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-yt" placeholder="https://www.youtube.com/watch?v=..." value="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
-          <button class="btn btn-primary" onclick="testApi('/api/downloader/youtube?url=', 'in-yt', 'res-yt')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-yt"></pre>
-      </div>
-
-      <!-- INSTAGRAM -->
-      <div class="ep-card" data-name="instagram ig igdl reels">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/downloader/instagram</span>
-            <span class="badge-engine">ReelsVideo + yt-dlp</span>
-          </div>
-        </div>
-        <p class="ep-desc">Download video Instagram Reels, Post foto, dan carousel media.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-ig" placeholder="https://www.instagram.com/reel/...">
-          <button class="btn btn-primary" onclick="testApi('/api/downloader/instagram?url=', 'in-ig', 'res-ig')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-ig"></pre>
-      </div>
-
-      <!-- FACEBOOK -->
-      <div class="ep-card" data-name="facebook fb">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/downloader/facebook</span>
-            <span class="badge-engine">FDown + yt-dlp</span>
-          </div>
-        </div>
-        <p class="ep-desc">Ambil link video Facebook kualitas HD dan SD.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-fb" placeholder="https://www.facebook.com/watch/?v=...">
-          <button class="btn btn-primary" onclick="testApi('/api/downloader/facebook?url=', 'in-fb', 'res-fb')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-fb"></pre>
-      </div>
-
-      <!-- TWITTER / X -->
-      <div class="ep-card" data-name="twitter x">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/downloader/twitter</span>
-            <span class="badge-engine">X2Twitter + yt-dlp</span>
-          </div>
-        </div>
-        <p class="ep-desc">Download video Twitter/X berbagai resolusi MP4.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-tw" placeholder="https://x.com/.../status/...">
-          <button class="btn btn-primary" onclick="testApi('/api/downloader/twitter?url=', 'in-tw', 'res-tw')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-tw"></pre>
-      </div>
-
-      <!-- SPOTIFY -->
-      <div class="ep-card" data-name="spotify music lagu mp3">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/downloader/spotify</span>
-            <span class="badge-engine">Spotify + iTunes + yt-dlp</span>
-          </div>
-        </div>
-        <p class="ep-desc">Cari dan download lagu Spotify / Musik via URL track atau judul lagu.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-spotify" placeholder="Judul lagu atau URL track Spotify..." value="Tulus Hati-Hati di Jalan">
-          <button class="btn btn-primary" onclick="testApi('/api/downloader/spotify?q=', 'in-spotify', 'res-spotify')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-spotify"></pre>
-      </div>
-
-      <!-- SOUNDCLOUD -->
-      <div class="ep-card" data-name="soundcloud sound cloud lagu audio">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/downloader/soundcloud</span>
-            <span class="badge-engine">SoundCloud Mobile API</span>
-          </div>
-        </div>
-        <p class="ep-desc">Pencarian dan streaming audio dari SoundCloud dengan metadata lengkap.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-sc" placeholder="Judul lagu..." value="alan walker faded">
-          <button class="btn btn-primary" onclick="testApi('/api/downloader/soundcloud?q=', 'in-sc', 'res-sc')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-sc"></pre>
-      </div>
-
-      <!-- SFILE MOBI -->
-      <div class="ep-card" data-name="sfile mobi download link">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/downloader/sfile</span>
-            <span class="badge-engine">Sfile Cheerio Multi-Step</span>
-          </div>
-        </div>
-        <p class="ep-desc">Bypass download link bertingkat dari Sfile.mobi langsung ke file asli.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-sfile" placeholder="https://sfile.mobi/...">
-          <button class="btn btn-primary" onclick="testApi('/api/downloader/sfile?url=', 'in-sfile', 'res-sfile')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-sfile"></pre>
-      </div>
-    </div>
-
-    <!-- ==================== ARTIFICIAL INTELLIGENCE ==================== -->
-    <div class="section-group" data-group="ai">
-      <div class="category-title">Artificial Intelligence (AI)</div>
-
-      <!-- AI CHAT -->
-      <div class="ep-card" data-name="ai chat aichat chatai openai gpt">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/ai/chat</span>
-            <span class="badge-engine">OpenAI + Mistral + Qwen</span>
-          </div>
-        </div>
-        <p class="ep-desc">AI Chat response pintar dan ramah berbahasa Indonesia dengan auto-fallback multi-model.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-ai" placeholder="Ketik pertanyaanmu..." value="Halo, siapa namamu dan apa kemampuanmu?">
-          <button class="btn btn-primary" onclick="testApi('/api/ai/chat?prompt=', 'in-ai', 'res-ai')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-ai"></pre>
-      </div>
-    </div>
-
-    <!-- ==================== TOOLS & SCRAPERS ==================== -->
-    <div class="section-group" data-group="tools">
-      <div class="category-title">Tools, HD Enhancer &amp; Scrapers</div>
-
-      <!-- GSMARENA -->
-      <div class="ep-card" data-name="gsmarena phone spesifikasi hp gadget">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/search/gsmarena</span>
-            <span class="badge-engine">GSMArena Fast Search</span>
-          </div>
-        </div>
-        <p class="ep-desc">Pencarian spesifikasi perangkat smartphone dan tablet dari basis data GSMArena.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-gsm" placeholder="Nama hp (contoh: Pixel 8, iPhone 15)..." value="Pixel 8">
-          <button class="btn btn-primary" onclick="testApi('/api/search/gsmarena?q=', 'in-gsm', 'res-gsm')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-gsm"></pre>
-      </div>
-
-      <!-- ANIME KUSONIME -->
-      <div class="ep-card" data-name="anime kusonime wibu">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/search/anime</span>
-            <span class="badge-engine">Kusonime Direct</span>
-          </div>
-        </div>
-        <p class="ep-desc">Pencarian anime, informasi rilis, genre, dan tautan download batch dari Kusonime.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-anime" placeholder="Judul anime..." value="Naruto">
-          <button class="btn btn-primary" onclick="testApi('/api/search/anime?q=', 'in-anime', 'res-anime')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-anime"></pre>
-      </div>
-
-      <!-- TEMPMAIL -->
-      <div class="ep-card" data-name="tempmail email sementara disposable otp">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">GET</span>
-            <span>/api/tools/tempmail</span>
-            <span class="badge-engine">Temp-Mail.io</span>
-          </div>
-        </div>
-        <p class="ep-desc">Buat alamat email sementara baru secara instan untuk verifikasi OTP.</p>
-        <div class="test-box">
-          <button class="btn btn-primary" onclick="testDirect('/api/tools/tempmail', 'res-tempmail')">Buat Email Baru</button>
-        </div>
-        <pre class="res-box" id="res-tempmail"></pre>
-      </div>
-
-      <!-- IMAGE ENHANCER HD -->
-      <div class="ep-card" data-name="hd remini enhance image sharp">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/tools/hd</span>
-            <span class="badge-engine">Sharp CLAHE &amp; Unsharp Mask</span>
-          </div>
-        </div>
-        <p class="ep-desc">Tingkatkan kejernihan, kontras, dan ketajaman gambar ala Remini secara lokal.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-hd" placeholder="https://.../gambar.jpg" value="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=200">
-          <button class="btn btn-primary" onclick="testApi('/api/tools/hd?url=', 'in-hd', 'res-hd')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-hd"></pre>
-      </div>
-
-      <!-- BMKG GEMPA -->
-      <div class="ep-card" data-name="gempa bmkg">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">GET</span>
-            <span>/api/tools/gempa</span>
-            <span class="badge-engine">BMKG Realtime</span>
-          </div>
-        </div>
-        <p class="ep-desc">Data gempa bumi terbaru realtime beserta peta guncangan langsung dari BMKG.</p>
-        <div class="test-box">
-          <button class="btn btn-primary" onclick="testDirect('/api/tools/gempa', 'res-gempa')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-gempa"></pre>
-      </div>
-
-      <!-- JADWAL SHOLAT -->
-      <div class="ep-card" data-name="jadwal sholat kemenag">
-        <div class="ep-header">
-          <div class="ep-route">
-            <span class="method-get">ALL</span>
-            <span>/api/tools/jadwalsholat</span>
-            <span class="badge-engine">myQuran Kemenag</span>
-          </div>
-        </div>
-        <p class="ep-desc">Jadwal waktu sholat harian per kota/kabupaten di seluruh Indonesia.</p>
-        <div class="test-box">
-          <input type="text" class="test-input" id="in-sholat" placeholder="Nama kota..." value="jakarta">
-          <button class="btn btn-primary" onclick="testApi('/api/tools/jadwalsholat?kota=', 'in-sholat', 'res-sholat')">Coba Request</button>
-        </div>
-        <pre class="res-box" id="res-sholat"></pre>
-      </div>
-    </div>
-  </div>
-
-  <script>
-    fetch('/health')
-      .then(res => res.json())
-      .then(data => {
-        if (data.uptime) {
-          const upSec = parseInt(data.uptime);
-          const hrs = Math.floor(upSec / 3600);
-          const mins = Math.floor((upSec % 3600) / 60);
-          document.getElementById('stat-uptime').innerText = `${hrs}j ${mins}m`;
-        }
-      })
-      .catch(() => {
-        document.getElementById('stat-uptime').innerText = 'Online';
-      });
-
-    async function testApi(endpoint, inputId, resId) {
-      const val = document.getElementById(inputId).value.trim();
-      const resEl = document.getElementById(resId);
-      resEl.style.display = 'block';
-      resEl.textContent = 'Mengirim request ke server...';
-      try {
-        const res = await fetch(endpoint + encodeURIComponent(val));
-        const json = await res.json();
-        resEl.textContent = JSON.stringify(json, null, 2);
-      } catch (err) {
-        resEl.textContent = 'Error: ' + err.message;
-      }
-    }
-
-    async function testDirect(endpoint, resId) {
-      const resEl = document.getElementById(resId);
-      resEl.style.display = 'block';
-      resEl.textContent = 'Mengirim request ke server...';
-      try {
-        const res = await fetch(endpoint);
-        const json = await res.json();
-        resEl.textContent = JSON.stringify(json, null, 2);
-      } catch (err) {
-        resEl.textContent = 'Error: ' + err.message;
-      }
-    }
-
-    function setCategory(cat, btn) {
-      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
-      btn.classList.add('active');
-
-      document.querySelectorAll('.section-group').forEach(group => {
-        if (cat === 'all' || group.getAttribute('data-group') === cat) {
-          group.style.display = 'block';
-        } else {
-          group.style.display = 'none';
-        }
-      });
-    }
-
-    function filterEndpoints() {
-      const q = document.getElementById('searchFilter').value.toLowerCase();
-      document.querySelectorAll('.ep-card').forEach(card => {
-        const text = (card.getAttribute('data-name') || '') + ' ' + card.innerText.toLowerCase();
-        if (text.includes(q)) {
-          card.style.display = 'block';
-        } else {
-          card.style.display = 'none';
-        }
-      });
-    }
-  </script>
+<body class="pocket">
+<a class="skip" href="#main">Skip to content</a>
+<header class="nav wrap">
+<a class="brand" href="/">
+<img src="/assets/brand.webp" width="38" height="38" alt="KG underwear logo">KanjutGede</a>
+<nav class="nav-links" aria-label="Main">
+<a href="/#catalog">Find an API</a>
+<a href="/explorer.html">Playground</a>
+<a href="/docs">Docs</a>
+<a href="/signin.html">Sign in</a>
+<label class="theme-control">
+<span class="sr-only">Theme</span>
+<select id="theme" aria-label="Theme">
+<option value="system">System theme</option>
+<option value="light">Day world</option>
+<option value="dark">Night world</option>
+</select>
+</label>
+</nav>
+</header>
+<main id="main">
+<section class="hero" aria-label="Pocket Mischief interactive character scene">
+<div class="sky-disc" aria-hidden="true">
+</div>
+<div class="horizon" aria-hidden="true">
+</div>
+<div class="kinetic" aria-hidden="true">
+<span>Small idea.</span>
+<span>Big mischief.</span>
+</div>
+<div class="character-wrap">
+<div class="character" data-state="idle">
+<svg class="momo" viewBox="0 0 500 520" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Momo, an original folded-ear internet familiar. KanjutGede companion.">
+<g stroke="#492b52" stroke-width="7" stroke-linejoin="round">
+<g class="scarf-tail">
+<path d="M290 320Q390 285 452 369Q405 440 340 381Z" fill="#a9dfbf"/>
+<path d="M324 336Q396 342 422 371" fill="none" stroke="#5e9682" stroke-width="4"/>
+</g>
+<g class="momo-body">
+<path d="M172 404L150 455Q178 478 218 458L230 415M275 415L284 459Q327 478 352 451L330 403" fill="#9c6aaa"/>
+<path d="M154 452L143 471Q176 487 217 471L218 458M286 460L287 475Q330 491 359 468L348 453" fill="#f5ae8d"/>
+<path d="M160 290Q123 335 157 402Q245 455 337 402Q363 350 327 291" fill="#b67fbc"/>
+<g class="arm">
+<path d="M327 329Q387 319 385 260Q396 231 410 250Q427 291 398 330Q377 361 340 373" fill="#b67fbc"/>
+</g>
+<path d="M175 329Q113 331 130 377Q143 398 168 379" fill="#b67fbc"/>
+</g>
+<g class="momo-head">
+<g class="ear-left">
+<path d="M181 145Q145 24 70 69L25 211L90 178L126 96L154 165Z" fill="#b67fbc"/>
+<path d="M25 211L90 178L69 231Z" fill="#ffe5c9"/>
+</g>
+<g class="ear-right">
+<path d="M315 145Q353 26 409 67L475 167L428 207L367 95L343 164Z" fill="#b67fbc"/>
+<path d="M428 207L475 167L470 238Z" fill="#ffe5c9"/>
+</g>
+<path d="M151 135Q171 111 224 113Q200 77 230 63Q260 46 262 74Q240 66 243 100Q264 110 283 110Q355 116 376 175Q418 275 344 318Q253 358 164 320Q91 274 121 188Z" fill="#b67fbc"/>
+<path d="M152 183Q178 149 218 181Q244 130 280 159Q331 140 354 189Q395 278 331 301Q248 335 170 296Q118 274 152 183Z" fill="#ffe8d3"/>
+<g class="brows" stroke-width="6" fill="none">
+<path d="M171 173Q192 162 211 171M278 163Q301 149 323 161"/>
+</g>
+<g class="eye-group">
+<ellipse cx="194" cy="223" rx="30" ry="41" fill="#fff9ec"/>
+<ellipse cx="304" cy="213" rx="30" ry="42" fill="#fff9ec"/>
+<g class="pupils">
+<ellipse cx="199" cy="225" rx="18" ry="30" fill="#efa637"/>
+<ellipse cx="308" cy="215" rx="18" ry="30" fill="#efa637"/>
+<ellipse cx="201" cy="222" rx="8" ry="20" fill="#492b52"/>
+<ellipse cx="310" cy="212" rx="8" ry="20" fill="#492b52"/>
+<ellipse cx="194" cy="209" rx="7" ry="10" fill="#fff9ec" stroke="none"/>
+<ellipse cx="303" cy="199" rx="7" ry="10" fill="#fff9ec" stroke="none"/>
+</g>
+</g>
+<path class="mouth-smile" d="M229 277Q252 291 276 264Q268 310 244 304Z" fill="#ce6d87" stroke-width="4"/>
+<ellipse class="mouth-o" cx="252" cy="286" rx="12" ry="17" fill="#ce6d87" stroke-width="4"/>
+<path d="M160 270L165 279M173 270L178 278M331 258L337 266M344 255L350 264" stroke="#e18f95" stroke-width="4"/>
+</g>
+<path d="M154 310Q248 337 350 297L341 337Q237 385 154 347Z" fill="#b8e6c7"/>
+<path d="M153 346Q235 377 337 338" stroke="#609486" stroke-width="4" fill="none"/>
+</g>
+</svg>
+</div>
+</div>
+<div class="hero-copy">
+<h1>A little chaos. A lot of possibility.</h1>
+<p>Media, search, AI and tools for your next “what if?” Meet Momo. Then make something unexpected.</p>
+<a class="primary" href="/explorer.html">Let’s make trouble <span aria-hidden="true">↗</span>
+</a>
+</div>
+<div class="hero-controls">
+<button type="button" class="quiet greet">Say hello to Momo</button>
+<button type="button" class="quiet play-opening">Play greeting</button>
+<button type="button" class="quiet motion" aria-pressed="true">Reactions on</button>
+</div>
+<div class="opening" aria-label="Optional opening" role="region">
+<img class="opening-poster" data-src="/assets/momo.webp" width="976" height="1000" alt="">
+<div class="opening-title">A LITTLE<br>MISCHIEF.</div>
+<button class="quiet skip-opening" type="button">Skip opening</button>
+</div>
+</section>
+<section class="section wrap" id="catalog">
+<div class="section-intro">
+<h2>Pick a rabbit hole.</h2>
+<p>Find a media downloader, discover something new, or reach for a useful tool. The API reference has the parameters and billing details.</p>
+</div>
+<div class="catalog-tools">
+<label class="search-label">Search APIs<input id="search" type="search" placeholder="Try TikTok, Wikipedia or DNS">
+</label>
+<label>Category<select id="category">
+<option value="">All categories</option>
+</select>
+</label>
+</div>
+<div class="catalog" aria-label="Endpoint results">
+</div>
+<p class="catalog-status" role="status">Loading endpoint catalog…</p>
+<noscript>
+<p>JavaScript is needed to search. <a href="/docs">Browse the API reference</a> for all endpoints.</p>
+</noscript>
+</section>
+<section class="section wrap">
+<div class="local-example">
+<div>
+<h2>A small place to start.</h2>
+<p>The public health endpoint needs no API key. Here’s a local example excerpt so you can see the shape without sending a request.</p>
+<button class="primary sample" type="button">Show local example <span aria-hidden="true">↗</span>
+</button>
+<p class="sample-status" role="status">
+</p>
+<a href="/explorer.html?endpoint=sys.health">Open this endpoint in the playground ↗</a>
+</div>
+<div class="response-panel">
+<h3>Local example · response excerpt</h3>
+<pre>curl 'https://api.itsfaiz.my.id/health'</pre>
+<pre class="sample-response" hidden>{
+  "status": true,
+  "creator": "KanjutGede"
+}</pre>
+</div>
+</div>
+</section>
+<section class="closing wrap">
+<h2>Go make something<br>ridiculous.</h2>
+<a class="primary" href="/explorer.html">Open the playground <span aria-hidden="true">↗</span>
+</a>
+</section>
+</main>
+<footer class="wrap">
+<span>KanjutGede · Serious APIs. Stupid name.</span>
+<a href="/docs">API reference ↗</a>
+</footer>
 </body>
 </html>

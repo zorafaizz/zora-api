@@ -1,0 +1,28 @@
+{
+  "status": "isolated creative production study, not final artwork",
+  "assets": [
+    {
+      "id": "momo-study",
+      "source": "../../public/assets/momo.svg",
+      "creator": "original authored procedural SVG from approved B",
+      "usage": "temporary layered acting proxy",
+      "approval": "B direction approved; final art pending",
+      "optimization": "inline SVG; no new raster downloads"
+    },
+    {
+      "id": "brand",
+      "source": "../../public/assets/brand.webp from approved root icon.png",
+      "creator": "project owner",
+      "usage": "navigation only",
+      "approval": "approved immutable branding"
+    },
+    {
+      "id": "portal",
+      "source": "study.css",
+      "creator": "GPT-6 Astra authored CSS composition",
+      "usage": "scarf-shaped portal composition study",
+      "approval": "production treatment study"
+    }
+  ],
+  "external_assets": []
+}

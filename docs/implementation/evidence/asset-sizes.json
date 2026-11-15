@@ -1,0 +1,34 @@
+{
+  "theme.js": {
+    "raw": 1034,
+    "gzip": 460
+  },
+  "companion.js": {
+    "raw": 5060,
+    "gzip": 1811
+  },
+  "catalog.js": {
+    "raw": 1082,
+    "gzip": 539
+  },
+  "landing.js": {
+    "raw": 1137,
+    "gzip": 545
+  },
+  "explorer.js": {
+    "raw": 10597,
+    "gzip": 3967
+  },
+  "request.js": {
+    "raw": 3288,
+    "gzip": 1442
+  },
+  "site.css": {
+    "raw": 16477,
+    "gzip": 4657
+  },
+  "gsap.min.js": {
+    "raw": 73357,
+    "gzip": 28561
+  }
+}

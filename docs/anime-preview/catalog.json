@@ -1,0 +1,851 @@
+[
+  {
+    "id": "sys.health",
+    "path": "/health",
+    "title": "System Health & Stats",
+    "category": "System",
+    "method": "GET",
+    "policy": "no_quota",
+    "credits": 0,
+    "parameters": []
+  },
+  {
+    "id": "dl.aio",
+    "path": "/api/downloader/aio",
+    "title": "All-In-One Downloader",
+    "category": "Downloaders",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "dl.tiktok",
+    "path": "/api/downloader/tiktok",
+    "title": "TikTok HD & Slide Downloader",
+    "category": "Downloaders",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "dl.youtube",
+    "path": "/api/downloader/youtube",
+    "title": "YouTube MP4 & MP3 Downloader",
+    "category": "Downloaders",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "dl.instagram",
+    "path": "/api/downloader/instagram",
+    "title": "Instagram Reels & Post Downloader",
+    "category": "Downloaders",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "dl.facebook",
+    "path": "/api/downloader/facebook",
+    "title": "Facebook Video Downloader",
+    "category": "Downloaders",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "dl.twitter",
+    "path": "/api/downloader/twitter",
+    "title": "Twitter / X Media Downloader",
+    "category": "Downloaders",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "dl.spotify",
+    "path": "/api/downloader/spotify",
+    "title": "Spotify Track Downloader",
+    "category": "Downloaders",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "dl.pinterest",
+    "path": "/api/downloader/pinterest",
+    "title": "Pinterest Downloader",
+    "category": "Downloaders",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "dl.soundcloud",
+    "path": "/api/downloader/soundcloud",
+    "title": "SoundCloud Music & Stream",
+    "category": "Downloaders",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "q",
+        "in": "query",
+        "required": true,
+        "description": "Kata kunci pencarian",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "dl.sfile",
+    "path": "/api/downloader/sfile",
+    "title": "Sfile.mobi Direct Downloader",
+    "category": "Downloaders",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "dl.mediafire",
+    "path": "/api/downloader/mediafire",
+    "title": "MediaFire Direct Link",
+    "category": "Downloaders",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "dl.pixeldrain",
+    "path": "/api/downloader/pixeldrain",
+    "title": "Pixeldrain File & Album Downloader",
+    "category": "Downloaders",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "ai.chat",
+    "path": "/api/ai/chat",
+    "title": "AI Multi-Model Chat Completion",
+    "category": "AI & LLM",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 2,
+    "parameters": [
+      {
+        "name": "prompt",
+        "in": "query",
+        "required": true,
+        "description": "AI prompt message",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "media.hd",
+    "path": "/api/tools/hd",
+    "title": "Image Enhancer HD (Remini Style)",
+    "category": "Image & Media",
+    "method": "GET",
+    "policy": "paid_only",
+    "credits": 2,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "media.uhd",
+    "path": "/api/tools/uhd",
+    "title": "Image Super-Resolution Ultra HD",
+    "category": "Image & Media",
+    "method": "GET",
+    "policy": "paid_only",
+    "credits": 4,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "info.gempa",
+    "path": "/api/tools/gempa",
+    "title": "BMKG Gempa Terkini Realtime",
+    "category": "Information & Data",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": []
+  },
+  {
+    "id": "info.gempa.terkini",
+    "path": "/api/tools/gempa/terkini",
+    "title": "BMKG Daftar 15 Gempa Terbaru",
+    "category": "Information & Data",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": []
+  },
+  {
+    "id": "info.sholat",
+    "path": "/api/tools/jadwalsholat",
+    "title": "Jadwal Sholat Seluruh Indonesia",
+    "category": "Information & Data",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "kota",
+        "in": "query",
+        "required": false,
+        "description": "Nama kota/kabupaten di Indonesia",
+        "schema": {
+          "type": "string",
+          "default": "jakarta"
+        }
+      }
+    ]
+  },
+  {
+    "id": "util.lirik",
+    "path": "/api/tools/lirik",
+    "title": "Lirik Lagu Lengkap",
+    "category": "Search & Discovery",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "artist",
+        "in": "query",
+        "required": true,
+        "description": "Nama penyanyi / grup musik",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "title",
+        "in": "query",
+        "required": true,
+        "description": "Judul lagu",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "util.shortlink",
+    "path": "/api/tools/shortlink",
+    "title": "URL Shortener",
+    "category": "Utilities",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "search.gsmarena",
+    "path": "/api/search/gsmarena",
+    "title": "GSMArena Phone Specs",
+    "category": "Search & Discovery",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "q",
+        "in": "query",
+        "required": true,
+        "description": "Kata kunci pencarian",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "search.anime",
+    "path": "/api/search/anime",
+    "title": "Kusonime Anime Search",
+    "category": "Search & Discovery",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "q",
+        "in": "query",
+        "required": true,
+        "description": "Kata kunci pencarian",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "tool.tempmail",
+    "path": "/api/tools/tempmail",
+    "title": "Disposable TempMail Creator",
+    "category": "Utilities",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": []
+  },
+  {
+    "id": "tool.tempmail.inbox",
+    "path": "/api/tools/tempmail/inbox",
+    "title": "TempMail Inbox Reader",
+    "category": "Utilities",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "email",
+        "in": "query",
+        "required": true,
+        "description": "Alamat email sementara dari endpoint /tempmail",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "stalk.github",
+    "path": "/api/tools/github",
+    "title": "GitHub Profile Stalker",
+    "category": "Social & Public Profiles",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "username",
+        "in": "query",
+        "required": true,
+        "description": "Username GitHub publik",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "util.iplookup",
+    "path": "/api/tools/iplookup",
+    "title": "IP Geolocation & ISP Lookup",
+    "category": "Utilities",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "ip",
+        "in": "query",
+        "required": false,
+        "description": "Alamat IPv4 / IPv6 publik",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "tool.presetam",
+    "path": "/api/tools/presetam",
+    "title": "Alight Motion Preset Finder",
+    "category": "Utilities",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "search.manga",
+    "path": "/api/search/manga",
+    "title": "Manga, Manhwa & Light Novel Search",
+    "category": "Search & Discovery",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "q",
+        "in": "query",
+        "required": true,
+        "description": "Kata kunci pencarian",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "search.wikipedia",
+    "path": "/api/search/wikipedia",
+    "title": "Wikipedia Encyclopedia Summary",
+    "category": "Search & Discovery",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "q",
+        "in": "query",
+        "required": true,
+        "description": "Kata kunci pencarian",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "lang",
+        "in": "query",
+        "required": false,
+        "description": "Kode bahasa Wikipedia (contoh: id, en)",
+        "schema": {
+          "type": "string",
+          "default": "id"
+        }
+      }
+    ]
+  },
+  {
+    "id": "search.pinterest",
+    "path": "/api/search/pinterest",
+    "title": "Pinterest Visual Pin Search",
+    "category": "Search & Discovery",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "q",
+        "in": "query",
+        "required": true,
+        "description": "Kata kunci pencarian",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "search.applemusic",
+    "path": "/api/search/applemusic",
+    "title": "Apple Music & iTunes Track Search",
+    "category": "Search & Discovery",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "q",
+        "in": "query",
+        "required": true,
+        "description": "Kata kunci pencarian",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "search.steam",
+    "path": "/api/search/steam",
+    "title": "Steam Store Game & Price Search",
+    "category": "Search & Discovery",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "q",
+        "in": "query",
+        "required": true,
+        "description": "Kata kunci pencarian",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "search.sticker",
+    "path": "/api/search/sticker",
+    "title": "Sticker Pack Search (Sticker.ly & Tenor)",
+    "category": "Search & Discovery",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "q",
+        "in": "query",
+        "required": true,
+        "description": "Kata kunci pencarian",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "search.soundboard",
+    "path": "/api/search/soundboard",
+    "title": "Meme Soundboard & SFX Search",
+    "category": "Search & Discovery",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "q",
+        "in": "query",
+        "required": true,
+        "description": "Kata kunci pencarian",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "stalk.npm",
+    "path": "/api/stalker/npm",
+    "title": "NPM Package Inspector & Stats",
+    "category": "Social & Public Profiles",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "pkg",
+        "in": "query",
+        "required": true,
+        "description": "Nama package NPM (contoh: express atau @fastify/cors)",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "tool.translate",
+    "path": "/api/tools/translate",
+    "title": "Multi-Engine Language Translator",
+    "category": "Utilities",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "text",
+        "in": "query",
+        "required": true,
+        "description": "Teks sumber yang akan diterjemahkan",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "to",
+        "in": "query",
+        "required": false,
+        "description": "Kode bahasa tujuan (default: id)",
+        "schema": {
+          "type": "string",
+          "default": "id"
+        }
+      },
+      {
+        "name": "from",
+        "in": "query",
+        "required": false,
+        "description": "Kode bahasa asal (default: auto)",
+        "schema": {
+          "type": "string",
+          "default": "auto"
+        }
+      }
+    ]
+  },
+  {
+    "id": "tool.dns",
+    "path": "/api/tools/dns",
+    "title": "DNS over HTTPS (DoH) Resolver",
+    "category": "Utilities",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "domain",
+        "in": "query",
+        "required": true,
+        "description": "Nama domain target (contoh: itsfaiz.my.id)",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "type",
+        "in": "query",
+        "required": false,
+        "description": "Tipe record DNS (A, AAAA, MX, TXT, NS, CNAME, CAA)",
+        "schema": {
+          "type": "string",
+          "default": "A"
+        }
+      }
+    ]
+  },
+  {
+    "id": "tool.ssweb",
+    "path": "/api/tools/ssweb",
+    "title": "Web Page Screenshot Capture (SSRF Protected)",
+    "category": "Utilities",
+    "method": "GET",
+    "policy": "free_eligible",
+    "credits": 1,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "solve.waf",
+    "path": "/api/solver/waf",
+    "title": "Cloudflare WAF Clearance Solver",
+    "category": "Solvers",
+    "method": "GET",
+    "policy": "paid_only",
+    "credits": 5,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "solve.turnstile",
+    "path": "/api/solver/turnstile",
+    "title": "Cloudflare Turnstile Token Solver",
+    "category": "Solvers",
+    "method": "GET",
+    "policy": "paid_only",
+    "credits": 5,
+    "parameters": [
+      {
+        "name": "url",
+        "in": "query",
+        "required": true,
+        "description": "Target URL input",
+        "schema": {
+          "type": "string"
+        }
+      },
+      {
+        "name": "sitekey",
+        "in": "query",
+        "required": true,
+        "description": "Cloudflare Turnstile sitekey",
+        "schema": {
+          "type": "string"
+        }
+      }
+    ]
+  },
+  {
+    "id": "solve.bridge",
+    "path": "/v1",
+    "title": "FlareSolverr Native Bridge Protocol",
+    "category": "Solvers",
+    "method": "GET",
+    "policy": "paid_only",
+    "credits": 5,
+    "parameters": []
+  }
+]

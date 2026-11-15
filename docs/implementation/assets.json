@@ -1,0 +1,42 @@
+{
+  "date": "2026-11-15",
+  "assets": [
+    {
+      "file": "public/assets/brand.webp",
+      "source": "Approved root icon.png via preserved derivative",
+      "usage": "Navigation/favicon",
+      "bytes": 13550,
+      "sha256": "46d15e93c730fa3800e1e00e452d7b6586e4b7ed2f049a2f2a1c8493d2512b88",
+      "approval": "B direction approved by operator; release validation pending",
+      "license": "Project-approved brand"
+    },
+    {
+      "file": "public/assets/momo.svg",
+      "source": "Original authored procedural SVG from approved B",
+      "usage": "Inline landing/explorer character",
+      "bytes": 2681,
+      "sha256": "b685e2d4955b6155d02b1c9bdb79460cf829a0e8334dbdb261dd5c44aab42dc7",
+      "approval": "B direction approved by operator; release validation pending",
+      "license": "Original generated/authored asset; no franchise footage or characters"
+    },
+    {
+      "file": "public/assets/momo.webp",
+      "source": "Original built-in imagegen concept, see docs/anime-preview/prompts.json",
+      "usage": "Lazy-loaded optional opening poster",
+      "bytes": 137534,
+      "sha256": "33ee78c180c95b4254b6ff5dcf7e330d6a1768d3965d72284655d6bb29ed1c16",
+      "approval": "B direction approved by operator; release validation pending",
+      "license": "Original generated/authored asset; no franchise footage or characters"
+    },
+    {
+      "file": "public/assets/gsap.min.js",
+      "source": "Existing gsap3.15.1 dependency; distribution license notice retained",
+      "usage": "Explicit optional opening only",
+      "bytes": 73357,
+      "sha256": "3d1bea374ab1b703cc5c4105358eec63c4465efdc573931dc116e34a0a190c1b",
+      "approval": "B direction approved by operator; release validation pending",
+      "license": "GSAP standard license as retained in asset header"
+    }
+  ],
+  "original_icon_preserved": true
+}
